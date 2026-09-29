@@ -77,8 +77,11 @@ Every file is already linked in `index.html`, so **you never need to edit `<head
 
 ## Team responsibilities
 
+**Kena is the main coordinator of the whole project.** She guides the team, checks everyone's work and has the final say on everything: design, content, scope, who works on what, and what gets merged. She can review, approve or change anything in this repo. If you're unsure about anything, or two people disagree, ask Kena.
+
 | Who | What |
 |---|---|
+| **Kena** | **Main coordinator.** Guides and checks everything, final approval on all decisions and PRs |
 | Priyanshi | Overall basic structure + integration, PR reviews, final QA, deployment |
 | Parthvi + Pushkar | Navbar + Header + Footer |
 | Vansh + Daksh + Nilesh | Flip cards / Event cards |
@@ -86,7 +89,7 @@ Every file is already linked in `index.html`, so **you never need to edit `<head
 | Nitant | Q&A section |
 | Hemal + Meet | Mobile responsiveness + overall styling (towards the end) |
 
-**Not assigned yet:** the countdown in `#reveal` and the rules section `#rules` ("The fine print"). Ask Priyanshi before picking these up.
+**Not assigned yet:** the countdown in `#reveal` and the rules section `#rules` ("The fine print"). Kena decides who picks these up.
 
 ## Branches
 
@@ -117,7 +120,9 @@ push
       ↓
 open a Pull Request into main
       ↓
-Priyanshi reviews
+Priyanshi reviews (code + integration)
+      ↓
+Kena checks and gives the final OK
       ↓
 merge
 ```
@@ -141,7 +146,7 @@ git commit -m "Add treasure hunt card"
 git push origin feature/event-cards
 ```
 
-Then open GitHub, click **Compare & pull request**, set the base to `main`, and ask Priyanshi to review.
+Then open GitHub, click **Compare & pull request**, set the base to `main`, and ask Priyanshi to review. Kena gives the final OK before anything is merged.
 
 ## Important rules
 
