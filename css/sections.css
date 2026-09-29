@@ -1,0 +1,219 @@
+/* =========================================================
+   Foundation sections — hero, reveal, intro, registration
+   Owner: Priyanshi
+
+   Mobile-first. Layout only goes as far as "works on every
+   screen"; final polish belongs to Hemal + Meet (responsive.css).
+   ========================================================= */
+
+
+/* ---------- Hero ---------- */
+
+.hero {
+    border-top: 0;
+    overflow: hidden;
+}
+
+.hero__grid {
+    display: grid;
+    gap: var(--space-5);
+}
+
+.hero__notice {
+    color: var(--color-body);
+    margin-bottom: var(--space-4);
+}
+
+.hero__kicker {
+    font-size: clamp(1.625rem, 3.2vw, 2.875rem);
+    line-height: 1;
+    color: var(--color-body);
+    margin-bottom: var(--space-3);
+}
+
+.hero__title {
+    font-size: var(--fs-display);
+    line-height: 0.84;
+}
+
+.hero__figure {
+    max-width: 24rem;
+    color: var(--color-text);
+}
+
+.hero__whistle {
+    width: 100%;
+    transform: rotate(-14deg);
+}
+
+.hero__figure figcaption {
+    color: var(--color-body);
+    margin-top: var(--space-1);
+}
+
+.hero__lede {
+    max-width: 22rem;
+    color: var(--color-body);
+}
+
+@media (min-width: 1024px) {
+    .hero__grid {
+        grid-template-columns: 1.6fr 1fr;
+        align-items: start;
+    }
+
+    .hero__text { grid-column: 1; grid-row: 1 / span 2; }
+    .hero__figure { grid-column: 2; grid-row: 1; }
+    .hero__lede { grid-column: 2; grid-row: 2; }
+    .hero__meta { grid-column: 1 / -1; }
+}
+
+
+/* ---------- Reveal ---------- */
+
+.reveal {
+    border-top: 0;
+}
+
+.reveal__setup {
+    font-size: clamp(1.375rem, 2.6vw, 2.125rem);
+    line-height: 1.2;
+    color: var(--color-sand);
+    margin-bottom: var(--space-3);
+}
+
+.reveal__title {
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.95;
+    margin-bottom: var(--space-6);
+}
+
+
+/* ---------- Intro ("The day") ---------- */
+
+.intro__grid {
+    display: grid;
+    gap: var(--space-5);
+}
+
+.intro__date {
+    font-size: clamp(10rem, 28vw, 24rem);
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+}
+
+.intro__text {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 41rem;
+}
+
+.intro__text .section-title {
+    margin-bottom: 0;
+}
+
+.intro__text > p:not(.section-label) {
+    font-size: var(--fs-lead);
+    color: var(--color-body);
+}
+
+@media (min-width: 1024px) {
+    .intro__grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+    }
+}
+
+
+/* ---------- Registration (ticket list) ---------- */
+
+.registration {
+    border-top: 0;
+}
+
+.registration__title {
+    font-size: clamp(3.5rem, 9vw, 6.25rem);
+    margin-bottom: var(--space-4);
+}
+
+.registration__deadline {
+    display: inline-block;
+    border: 1px dashed var(--color-sand);
+    padding: var(--space-3);
+    margin-bottom: var(--space-6);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+}
+
+.ticket-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+}
+
+/* Each ticket is a cream strip with a perforated (dashed) stub for the CTA */
+.ticket {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-2) var(--space-3);
+    align-items: center;
+    padding: var(--space-3);
+    background: var(--color-cream);
+    color: var(--color-deep-blue);
+    --focus-color: var(--color-deep-blue);
+}
+
+.ticket__number {
+    font-family: var(--font-display);
+    font-size: 2.375rem;
+    line-height: 1;
+}
+
+.ticket__name {
+    display: grid;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1.15;
+}
+
+.ticket__name .label {
+    font-size: 0.5625rem;
+    color: var(--color-dark-brown);
+}
+
+.ticket__detail {
+    font-size: var(--fs-small);
+    font-weight: 600;
+}
+
+.ticket .btn {
+    grid-column: 1 / -1;
+}
+
+@media (min-width: 1024px) {
+    .ticket {
+        grid-template-columns: 5rem 1fr 10rem 9rem 5.5rem 14rem;
+        min-height: 5.5rem;
+        padding: 0;
+    }
+
+    .ticket__number { text-align: center; }
+
+    .ticket .btn {
+        grid-column: auto;
+        align-self: stretch;
+        margin: var(--space-3);
+        position: relative;
+    }
+
+    /* perforation line */
+    .ticket .btn::before {
+        content: "";
+        position: absolute;
+        left: calc(var(--space-3) * -1 - 2px);
+        top: calc(var(--space-3) * -1);
+        bottom: calc(var(--space-3) * -1);
+        border-left: 2px dashed var(--color-deep-blue);
+    }
+}
