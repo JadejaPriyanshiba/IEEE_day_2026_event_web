@@ -4,7 +4,10 @@ The website for **IEEE Day 2026** at VGEC, **Tuesday 6 October 2026**.
 Five events: Treasure Hunt, Workshop, Brand Identity Challenge, Tech Charades and Garba.
 
 Design concept: **"Out of spec."** The site speaks in the voice of an IEEE standards document (section numbers, figure captions, "Draft 01"), then lets five very un-standard things happen inside it.
-The mockups are in [`design_references/`](design_references/). Open the PDFs, or see how to view the HTML mockups below.
+The designs are in [`design_references/`](design_references/):
+
+- `IEEE Day 2026 Full Laptop.pdf` and `IEEE Day 2026 Full Mobile.pdf`: the full page designs
+- `00 — Concept & visual system-html/`: the rules for colours, fonts, spacing and buttons (see below for how to open it)
 
 ---
 
@@ -21,7 +24,7 @@ Pick one:
 2. **VS Code:** install the *Live Server* extension, right-click `index.html`, then choose **Open with Live Server**. The page reloads when you save.
 3. **Terminal:** run `python -m http.server 8000` in this folder, then open http://localhost:8000
 
-To view the HTML design mockups, use option 2 or 3 on the mockup's folder and open the `*.dc.html` file.
+To view the visual system page, use option 2 or 3 on the `design_references/00 — Concept & visual system-html/` folder and open `System.dc.html`.
 
 ## Folder structure
 
@@ -43,7 +46,7 @@ js/
   qa.js                 open/close answers                      (Nitant)
 assets/
   logo/                 official IEEE VGEC SB logo (still needed, see assets/logo/README.md)
-design_references/      mockups (reference only, not part of the site)
+design_references/      design PDFs + visual system (reference only, not part of the site)
 ```
 
 Every file is already linked in `index.html`, so **you never need to edit `<head>` or the `<script>` tags.**

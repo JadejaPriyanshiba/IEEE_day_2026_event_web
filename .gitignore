@@ -12,3 +12,6 @@ desktop.ini
 
 # In case anyone installs a tool locally
 node_modules/
+
+# for design html references nothing to do with tasks
+design_references/framework_references/
