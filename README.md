@@ -4,10 +4,20 @@ The website for **IEEE Day 2026** at VGEC, **Tuesday 6 October 2026**.
 Five events: Treasure Hunt, Workshop, Brand Identity Challenge, Tech Charades and Garba.
 
 Design concept: **"Out of spec."** The site speaks in the voice of an IEEE standards document (section numbers, figure captions, "Draft 01"), then lets five very un-standard things happen inside it.
-The designs are in [`design_references/`](design_references/):
+## Design references
 
-- `IEEE Day 2026 Full Laptop.pdf` and `IEEE Day 2026 Full Mobile.pdf`: the full page designs
-- `00 — Concept & visual system-html/`: the rules for colours, fonts, spacing and buttons (see below for how to open it)
+Everything is in [`design_references/`](design_references/). **Read these before you start building your section.**
+
+| File | What it's for |
+|---|---|
+| `IEEE Day 2026 Full Laptop.pdf` | The full desktop page design. Find your section here. |
+| `IEEE Day 2026 Full Mobile.pdf` | The full mobile page design. Hemal + Meet: this is your main reference. |
+| `Concept & visual system.pdf` | The concept and the rules: colours and how much of each, fonts, grid, spacing, buttons, and each event's look. |
+| `Interaction & motion.pdf` | What moves, when and why: the opening animation, the hover/scroll behaviour per section, reduced motion, and the performance budget. See [Motion](#motion-what-moves-in-your-section) below. |
+| `Concept & visual system-html/index.html` | A quick plain-HTML summary of the visual system (palette, fonts, buttons, event chapters). **Just double-click to open it.** |
+| `Concept & visual system-html/System.dc.html` | The detailed interactive version of the visual system, with exact sizes and values. Needs a local server to open (see [Run it locally](#run-it-locally)). |
+
+If two references disagree, **the PDFs win**. Ask Kena if you're unsure.
 
 ---
 
@@ -24,7 +34,7 @@ Pick one:
 2. **VS Code:** install the *Live Server* extension, right-click `index.html`, then choose **Open with Live Server**. The page reloads when you save.
 3. **Terminal:** run `python -m http.server 8000` in this folder, then open http://localhost:8000
 
-To view the visual system page, use option 2 or 3 on the `design_references/00 — Concept & visual system-html/` folder and open `System.dc.html`.
+To open `design_references/Concept & visual system-html/System.dc.html`, use option 2 or 3 on that folder (browsers block its scripts on a double-click). The `index.html` next to it opens with a plain double-click.
 
 ## Folder structure
 
@@ -46,7 +56,7 @@ js/
   qa.js                 open/close answers                      (Nitant)
 assets/
   logo/                 official IEEE VGEC SB logo (still needed, see assets/logo/README.md)
-design_references/      design PDFs + visual system (reference only, not part of the site)
+design_references/      design PDFs + visual system pages (reference only, not part of the site)
 ```
 
 Every file is already linked in `index.html`, so **you never need to edit `<head>` or the `<script>` tags.**
@@ -75,6 +85,28 @@ Every file is already linked in `index.html`, so **you never need to edit `<head
 - **Design rules** (from the visual system): square corners, no shadows, no pills, no gradients or glassmorphism. Use one verb per button ("Join the hunt", never "Register Now"). Use sand/gold only on dark backgrounds, never as text on cream. Handwritten notes: at most one per screen.
 - **Accessibility:** use real `<button>`s for things you click, add `alt` text to images, and keep visible focus styles (they're already global, so don't remove them).
 - **Don't add libraries** without asking Priyanshi.
+
+### Motion: what moves in your section
+
+From `Interaction & motion.pdf`. The rule is *"every motion has an alibi"*: things only move when it means something, and everything else stays still.
+
+| # | What moves | Owner |
+|---|---|---|
+| — | Opening animation ("Out of" rises, "spec." lands, whistle slides in) | Priyanshi (hero) |
+| 01 | Hero headline drifts apart on scroll | Priyanshi (hero) |
+| 02 | Whistle tilts toward the cursor; click makes "sound" strokes | Priyanshi (hero) |
+| 03 | Spec-o-meter needle + split-flap countdown | **Unassigned**, Kena decides |
+| 04 | Index menu rows: gold fill sweep, icon tilt, arrow moves | Parthvi + Pushkar |
+| 05–10 | Event cards: hover lift, one card per swipe on mobile, plus each card's own motif (hunt redaction, workshop diagram draws, brand circles, charades strike-through, Garba rings) | Vansh + Daksh + Nilesh |
+| 11 | Timeline: drag / arrow keys to scrub along the day | Dhruvi + Dhwani |
+| 12 | Tickets: stub separates on hover | Priyanshi (registration) |
+
+Rules that apply to everyone (details in the PDF):
+
+- **Reduced motion:** when `IEEEDay.prefersReducedMotion()` is true, show everything instantly and fully drawn, and stop loops and parallax. Nothing may be hidden behind an animation.
+- **Every hover needs a tap or keyboard-focus twin,** because phones can't hover.
+- **Section backgrounds change with hard cuts,** never gradients.
+- **Performance:** inline SVG only (no video, WebGL or stock photos), total JS around 60 KB or less.
 
 ---
 

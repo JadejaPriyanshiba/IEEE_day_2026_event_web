@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IEEE Day 2026 — Concept & Visual System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Josefin+Sans:wght@300;400;600;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+  <style>
+    /* CSS RESET & BASE STYLES */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      /* IEEE Day 2026 Palette */
+      --color-ivory: #EBE8DE;
+      --color-navy: #283558;
+      --color-brown: #48392A;
+      --color-terracotta: #87503F;
+      --color-gold: #C1AD84;
+      
+      /* Typography */
+      --font-display: 'Gloock', serif;
+      --font-sans: 'Instrument Sans', sans-serif;
+      --font-technical: 'Josefin Sans', sans-serif;
+      --font-handwriting: 'Nanum Pen Script', cursive;
+
+      /* Spacing Scale (8-pt Grid) */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+    }
+
+    body {
+      background-color: var(--color-ivory);
+      color: var(--color-brown);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      padding: var(--space-xl);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* HEADER & BRANDING */
+    .header {
+      border-bottom: 2px solid var(--color-navy);
+      padding-bottom: var(--space-lg);
+      margin-bottom: var(--space-3xl);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .header-title {
+      font-family: var(--font-technical);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 14px;
+      color: var(--color-terracotta);
+    }
+
+    .header h1 {
+      font-family: var(--font-display);
+      font-size: 2.75rem;
+      color: var(--color-navy);
+      line-height: 1.1;
+    }
+
+    .header-meta {
+      font-family: var(--font-technical);
+      font-size: 12px;
+      text-align: right;
+      color: var(--color-navy);
+    }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: var(--space-3xl);
+    }
+
+    .section-title {
+      font-family: var(--font-technical);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 14px;
+      color: var(--color-navy);
+      border-bottom: 1px solid var(--color-navy);
+      padding-bottom: var(--space-xs);
+      margin-bottom: var(--space-xl);
+    }
+
+    /* GRID SYSTEM */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-xl);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .grid-5 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+    }
+
+    /* CARDS & PANELS */
+    .card {
+      border: 1px solid var(--color-navy);
+      padding: var(--space-lg);
+      background-color: rgba(255, 255, 255, 0.3);
+      position: relative;
+    }
+
+    .card h3 {
+      font-family: var(--font-display);
+      color: var(--color-navy);
+      margin-bottom: var(--space-sm);
+      font-size: 1.25rem;
+    }
+
+    /* COLOR SWATCHES */
+    .swatch {
+      height: 100px;
+      width: 100%;
+      border: 1px solid var(--color-navy);
+      margin-bottom: var(--space-sm);
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-xs);
+      font-family: var(--font-technical);
+      font-size: 12px;
+    }
+
+    .swatch-ivory { background-color: var(--color-ivory); color: var(--color-navy); }
+    .swatch-navy { background-color: var(--color-navy); color: var(--color-ivory); }
+    .swatch-brown { background-color: var(--color-brown); color: var(--color-ivory); }
+    .swatch-terracotta { background-color: var(--color-terracotta); color: var(--color-ivory); }
+    .swatch-gold { background-color: var(--color-gold); color: var(--color-navy); }
+
+    /* TYPOGRAPHY DEMO */
+    .type-specimen {
+      margin-bottom: var(--space-lg);
+    }
+
+    .type-specimen .label {
+      font-family: var(--font-technical);
+      font-size: 12px;
+      color: var(--color-terracotta);
+      margin-bottom: var(--space-xs);
+    }
+
+    .type-display { font-family: var(--font-display); font-size: 2.5rem; line-height: 1.1; color: var(--color-navy); }
+    .type-sans { font-family: var(--font-sans); font-size: 1rem; }
+    .type-tech { font-family: var(--font-technical); font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+    .type-hand { font-family: var(--font-handwriting); font-size: 1.75rem; color: var(--color-terracotta); }
+
+    /* BUTTONS & LINKS */
+    .btn-group {
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: var(--space-sm) var(--space-lg);
+      font-family: var(--font-technical);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      border: 1px solid var(--color-navy);
+      border-radius: 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--color-navy);
+      color: var(--color-ivory);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-terracotta);
+      border-color: var(--color-terracotta);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--color-navy);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-navy);
+      color: var(--color-ivory);
+    }
+
+    /* ANNOTATIONS / HANDWRITING STYLES */
+    .annotation {
+      font-family: var(--font-handwriting);
+      font-size: 1.4rem;
+      color: var(--color-terracotta);
+      transform: rotate(-2deg);
+      display: inline-block;
+    }
+
+    /* FOOTER */
+    .footer {
+      border-top: 1px solid var(--color-navy);
+      padding-top: var(--space-lg);
+      margin-top: var(--space-3xl);
+      font-family: var(--font-technical);
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--color-brown);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER SECTION -->
+  <header class="header">
+    <div>
+      <div class="header-title">IEEE Standard Specification Ref. 2026-G</div>
+      <h1>IEEE Day 2026<br><span style="font-weight: normal; font-style: italic;">Visual System & Concept</span></h1>
+    </div>
+    <div class="header-meta">
+      <div>STATUS: OFFICIAL / UNOFFICIAL</div>
+      <div>REVISION: 1.0</div>
+      <div>LOCATION: GANDHINAGAR, GUJARAT</div>
+    </div>
+  </header>
+
+  <!-- CONCEPT & PRINCIPLES -->
+  <section class="section">
+    <div class="section-title">01. Core Concept & Principles</div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Concept: "Out of spec."</h3>
+        <p>Framing an IEEE Garba invite inside an official IEEE standards specification document aesthetic[cite: 16]. It juxtaposes rigid technical standards with vibrant cultural celebrations[cite: 16].</p>
+        <p style="margin-top: var(--space-md);" class="annotation">"Strictly technical on the outside, festive on the inside!"</p>
+      </div>
+      <div class="card">
+        <h3>Design Principles</h3>
+        <ul style="padding-left: var(--space-lg); font-size: 14px;">
+          <li><strong>Official voice / Unofficial content:</strong> Technical document layout containing event invites and festive details[cite: 16].</li>
+          <li><strong>Type-as-Illustration:</strong> Using layout structure, rules, and typography to build visual form[cite: 16].</li>
+          <li><strong>Purposeful Motion:</strong> High-contrast crisp transitions honoring structural precision[cite: 16].</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOR SYSTEM -->
+  <section class="section">
+    <div class="section-title">02. Color Palette & Ratios</div>
+    <div class="grid-5">
+      <div>
+        <div class="swatch swatch-ivory">58% Ratio</div>
+        <strong>Warm Ivory</strong>
+        <div style="font-family: var(--font-technical); font-size: 12px;">#EBE8DE</div>
+      </div>
+      <div>
+        <div class="swatch swatch-navy">22% Ratio</div>
+        <strong>Deep Navy</strong>
+        <div style="font-family: var(--font-technical); font-size: 12px;">#283558</div>
+      </div>
+      <div>
+        <div class="swatch swatch-brown">10% Ratio</div>
+        <strong>Brown</strong>
+        <div style="font-family: var(--font-technical); font-size: 12px;">#48392A</div>
+      </div>
+      <div>
+        <div class="swatch swatch-terracotta">6% Ratio</div>
+        <strong>Terracotta</strong>
+        <div style="font-family: var(--font-technical); font-size: 12px;">#87503F</div>
+      </div>
+      <div>
+        <div class="swatch swatch-gold">4% Ratio</div>
+        <strong>Gold Accent</strong>
+        <div style="font-family: var(--font-technical); font-size: 12px;">#C1AD84</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY SYSTEM -->
+  <section class="section">
+    <div class="section-title">03. Typography Hierarchy</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="type-specimen">
+          <div class="label">DISPLAY XXL / Gloock</div>
+          <div class="type-display">IEEE Day '26</div>
+        </div>
+        <div class="type-specimen">
+          <div class="label">BODY S / Instrument Sans</div>
+          <div class="type-sans">Leveraging technology for humanity through structured innovation and cultural harmony[cite: 16].</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="type-specimen">
+          <div class="label">TECHNICAL & METADATA / Josefin Sans</div>
+          <div class="type-tech">SECTION 4.2 — EVENT SPECIFICATIONS & TIMELINE</div>
+        </div>
+        <div class="type-specimen">
+          <div class="label">HANDWRITTEN ANNOTATION / Nanum Pen Script</div>
+          <div class="type-hand">Don't forget to bring your ID pass!</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE COMPONENTS -->
+  <section class="section">
+    <div class="section-title">04. Interactive Components & Links</div>
+    <div class="card">
+      <p style="margin-bottom: var(--space-md); font-size: 14px;">Square-cornered, shadowless interactive UI elements following technical document guidelines[cite: 16]:</p>
+      <div class="btn-group">
+        <button class="btn btn-primary">Primary Action</button>
+        <button class="btn btn-secondary">Secondary Spec</button>
+        <a href="#" class="btn btn-secondary" style="border-style: dashed;">Dashed Document Link</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENT CHAPTERS VOCABULARY -->
+  <section class="section">
+    <div class="section-title">05. Event Chapters & Vocabulary</div>
+    <div class="grid-5">
+      <div class="card">
+        <div style="font-family: var(--font-technical); font-size: 11px; color: var(--color-terracotta);">CHAPTER 01</div>
+        <h3>01 Hunt</h3>
+        <p style="font-size: 13px;">Clues, maps, technical riddles[cite: 16].</p>
+      </div>
+      <div class="card">
+        <div style="font-family: var(--font-technical); font-size: 11px; color: var(--color-terracotta);">CHAPTER 02</div>
+        <h3>02 Workshop</h3>
+        <p style="font-size: 13px;">Hands-on skill building & tools[cite: 16].</p>
+      </div>
+      <div class="card">
+        <div style="font-family: var(--font-technical); font-size: 11px; color: var(--color-terracotta);">CHAPTER 03</div>
+        <h3>03 Brand</h3>
+        <p style="font-size: 13px;">Identity & visual presentation[cite: 16].</p>
+      </div>
+      <div class="card">
+        <div style="font-family: var(--font-technical); font-size: 11px; color: var(--color-terracotta);">CHAPTER 04</div>
+        <h3>04 Charades</h3>
+        <p style="font-size: 13px;">Tech trivia & non-verbal prompts[cite: 16].</p>
+      </div>
+      <div class="card">
+        <div style="font-family: var(--font-technical); font-size: 11px; color: var(--color-terracotta);">CHAPTER 05</div>
+        <h3>05 Garba</h3>
+        <p style="font-size: 13px;">Traditional dance & celebration[cite: 16].</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>IEEE DAY 2026 DESIGN SYSTEM</div>
+    <div>STD SPEC 2026-G</div>
+  </footer>
+
+</body>
+</html>
