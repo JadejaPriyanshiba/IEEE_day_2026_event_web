@@ -20,7 +20,7 @@ Everything is in [`design_references/`](design_references/). **Read these before
 
 If two references disagree, **the PDFs win**. Ask Kena if you're unsure.
 
-### 👀 Clickable mockups (desktop + mobile)
+### Clickable mockups (desktop + mobile)
 
 PDFs are cool, but sometimes you wanna *poke* at the thing. So we've got two live HTML mockups of the whole homepage in `design_references/framework_references/`:
 
@@ -31,8 +31,8 @@ PDFs are cool, but sometimes you wanna *poke* at the thing. So we've got two liv
 
 **How to open them (pick your vibe):**
 
-- **Lazy mode (works fine):** open the folder and double-click `index.html`. Done. ✨
-- **Full mode (the exact design file):** the `.dc.html` files (`Main.dc.html` for desktop, `Mobile.dc.html` for mobile) are the originals with the precise values. Browsers block their scripts on a double-click, so run a tiny server first:
+- **Easy mode (works fine):** open the folder and double-click `index.html`. Done.
+- **Full mode (the exact design file, preferred):** the `.dc.html` files (`Main.dc.html` for desktop, `Mobile.dc.html` for mobile) are the originals with the precise values. Browsers block their scripts on a double-click, so run a tiny server first:
   - VS Code: right-click the `.dc.html` file → **Open with Live Server**, or
   - Terminal: `cd` into the folder, run `python -m http.server 8000`, then open `http://localhost:8000/Main.dc.html` (or `Mobile.dc.html`)
 
@@ -42,9 +42,9 @@ PDFs are cool, but sometimes you wanna *poke* at the thing. So we've got two liv
 - Checking mobile? Open the desktop mockup, press `F12`, and toggle device mode (`Ctrl + Shift + M`). Or just open the mobile one.
 - Find your section by its label: `§2` events, `§3` the flow (timeline), `§4` registration, `§6` FAQ, and the header/footer at the top and bottom.
 
-> ⚠️ **Real talk: this is NOT the final UI.** It's a reference, a vibe check, a "here's the idea". Don't copy-paste its code into our site: it's built with absolute positioning and inline styles that won't work responsively, and it uses its own class names. Rebuild your section properly with our files and tokens (see [Where do I work?](#where-do-i-work)).
+> **Real talk: this is NOT the final UI.** It's a reference, a vibe check. Don't copy-paste its code into our site: it's built with absolute positioning and inline styles that won't work responsively, and it uses its own class names. Rebuild your section properly with our files and tokens (see [Where do I work?](#where-do-i-work)).
 
-**You're allowed (encouraged, even) to cook. 🧑‍🍳** If an animation, hover or little interaction would make your section hit harder, go for it. Just keep it on-brand:
+**You're allowed (encouraged, even) to cook.** If an animation, hover or little interaction would make your section hit harder, go for it. Just keep it on-brand:
 
 - It should *mean* something ("every motion has an alibi"). A whistle wobbling = yes. Random things bouncing around = nah.
 - Stay in the palette and fonts. No neon, no glassmorphism, no gradients.
