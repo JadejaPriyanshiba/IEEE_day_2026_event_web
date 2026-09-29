@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEEE Day 2026 — Desktop Homepage</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&amp;family=Instrument+Sans:wght@400;500;600;700&amp;family=Josefin+Sans:wght@400;600;700&amp;family=Nanum+Pen+Script&amp;display=swap">
+<style>
+body { margin: 0; background: #EBE8DE; color: #283558; font-family: 'Instrument Sans', system-ui, sans-serif; }
+.d { font-family: 'Gloock', Georgia, serif; font-weight: 400; }
+.l { font-family: 'Josefin Sans', Futura, 'Century Gothic', sans-serif; text-transform: uppercase; letter-spacing: .18em; font-weight: 600; }
+.h { font-family: 'Nanum Pen Script', 'Comic Neue', cursive; font-weight: 400; }
+a { color: #87503F; text-decoration: none; }
+a:hover { color: #48392A; }
+a:focus-visible, button:focus-visible { outline: 2px solid #87503F; outline-offset: 3px; }
+.btn { transition: background-color .25s ease, color .25s ease; }
+.btn .ar { display: inline-block; transition: transform .25s ease; }
+.btn:hover .ar { transform: translateX(6px); }
+.card { transition: transform .35s cubic-bezier(.2,.8,.2,1); }
+.card:hover { transform: translateY(-6px) rotate(-.5deg); }
+.spin { animation: spin 60s linear infinite; }
+.spinr { animation: spin 90s linear infinite reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.wob { animation: wob 7s ease-in-out infinite; }
+@keyframes wob { 0%,100% { transform: rotate(-14deg); } 50% { transform: rotate(-9deg); } }
+.redact { background: #C1AD84; color: transparent; transition: background-color .4s, color .4s; padding: 0 4px; }
+.redact:hover { background: transparent; color: #C1AD84; }
+.tab { height: 46px; padding: 0 18px; border: 1px solid #283558; background: transparent; color: #283558; font-family: 'Josefin Sans', Futura, sans-serif; text-transform: uppercase; letter-spacing: .14em; font-size: 11px; font-weight: 700; border-radius: 0; cursor: pointer; }
+.tab[data-on="true"] { background: #283558; color: #EBE8DE; }
+.faq { width: 100%; min-height: 74px; display: flex; justify-content: space-between; align-items: center; gap: 24px; background: transparent; border: 0; border-top: 1px solid #283558; padding: 0; font: inherit; color: #283558; text-align: left; cursor: pointer; }
+.faq:hover .q { color: #87503F; }
+.flap { position: relative; width: 70px; height: 100px; background: #EBE8DE; color: #283558; display: flex; align-items: center; justify-content: center; font-family: 'Gloock', Georgia, serif; font-size: 74px; line-height: 1; perspective: 300px; box-shadow: inset 0 -50px 0 rgba(40,53,88,.07); }
+.flap::after { content: ''; position: absolute; left: 0; right: 0; top: calc(50% - 1px); height: 2px; background: #283558; }
+.flap::before { content: ''; position: absolute; left: -5px; right: -5px; top: calc(50% - 6px); height: 12px; border-left: 5px solid #C1AD84; border-right: 5px solid #C1AD84; box-sizing: border-box; }
+.fold { position: absolute; left: 0; right: 0; top: 0; height: 50%; background: #E3DFD2; transform-origin: 50% 100%; animation: fold 1s linear infinite; }
+@keyframes fold { 0% { transform: rotateX(0); opacity: 1; } 28% { transform: rotateX(-90deg); opacity: 1; } 29%,100% { opacity: 0; } }
+.flap.sm { width: 36px; height: 54px; font-size: 40px; box-shadow: inset 0 -27px 0 rgba(40,53,88,.07); }
+.flap.sm::before { left: -3px; right: -3px; border-left-width: 3px; border-right-width: 3px; height: 8px; top: calc(50% - 4px); }
+@media (prefers-reduced-motion:reduce) { .fold { animation: none; opacity: 0; } .spin, .spinr, .wob { animation: none; } .card:hover { transform: none; } }
+</style>
+</head>
+<body>
+
+<div style="width: 1440px; height: 7880px; position: relative; background: #EBE8DE; overflow: hidden; margin: 0 auto;">
+
+<!-- ============ HERO ============ -->
+<section id="top" style="position: relative; height: 900px; overflow: hidden">
+<header style="position: absolute; left: 64px; right: 64px; top: 28px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #283558; padding-bottom: 18px">
+<a href="#top" style="display: flex; align-items: center; gap: 14px; text-decoration: none; color: #283558">
+<span class="l" style="width: 48px; height: 48px; border: 1.5px dashed #283558; display: flex; align-items: center; justify-content: center; font-size: 9px; letter-spacing: .06em">LOGO</span>
+<span class="l" style="font-size: 11px; line-height: 1.5; letter-spacing: .14em">IEEE VGEC<br>Student Branch</span>
+</a>
+<nav aria-label="Primary" style="display: flex; align-items: center; gap: 28px">
+<a class="l" href="#events" style="font-size: 11px; text-decoration: none; color: #283558">Events</a>
+<a class="l" href="#flow" style="font-size: 11px; text-decoration: none; color: #283558">The flow</a>
+<a class="l" href="#rules" style="font-size: 11px; text-decoration: none; color: #283558">Fine print</a>
+<a class="l" href="#faq" style="font-size: 11px; text-decoration: none; color: #283558">FAQ</a>
+<a class="l btn" href="#register" style="font-size: 11px; text-decoration: none; background: #283558; color: #EBE8DE; padding: 0 22px; height: 46px; display: flex; align-items: center; gap: 12px">Choose your chaos <span class="ar">→</span></a>
+</nav>
+</header>
+<span class="l" style="position: absolute; left: 64px; top: 128px; font-size: 10px; color: #48392A">Notice 01 · Std. 06·10·2026 · Draft · Not for serious use</span>
+
+<div>
+<div class="d" style="position: absolute; left: 60px; top: 176px; font-size: 46px; line-height: 1; color: #48392A">Something at VGEC is</div>
+<h1 class="d" style="position: absolute; left: 48px; top: 238px; margin: 0; font-size: 258px; line-height: .84; letter-spacing: -.02em; color: #283558">Out of<br><span style="color: #87503F">spec.</span></h1>
+</div>
+
+<figure style="position: absolute; left: 930px; top: 150px; width: 380px; margin: 0">
+<svg class="wob" width="380" height="320" viewBox="0 0 380 320" fill="none" stroke="#283558" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Line drawing of a whistle" style="transform: rotate(-14deg); transform-origin: 150px 170px">
+<circle cx="150" cy="172" r="82" fill="#EBE8DE"></circle>
+<path d="M150 90 H330 V142 H226" fill="#EBE8DE" stroke="none"></path>
+<path d="M152 90 H330 V142 H226"></path>
+<path d="M262 90 V106 H292 V90"></path>
+<circle cx="150" cy="180" r="15" fill="#87503F" stroke="none"></circle>
+<circle cx="72" cy="108" r="17"></circle>
+<path d="M58 120 C 30 170, 40 230, 20 300" stroke-dasharray="2 9"></path>
+</svg>
+<figcaption class="l" style="font-size: 10px; color: #48392A; margin-top: 4px; letter-spacing: .14em">Fig. 1 — Evidence. Found near the library.<br>Nobody has claimed it.</figcaption>
+</figure>
+<span class="h" style="position: absolute; left: 836px; top: 176px; font-size: 30px; color: #87503F; transform: rotate(-6deg)">exhibit A ↘</span>
+<p style="position: absolute; left: 930px; top: 560px; width: 330px; margin: 0; font-size: 17px; line-height: 1.55; color: #48392A">On Tuesday, 6 October, five things will happen at VGEC that don't appear in any IEEE handbook. This page is the evidence.</p>
+<div class="l" style="position: absolute; right: 52px; top: 150px; writing-mode: vertical-rl; font-size: 13px; letter-spacing: .42em; color: #283558">IEEE Day — 06.10.2026</div>
+<div style="position: absolute; right: 56px; top: 600px; width: 22px; height: 44px; background: #C1AD84"></div>
+
+<div style="position: absolute; left: 64px; right: 64px; top: 770px; border-top: 1px solid #283558; padding-top: 20px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="l" style="font-size: 10px; color: #48392A">Event</span><span class="d" style="font-size: 24px">IEEE Day 2026</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="l" style="font-size: 10px; color: #48392A">Filed by</span><span class="d" style="font-size: 24px">VGEC Student Branch</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="l" style="font-size: 10px; color: #48392A">Date</span><span class="d" style="font-size: 24px">Tue, 6 October 2026</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="l" style="font-size: 10px; color: #48392A">Venue</span><span class="d" style="font-size: 24px">VGEC, Chandkheda</span></div>
+<a class="l" href="#countdown" style="align-self: end; justify-self: end; font-size: 11px; text-decoration: none; color: #87503F; display: flex; gap: 10px; align-items: center">Scroll to investigate <span>↓</span></a>
+</div>
+</section>
+
+<!-- ============ REVEAL + COUNTDOWN ============ -->
+<section id="countdown" style="position: relative; height: 780px; overflow: hidden; background: #283558; color: #EBE8DE">
+<span class="l" style="position: absolute; left: 64px; top: 60px; font-size: 11px; color: #C1AD84">§0 — Background</span>
+<p class="d" style="position: absolute; left: 64px; top: 96px; margin: 0; font-size: 34px; line-height: 1.2; color: #C1AD84">IEEE writes the rules your Wi-Fi runs on. Rules are great.</p>
+<h2 class="d" style="position: absolute; left: 60px; top: 150px; margin: 0; font-size: 112px; line-height: .95; font-weight: 400; white-space: nowrap">Today, we're breaking <span style="position: relative; display: inline-block; color: #C1AD84">five.<svg width="330" height="150" viewBox="0 0 440 200" fill="none" aria-hidden="true" style="position: absolute; left: -40px; top: -14px"><path d="M60 40 C 180 -10, 400 10, 410 90 C 420 170, 220 200, 100 175 C 10 155, 10 70, 90 38" stroke="#C1AD84" stroke-width="3" stroke-linecap="round"></path></svg></span></h2>
+<span class="h" style="position: absolute; left: 1060px; top: 268px; font-size: 32px; color: #C1AD84; transform: rotate(-4deg)">(responsibly. mostly.)</span>
+<div style="position: absolute; left: 64px; right: 64px; top: 330px; height: 390px; border: 1px solid rgba(193,173,132,.55); background: rgba(235,232,222,.035)">
+<span style="position: absolute; left: 10px; top: 10px; width: 8px; height: 8px; border-radius: 50%; border: 1px solid #C1AD84"></span><span style="position: absolute; right: 10px; top: 10px; width: 8px; height: 8px; border-radius: 50%; border: 1px solid #C1AD84"></span><span style="position: absolute; left: 10px; bottom: 10px; width: 8px; height: 8px; border-radius: 50%; border: 1px solid #C1AD84"></span><span style="position: absolute; right: 10px; bottom: 10px; width: 8px; height: 8px; border-radius: 50%; border: 1px solid #C1AD84"></span>
+<span class="l" style="position: absolute; left: 40px; top: 26px; font-size: 10px; color: #C1AD84">Instrument 00 · Spec-o-meter</span>
+<div style="position: absolute; left: 36px; top: 44px"><svg width="480" height="270" viewBox="0 0 480 270" fill="none" role="img" aria-label="Spec-o-meter gauge: needle rising toward the out-of-spec zone as IEEE Day approaches">
+<path d="M30 250 A210 210 0 0 1 450 250" stroke="#C1AD84" stroke-width="1" opacity=".5"></path>
+<path d="M409.9 126.6 A210 210 0 0 1 450.0 250.0" stroke="#87503F" stroke-width="14"></path>
+<path d="M40 250 A200 200 0 0 1 440 250" stroke="#C1AD84" stroke-width="1.5"></path>
+<path d="M40.0 250.0 L62.0 250.0" stroke="#C1AD84" stroke-width="2"></path><path d="M40.6 234.3 L48.6 234.9" stroke="#C1AD84" stroke-width="1.2"></path><path d="M42.5 218.7 L50.4 220.0" stroke="#C1AD84" stroke-width="1.2"></path><path d="M45.5 203.3 L53.3 205.2" stroke="#C1AD84" stroke-width="1.2"></path><path d="M49.8 188.2 L57.4 190.7" stroke="#C1AD84" stroke-width="1.2"></path><path d="M55.2 173.5 L68.2 178.8" stroke="#C1AD84" stroke-width="1.2"></path><path d="M61.8 159.2 L68.9 162.8" stroke="#C1AD84" stroke-width="1.2"></path><path d="M69.5 145.5 L76.3 149.7" stroke="#C1AD84" stroke-width="1.2"></path><path d="M78.2 132.4 L84.7 137.1" stroke="#C1AD84" stroke-width="1.2"></path><path d="M87.9 120.1 L94.0 125.3" stroke="#C1AD84" stroke-width="1.2"></path><path d="M98.6 108.6 L114.1 124.1" stroke="#C1AD84" stroke-width="2"></path><path d="M110.1 97.9 L115.3 104.0" stroke="#C1AD84" stroke-width="1.2"></path><path d="M122.4 88.2 L127.1 94.7" stroke="#C1AD84" stroke-width="1.2"></path><path d="M135.5 79.5 L139.7 86.3" stroke="#C1AD84" stroke-width="1.2"></path><path d="M149.2 71.8 L152.8 78.9" stroke="#C1AD84" stroke-width="1.2"></path><path d="M163.5 65.2 L168.8 78.2" stroke="#C1AD84" stroke-width="1.2"></path><path d="M178.2 59.8 L180.7 67.4" stroke="#C1AD84" stroke-width="1.2"></path><path d="M193.3 55.5 L195.2 63.3" stroke="#C1AD84" stroke-width="1.2"></path><path d="M208.7 52.5 L210.0 60.4" stroke="#C1AD84" stroke-width="1.2"></path><path d="M224.3 50.6 L224.9 58.6" stroke="#C1AD84" stroke-width="1.2"></path><path d="M240.0 50.0 L240.0 72.0" stroke="#C1AD84" stroke-width="2"></path><path d="M255.7 50.6 L255.1 58.6" stroke="#C1AD84" stroke-width="1.2"></path><path d="M271.3 52.5 L270.0 60.4" stroke="#C1AD84" stroke-width="1.2"></path><path d="M286.7 55.5 L284.8 63.3" stroke="#C1AD84" stroke-width="1.2"></path><path d="M301.8 59.8 L299.3 67.4" stroke="#C1AD84" stroke-width="1.2"></path><path d="M316.5 65.2 L311.2 78.2" stroke="#C1AD84" stroke-width="1.2"></path><path d="M330.8 71.8 L327.2 78.9" stroke="#C1AD84" stroke-width="1.2"></path><path d="M344.5 79.5 L340.3 86.3" stroke="#C1AD84" stroke-width="1.2"></path><path d="M357.6 88.2 L352.9 94.7" stroke="#C1AD84" stroke-width="1.2"></path><path d="M369.9 97.9 L364.7 104.0" stroke="#C1AD84" stroke-width="1.2"></path><path d="M381.4 108.6 L365.9 124.1" stroke="#C1AD84" stroke-width="2"></path><path d="M392.1 120.1 L386.0 125.3" stroke="#C1AD84" stroke-width="1.2"></path><path d="M401.8 132.4 L395.3 137.1" stroke="#87503F" stroke-width="1.2"></path><path d="M410.5 145.5 L403.7 149.7" stroke="#87503F" stroke-width="1.2"></path><path d="M418.2 159.2 L411.1 162.8" stroke="#87503F" stroke-width="1.2"></path><path d="M424.8 173.5 L411.8 178.8" stroke="#87503F" stroke-width="1.2"></path><path d="M430.2 188.2 L422.6 190.7" stroke="#87503F" stroke-width="1.2"></path><path d="M434.5 203.3 L426.7 205.2" stroke="#87503F" stroke-width="1.2"></path><path d="M437.5 218.7 L429.6 220.0" stroke="#87503F" stroke-width="1.2"></path><path d="M439.4 234.3 L431.4 234.9" stroke="#87503F" stroke-width="1.2"></path><path d="M440.0 250.0 L418.0 250.0" stroke="#87503F" stroke-width="2"></path>
+<g font-family="Josefin Sans, sans-serif" font-size="12" letter-spacing="1.5" fill="#C1AD84"><text x="84.0" y="255.0" text-anchor="middle">0</text><text x="129.7" y="144.7" text-anchor="middle">25</text><text x="240.0" y="99.0" text-anchor="middle">50</text><text x="350.3" y="144.7" text-anchor="middle">75</text><text x="396.0" y="255.0" text-anchor="middle">100</text></g>
+<text x="40" y="268" font-family="Josefin Sans, sans-serif" font-size="10" letter-spacing="2" fill="#C1AD84">IN SPEC</text>
+<text x="440" y="268" text-anchor="end" font-family="Josefin Sans, sans-serif" font-size="10" letter-spacing="2" fill="#EBE8DE">OUT OF SPEC</text>
+<text x="240" y="180" text-anchor="middle" font-family="Nanum Pen Script, cursive" font-size="24" fill="#C1AD84">% out of spec</text>
+<g transform="rotate(-30 240 250)"><path d="M214 250 L428 250" stroke="#EBE8DE" stroke-width="3" stroke-linecap="round"></path><path d="M400 245 L428 250 L400 255 Z" fill="#EBE8DE"></path></g>
+<circle cx="240" cy="250" r="12" fill="#C1AD84"></circle><circle cx="240" cy="250" r="4" fill="#283558"></circle>
+</svg></div>
+<div class="d" style="position: absolute; left: 36px; width: 480px; top: 316px; text-align: center; font-size: 48px; line-height: 1">83<span style="font-size: 30px; color: #C1AD84">%</span></div>
+<div style="position: absolute; left: 590px; right: 40px; top: 26px; display: flex; justify-content: space-between"><span class="l" style="font-size: 10px; color: #C1AD84">T-minus · until the first whistle</span><span class="l" style="font-size: 10px; color: #C1AD84">06.10.2026 · 10:30 IST</span></div>
+<div style="position: absolute; left: 590px; right: 40px; top: 96px; display: flex; justify-content: space-between; align-items: flex-start"><div style="display: flex; flex-direction: column; align-items: center; gap: 12px"><div style="display: flex; gap: 6px"><span class="flap">0</span><span class="flap">7</span></div><span class="l" style="font-size: 10px; color: #C1AD84">Days</span></div><span class="d" style="font-size: 56px; line-height: 100px; color: #C1AD84">:</span><div style="display: flex; flex-direction: column; align-items: center; gap: 12px"><div style="display: flex; gap: 6px"><span class="flap">2</span><span class="flap">2</span></div><span class="l" style="font-size: 10px; color: #C1AD84">Hours</span></div><span class="d" style="font-size: 56px; line-height: 100px; color: #C1AD84">:</span><div style="display: flex; flex-direction: column; align-items: center; gap: 12px"><div style="display: flex; gap: 6px"><span class="flap">5</span><span class="flap">9</span></div><span class="l" style="font-size: 10px; color: #C1AD84">Minutes</span></div><span class="d" style="font-size: 56px; line-height: 100px; color: #C1AD84">:</span><div style="display: flex; flex-direction: column; align-items: center; gap: 12px"><div style="display: flex; gap: 6px"><span class="flap">1</span><span class="flap">4<span class="fold"></span></span></div><span class="l" style="font-size: 10px; color: #C1AD84">Seconds</span></div></div>
+<p style="position: absolute; left: 590px; right: 40px; top: 262px; margin: 0; font-size: 16px; line-height: 1.55; border-top: 1px solid rgba(193,173,132,.4); padding-top: 16px">When the needle hits the red, the campus officially stops behaving. Until then: pick your anomaly.</p>
+<span class="l" style="position: absolute; left: 590px; top: 340px; font-size: 9px; color: #C1AD84">Fig. 0 — Calibrated by nobody. Accurate anyway.</span>
+</div>
+</section>
+
+<!-- ============ THE DAY ============ -->
+<section id="day" style="position: relative; height: 560px; overflow: hidden">
+<div class="d" style="position: absolute; left: 50px; top: 50px; font-size: 380px; line-height: 1; letter-spacing: -.04em">06</div>
+<div style="position: absolute; left: 66px; top: 440px; display: flex; gap: 26px">
+<span class="l" style="font-size: 16px; letter-spacing: .3em">October</span><span class="l" style="font-size: 16px; letter-spacing: .3em; color: #87503F">2026</span><span class="l" style="font-size: 16px; letter-spacing: .3em; color: #48392A">Tuesday</span>
+</div>
+<div style="position: absolute; left: 720px; top: 96px; width: 656px; display: flex; flex-direction: column; gap: 22px">
+<span class="l" style="font-size: 11px; color: #87503F">§1 — The day</span>
+<h2 class="d" style="margin: 0; font-size: 58px; line-height: 1.02; font-weight: 400">One day. Five experiences.<br>No syllabus.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #48392A">IEEE Day marks the first time engineers gathered to share ideas, back in 1884. We're celebrating with a hunt, a workshop, a design duel, charades and Garba — because the people were always the point.</p>
+<dl style="margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; border-top: 1px solid #283558; padding-top: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px"><dt class="l" style="font-size: 10px; color: #48392A">Who</dt><dd class="d" style="margin: 0; font-size: 20px">VGEC students</dd></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><dt class="l" style="font-size: 10px; color: #48392A">Where</dt><dd class="d" style="margin: 0; font-size: 20px">VGEC campus</dd></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><dt class="l" style="font-size: 10px; color: #48392A">Starts</dt><dd class="d" style="margin: 0; font-size: 20px">10:30 AM</dd></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><dt class="l" style="font-size: 10px; color: #87503F">Reg. closes</dt><dd class="d" style="margin: 0; font-size: 20px; color: #87503F">[Date]</dd></div>
+</dl>
+</div>
+</section>
+
+<!-- ============ EVENTS (cards) ============ -->
+<section id="events" style="position: relative; height: 1400px; overflow: hidden; border-top: 1px solid #283558">
+<span class="l" style="position: absolute; left: 64px; top: 64px; font-size: 11px; color: #87503F">§2 — Five anomalies</span>
+<h2 class="d" style="position: absolute; left: 64px; top: 92px; margin: 0; font-size: 72px; line-height: 1; font-weight: 400">Filed under: not the syllabus.</h2>
+<span class="h" style="position: absolute; left: 1090px; top: 112px; font-size: 32px; color: #87503F; transform: rotate(-4deg)">pick one. or all five. ↓</span>
+<div style="position: absolute; left: 64px; right: 64px; top: 220px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-template-rows: 560px 560px; gap: 22px">
+
+<!-- 01 HUNT -->
+<article class="card" style="grid-column: span 4; position: relative; overflow: hidden; background: #283558; color: #EBE8DE; padding: 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px">
+<div class="d" aria-hidden="true" style="position: absolute; right: 18px; bottom: -70px; font-size: 360px; line-height: 1; color: transparent; -webkit-text-stroke: 1.2px rgba(193,173,132,.35)">01</div>
+<svg width="360" height="250" viewBox="0 0 520 360" fill="none" stroke="#C1AD84" stroke-width="2" aria-hidden="true" style="position: absolute; right: 32px; top: 32px">
+<rect x="30" y="20" width="130" height="80"></rect><rect x="210" y="10" width="90" height="120"></rect><rect x="350" y="40" width="140" height="70"></rect><rect x="40" y="170" width="100" height="100"></rect><rect x="190" y="190" width="160" height="60"></rect><rect x="400" y="160" width="90" height="120"></rect>
+<path d="M20 150 C 110 140, 150 160, 175 120 S 190 40, 260 150 S 380 150, 375 210 S 300 300, 250 300 S 150 310, 170 350" stroke="#EBE8DE" stroke-width="3" stroke-dasharray="3 12" stroke-linecap="round"></path>
+<path d="M430 300 l 30 30 M460 300 l -30 30" stroke="#EBE8DE" stroke-width="4" stroke-linecap="round"></path>
+</svg>
+<span class="l" style="font-size: 11px; color: #C1AD84">Anomaly 01 · Treasure Hunt</span>
+<h3 class="d" style="margin: 0; width: 440px; font-size: 64px; line-height: .98; font-weight: 400">The campus is hiding something.</h3>
+<p style="margin: 0; width: 400px; font-size: 16px; line-height: 1.55">Form a team. Crack the questions. Follow the clues. Find the whistles that would rather stay lost.</p>
+<p class="l" style="margin: 0; font-size: 11px">First clue: <span class="redact">Nice try. Clues drop on 06.10.</span> <span class="h" style="font-size: 22px; color: #C1AD84; text-transform: none; letter-spacing: 0">(hover)</span></p>
+<div style="margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; position: relative">
+<dl style="margin: 0; display: grid; grid-template-columns: repeat(3, auto); gap: 32px; border-top: 1px solid #C1AD84; padding-top: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px"><dt class="l" style="font-size: 9px; color: #C1AD84">When</dt><dd class="d" style="margin: 0; font-size: 19px">10:30–11:30 AM</dd></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><dt class="l" style="font-size: 9px; color: #C1AD84">Who</dt><dd class="d" style="margin: 0; font-size: 19px">Teams of [N]</dd></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><dt class="l" style="font-size: 9px; color: #C1AD84">Fee</dt><dd class="d" style="margin: 0; font-size: 19px">₹100</dd></div>
+</dl>
+<a class="l btn" href="#register" style="height: 54px; padding: 0 24px; display: flex; align-items: center; gap: 12px; background: #C1AD84; color: #283558; text-decoration: none; font-size: 12px; font-weight: 700">Join the hunt <span class="ar">→</span></a>
+</div>
+</article>
+
+<!-- 02 WORKSHOP -->
+<article class="card" style="grid-column: span 2; position: relative; overflow: hidden; background-color: #F3F1EA; background-image: linear-gradient(rgba(40,53,88,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(40,53,88,.08) 1px, transparent 1px); background-size: 22px 22px; border: 1px solid #283558; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; justify-content: space-between; align-items: flex-start"><span class="l" style="font-size: 11px; color: #87503F">Anomaly 02 · Workshop</span><span class="d" style="font-size: 56px; line-height: .8; color: #87503F">02</span></div>
+<h3 class="d" style="margin: 0; font-size: 44px; line-height: 1; font-weight: 400">Come curious. Leave with something new.</h3>
+<svg width="300" height="70" viewBox="0 0 300 70" fill="none" stroke="#283558" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="30" cy="35" r="24"></circle><path d="M62 35 H96 M88 28 L97 35 L88 42"></path><rect x="104" y="12" width="84" height="46"></rect><path d="M196 35 H230 M222 28 L231 35 L222 42"></path><circle cx="264" cy="35" r="24"></circle><path d="M256 35 h16 M264 27 v16" stroke="#87503F" stroke-width="2.5"></path></svg>
+<span class="h" style="font-size: 22px; color: #87503F; margin-top: -8px">topic: [TBA] — we're keeping it quiet.</span>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 14px">
+<span class="l" style="font-size: 10px; color: #48392A; border-top: 1px solid #283558; padding-top: 12px">[Time] · Seats: [N] · [Fee]</span>
+<a class="l btn" href="#register" style="height: 52px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; background: #283558; color: #EBE8DE; text-decoration: none; font-size: 12px; font-weight: 700">Get curious <span class="ar">→</span></a>
+</div>
+</article>
+
+<!-- 03 BRAND -->
+<article class="card" style="grid-column: span 2; position: relative; overflow: hidden; background: #C1AD84; color: #283558; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<svg width="200" height="200" viewBox="0 0 580 580" fill="none" stroke="#283558" aria-hidden="true" style="position: absolute; right: -30px; top: -30px; opacity: .9"><circle cx="290" cy="290" r="220" stroke-width="2"></circle><circle cx="240" cy="290" r="110" stroke-width="3"></circle><circle cx="340" cy="290" r="110" stroke-width="3"></circle><path d="M290 192 A110 110 0 0 1 290 388 A110 110 0 0 1 290 192 Z" fill="#87503F" stroke="none"></path></svg>
+<span class="l" style="font-size: 11px">Anomaly 03 · Brand Identity</span>
+<h3 class="d" style="margin: 72px 0 0; font-size: 44px; line-height: 1; font-weight: 400">A brand. A blank canvas. No bad ideas.</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #48392A">Solo. One made-up brand. One very judgmental grid.</p>
+<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 6px"><span class="l" style="font-size: 9px; color: #48392A">Judged by IEEE members on</span><span class="d" style="font-size: 22px">Uniqueness · Innovation · Creativity</span></div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 14px">
+<span class="l" style="font-size: 10px; color: #48392A; border-top: 1px solid #283558; padding-top: 12px">[Time] · Individual · [Fee]</span>
+<a class="l btn" href="#register" style="height: 52px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; background: #283558; color: #EBE8DE; text-decoration: none; font-size: 12px; font-weight: 700">Build the brand <span class="ar">→</span></a>
+</div>
+</article>
+
+<!-- 04 CHARADES -->
+<article class="card" style="grid-column: span 2; position: relative; overflow: hidden; background: #EBE8DE; border: 2px solid #48392A; color: #48392A; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; justify-content: space-between; align-items: flex-start"><span class="l" style="font-size: 11px">Anomaly 04 · Tech Charades</span><span class="d" style="font-size: 56px; line-height: .8">04</span></div>
+<div style="position: relative; background: #F3F1EA; border: 2px solid #48392A; padding: 18px 20px">
+<h3 class="d" style="margin: 0; font-size: 40px; line-height: 1; font-weight: 400">No keyboard. No mouse. <span style="color: #87503F">Just vibes.</span></h3>
+<svg width="40" height="28" viewBox="0 0 40 28" fill="none" aria-hidden="true" style="position: absolute; left: 36px; bottom: -26px"><path d="M2 0 L10 26 L30 0" fill="#F3F1EA" stroke="#48392A" stroke-width="2" stroke-linejoin="round"></path><path d="M3 -1 H29" stroke="#F3F1EA" stroke-width="3"></path></svg>
+</div>
+<p style="margin: 18px 0 0; font-size: 15px; line-height: 1.5">Dumb charades, rewritten for engineers. Your team guesses the tech term — you can't say it, type it or draw it. Good luck miming "Kubernetes".</p>
+<div style="display: flex; flex-direction: column; gap: 6px"><span class="l" style="font-size: 9px">Words you can't say</span>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 14px"><span class="l" style="font-size: 12px; text-decoration: line-through; text-decoration-color: #87503F; text-decoration-thickness: 2px">Recursion</span><span class="l" style="font-size: 12px; text-decoration: line-through; text-decoration-color: #87503F; text-decoration-thickness: 2px">Firewall</span><span class="l" style="font-size: 12px; text-decoration: line-through; text-decoration-color: #87503F; text-decoration-thickness: 2px">Bluetooth</span><span class="l" style="font-size: 12px; text-decoration: line-through; text-decoration-color: #87503F; text-decoration-thickness: 2px">The cloud</span></div></div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 14px">
+<span class="l" style="font-size: 10px; border-top: 1px solid #48392A; padding-top: 12px">[Time] · Teams of [N] · [Fee] · [Rounds] rounds</span>
+<a class="l btn" href="#register" style="height: 52px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; background: #48392A; color: #EBE8DE; text-decoration: none; font-size: 12px; font-weight: 700">Play it out <span class="ar">→</span></a>
+</div>
+</article>
+
+<!-- 05 GARBA -->
+<article class="card" style="grid-column: span 2; position: relative; overflow: hidden; background: #87503F; color: #EBE8DE; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<svg width="340" height="340" viewBox="0 0 640 640" fill="none" aria-hidden="true" style="position: absolute; right: -110px; top: 90px">
+<g class="spin" style="transform-origin: 320px 320px"><circle cx="320" cy="320" r="300" stroke="#EBE8DE" stroke-dasharray="2 10"></circle><circle cx="320" cy="320" r="220" stroke="#C1AD84" stroke-width="2"></circle><circle cx="540" cy="320" r="11" fill="#EBE8DE"></circle><circle cx="320" cy="540" r="11" fill="#EBE8DE"></circle><circle cx="100" cy="320" r="11" fill="#EBE8DE"></circle><circle cx="320" cy="100" r="11" fill="#EBE8DE"></circle></g>
+<path d="M285 375 L355 265 M355 375 L285 265" stroke="#C1AD84" stroke-width="9" stroke-linecap="round"></path>
+</svg>
+<span class="l" style="font-size: 11px; position: relative">Anomaly 05 · Garba</span>
+<h3 class="d" style="margin: 0; font-size: 54px; line-height: .95; font-weight: 400; position: relative">Yes,<br>IEEE does<br>Garba.</h3>
+<span class="h" style="font-size: 24px; position: relative; transform: rotate(-3deg)">bring dandiya. or two confident pens.</span>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 14px; position: relative">
+<span class="l" style="font-size: 10px; border-top: 1px solid #EBE8DE; padding-top: 12px">[Evening] · Everyone · [Fee]</span>
+<a class="l btn" href="#register" style="height: 52px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; background: #EBE8DE; color: #87503F; text-decoration: none; font-size: 12px; font-weight: 700">Join the circle <span class="ar">→</span></a>
+</div>
+</article>
+</div>
+</section>
+
+<!-- ============ FLOW ============ -->
+<section id="flow" style="position: relative; height: 700px; overflow: hidden; background: #F3F1EA; border-top: 1px solid #283558">
+<span class="l" style="position: absolute; left: 64px; top: 72px; font-size: 11px; color: #87503F">§3 — The flow</span>
+<h2 class="d" style="position: absolute; left: 64px; top: 100px; margin: 0; font-size: 72px; line-height: 1; font-weight: 400">The day, plotted.</h2>
+<span class="h" style="position: absolute; left: 620px; top: 128px; font-size: 32px; color: #87503F; transform: rotate(-3deg)">(very unscientifically)</span>
+<p style="position: absolute; right: 64px; top: 112px; width: 320px; margin: 0; font-size: 16px; line-height: 1.55; color: #48392A">Drag along the line to scrub the day. Every anomaly has its own signal.</p>
+<svg width="1312" height="420" viewBox="0 0 1312 420" fill="none" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="The day's energy as a line: jagged hunt, smooth workshop, square-wave brand challenge, noisy charades, looping Garba" style="position: absolute; left: 64px; top: 230px">
+<path d="M0 300 H1312" stroke="#283558" stroke-width="1" opacity=".3"></path>
+<path d="M0 300 H160" stroke="#283558" stroke-width="3"></path>
+<path d="M160 300 L180 240 L200 290 L215 190 L235 270 L255 160 L275 250 L300 180 L320 280 L345 150 L365 240 L385 210 L400 300 H440" stroke="#283558" stroke-width="3"></path>
+<path d="M440 300 Q 467 210 495 300 T 550 300 T 605 300 T 660 300 H700" stroke="#87503F" stroke-width="3"></path>
+<path d="M700 300 V210 H740 V300 H780 V210 H820 V300 H860 V210 H900 V300 H960" stroke="#283558" stroke-width="3"></path>
+<path d="M960 300 L970 260 L978 315 L985 230 L993 280 L1000 210 L1010 305 L1018 240 L1027 290 L1035 190 L1044 320 L1052 230 L1062 285 L1070 220 L1080 310 L1090 245 L1100 280 L1110 260 L1120 300 H1150" stroke="#48392A" stroke-width="3"></path>
+<path d="M1150 300 H1165 a24 24 0 1 1 1 0 H1215 a24 24 0 1 1 1 0 H1265 a24 24 0 1 1 1 0 H1312" stroke="#87503F" stroke-width="3"></path>
+<g font-family="Josefin Sans, sans-serif" font-size="11" letter-spacing="2" fill="#283558" stroke="none"><text x="160" y="350">10:30</text><text x="370" y="350">11:30</text><text x="440" y="350">[TIME]</text><text x="700" y="350">[TIME]</text><text x="960" y="350">[TIME]</text><text x="1150" y="350">[EVENING]</text></g>
+<g font-family="Gloock, Georgia, serif" font-size="24" fill="#283558" stroke="none"><text x="160" y="110">Hunt</text><text x="440" y="110">Workshop</text><text x="700" y="110">Brand</text><text x="960" y="110">Charades</text><text x="1150" y="110">Garba</text></g>
+<g font-family="Josefin Sans, sans-serif" font-size="10" letter-spacing="1.5" fill="#48392A" stroke="none"><text x="160" y="132">SIGNAL: RUNNING</text><text x="440" y="132">SIGNAL: FOCUSED</text><text x="700" y="132">SIGNAL: SHARP</text><text x="960" y="132">SIGNAL: LOUD</text><text x="1150" y="132">SIGNAL: CIRCULAR</text></g>
+<path d="M560 150 V380" stroke="#87503F" stroke-width="1.5" stroke-dasharray="3 5"></path>
+<circle cx="560" cy="265" r="7" fill="#87503F" stroke="none"></circle>
+</svg>
+<span class="l" style="position: absolute; left: 632px; top: 620px; font-size: 10px; color: #EBE8DE; background: #87503F; padding: 6px 10px">Scrubbing · Workshop · [Time]</span>
+</section>
+
+<!-- ============ REGISTER ============ -->
+<section id="register" style="position: relative; height: 840px; overflow: hidden; background: #283558; color: #EBE8DE">
+<span class="l" style="position: absolute; left: 64px; top: 72px; font-size: 11px; color: #C1AD84">§4 — Registration</span>
+<h2 class="d" style="position: absolute; left: 58px; top: 104px; margin: 0; font-size: 100px; line-height: .9; font-weight: 400">Choose your <span style="color: #C1AD84">chaos.</span></h2>
+<div style="position: absolute; right: 64px; top: 100px; width: 270px; display: flex; flex-direction: column; gap: 8px; border: 1px dashed #C1AD84; padding: 16px 18px">
+<span class="l" style="font-size: 10px; color: #C1AD84">Deadline</span>
+<span class="d" style="font-size: 24px">Registration closes [Date].</span>
+<span style="font-size: 14px; line-height: 1.45">Five short forms. About a minute each.</span>
+</div>
+<div style="position: absolute; left: 64px; right: 64px; top: 270px; display: flex; flex-direction: column; gap: 12px">
+<div style="height: 88px; background: #EBE8DE; color: #283558; display: grid; grid-template-columns: 80px 1fr 170px 150px 90px 230px; align-items: center"><span class="d" style="font-size: 38px; text-align: center">01</span><div style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 28px">Treasure Hunt</span><span class="l" style="font-size: 9px; color: #48392A">The campus is hiding something</span></div><span style="font-size: 15px; font-weight: 600">10:30–11:30 AM</span><span style="font-size: 15px; font-weight: 600">Teams of [N]</span><span style="font-size: 15px; font-weight: 600">₹100</span><div style="height: 100%; border-left: 2px dashed #283558; display: flex; align-items: center; justify-content: center"><a class="l btn" href="#" style="height: 50px; width: 190px; box-sizing: border-box; padding: 0 18px; display: flex; align-items: center; justify-content: space-between; background: #87503F; color: #EBE8DE; text-decoration: none; font-size: 11px; font-weight: 700">Join the hunt <span class="ar">→</span></a></div></div>
+<div style="height: 88px; background: #EBE8DE; color: #283558; display: grid; grid-template-columns: 80px 1fr 170px 150px 90px 230px; align-items: center"><span class="d" style="font-size: 38px; text-align: center">02</span><div style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 28px">Workshop</span><span class="l" style="font-size: 9px; color: #48392A">Come curious. Leave with something new</span></div><span style="font-size: 15px; font-weight: 600">[Time]</span><span style="font-size: 15px; font-weight: 600">[Seats]</span><span style="font-size: 15px; font-weight: 600">[Fee]</span><div style="height: 100%; border-left: 2px dashed #283558; display: flex; align-items: center; justify-content: center"><a class="l btn" href="#" style="height: 50px; width: 190px; box-sizing: border-box; padding: 0 18px; display: flex; align-items: center; justify-content: space-between; background: #87503F; color: #EBE8DE; text-decoration: none; font-size: 11px; font-weight: 700">Get curious <span class="ar">→</span></a></div></div>
+<div style="height: 88px; background: #EBE8DE; color: #283558; display: grid; grid-template-columns: 80px 1fr 170px 150px 90px 230px; align-items: center"><span class="d" style="font-size: 38px; text-align: center">03</span><div style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 28px">Brand Identity Challenge</span><span class="l" style="font-size: 9px; color: #48392A">A brand. A blank canvas. No bad ideas</span></div><span style="font-size: 15px; font-weight: 600">[Time]</span><span style="font-size: 15px; font-weight: 600">Individual</span><span style="font-size: 15px; font-weight: 600">[Fee]</span><div style="height: 100%; border-left: 2px dashed #283558; display: flex; align-items: center; justify-content: center"><a class="l btn" href="#" style="height: 50px; width: 190px; box-sizing: border-box; padding: 0 18px; display: flex; align-items: center; justify-content: space-between; background: #87503F; color: #EBE8DE; text-decoration: none; font-size: 11px; font-weight: 700">Build the brand <span class="ar">→</span></a></div></div>
+<div style="height: 88px; background: #EBE8DE; color: #283558; display: grid; grid-template-columns: 80px 1fr 170px 150px 90px 230px; align-items: center"><span class="d" style="font-size: 38px; text-align: center">04</span><div style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 28px">Tech Charades</span><span class="l" style="font-size: 9px; color: #48392A">No keyboard. No mouse. Just vibes</span></div><span style="font-size: 15px; font-weight: 600">[Time]</span><span style="font-size: 15px; font-weight: 600">Teams of [N]</span><span style="font-size: 15px; font-weight: 600">[Fee]</span><div style="height: 100%; border-left: 2px dashed #283558; display: flex; align-items: center; justify-content: center"><a class="l btn" href="#" style="height: 50px; width: 190px; box-sizing: border-box; padding: 0 18px; display: flex; align-items: center; justify-content: space-between; background: #87503F; color: #EBE8DE; text-decoration: none; font-size: 11px; font-weight: 700">Play it out <span class="ar">→</span></a></div></div>
+<div style="height: 88px; background: #EBE8DE; color: #283558; display: grid; grid-template-columns: 80px 1fr 170px 150px 90px 230px; align-items: center"><span class="d" style="font-size: 38px; text-align: center">05</span><div style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 28px">Garba</span><span class="l" style="font-size: 9px; color: #48392A">Yes, IEEE does Garba</span></div><span style="font-size: 15px; font-weight: 600">[Evening]</span><span style="font-size: 15px; font-weight: 600">Everyone</span><span style="font-size: 15px; font-weight: 600">[Fee]</span><div style="height: 100%; border-left: 2px dashed #283558; display: flex; align-items: center; justify-content: center"><a class="l btn" href="#" style="height: 50px; width: 190px; box-sizing: border-box; padding: 0 18px; display: flex; align-items: center; justify-content: space-between; background: #87503F; color: #EBE8DE; text-decoration: none; font-size: 11px; font-weight: 700">Join the circle <span class="ar">→</span></a></div></div>
+</div>
+<span class="h" style="position: absolute; right: 70px; top: 780px; font-size: 28px; color: #C1AD84; transform: rotate(-3deg)">tear along the dotted line ✂</span>
+</section>
+
+<!-- ============ GUIDELINES ============ -->
+<section id="rules" style="position: relative; height: 820px; overflow: hidden">
+<div style="position: absolute; left: 64px; top: 90px; width: 440px; display: flex; flex-direction: column; gap: 20px">
+<span class="l" style="font-size: 11px; color: #87503F">§5 — The fine print</span>
+<h2 class="d" style="margin: 0; font-size: 72px; line-height: .98; font-weight: 400">Rules.<br>Yes, even here.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #48392A">Short, sensible, and mostly about showing up. Read them once; we'll pretend you read them twice.</p>
+<div role="tablist" aria-label="Guideline groups" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px">
+<button class="tab" type="button" role="tab" data-on="true" aria-selected="true">General</button>
+<button class="tab" type="button" role="tab" data-on="false" aria-selected="false">Per event</button>
+<button class="tab" type="button" role="tab" data-on="false" aria-selected="false">How to register</button>
+</div>
+<span class="h" style="font-size: 26px; color: #87503F; transform: rotate(-3deg); margin-top: 10px">clause 5.4 is the important one.</span>
+</div>
+<div role="tabpanel" style="position: absolute; left: 600px; right: 64px; top: 96px; display: flex; flex-direction: column; border-bottom: 1px solid #283558">
+<div style="display: grid; grid-template-columns: 76px 1fr; gap: 20px; padding: 18px 0; border-top: 1px solid #283558">
+<span class="d" style="font-size: 26px; color: #87503F">5.1</span>
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 24px; line-height: 1.15">Carry your college ID.</span><span style="font-size: 15px; line-height: 1.5; color: #48392A">Every event checks it at the door. No ID, no anomaly.</span></div>
+</div>
+<div style="display: grid; grid-template-columns: 76px 1fr; gap: 20px; padding: 18px 0; border-top: 1px solid #283558">
+<span class="d" style="font-size: 26px; color: #87503F">5.2</span>
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 24px; line-height: 1.15">Register before [deadline].</span><span style="font-size: 15px; line-height: 1.5; color: #48392A">Spot entries only if seats are left over.</span></div>
+</div>
+<div style="display: grid; grid-template-columns: 76px 1fr; gap: 20px; padding: 18px 0; border-top: 1px solid #283558">
+<span class="d" style="font-size: 26px; color: #87503F">5.3</span>
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 24px; line-height: 1.15">Show up before your slot.</span><span style="font-size: 15px; line-height: 1.5; color: #48392A">The whistle waits for no one. Neither do the judges.</span></div>
+</div>
+<div style="display: grid; grid-template-columns: 76px 1fr; gap: 20px; padding: 18px 0; border-top: 1px solid #283558">
+<span class="d" style="font-size: 26px; color: #87503F">5.4</span>
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 24px; line-height: 1.15">Be kind — to people, property and the campus.</span><span style="font-size: 15px; line-height: 1.5; color: #48392A">Clues are not souvenirs. Put them back where you found them.</span></div>
+</div>
+<div style="display: grid; grid-template-columns: 76px 1fr; gap: 20px; padding: 18px 0; border-top: 1px solid #283558">
+<span class="d" style="font-size: 26px; color: #87503F">5.5</span>
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 24px; line-height: 1.15">Coordinators and judges have the final word.</span><span style="font-size: 15px; line-height: 1.5; color: #48392A">Arguing with a judge is not an event. Yet.</span></div>
+</div>
+<div style="display: grid; grid-template-columns: 76px 1fr; gap: 20px; padding: 18px 0; border-top: 1px solid #283558">
+<span class="d" style="font-size: 26px; color: #87503F">5.6</span>
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 24px; line-height: 1.15">Your stuff is your responsibility.</span><span style="font-size: 15px; line-height: 1.5; color: #48392A">Keep an eye on bags, phones and dandiya.</span></div>
+</div>
+</div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" style="position: relative; height: 760px; overflow: hidden; background: #F3F1EA; border-top: 1px solid #283558">
+<div style="position: absolute; left: 64px; top: 90px; width: 440px; display: flex; flex-direction: column; gap: 20px">
+<span class="l" style="font-size: 11px; color: #87503F">§6 — FAQ</span>
+<h2 class="d" style="margin: 0; font-size: 72px; line-height: .98; font-weight: 400">Questions we've already been asked.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #48392A">Still stuck? Ask a volunteer on the day, or write to [contact email].</p>
+</div>
+<div style="position: absolute; left: 600px; right: 64px; top: 96px; display: flex; flex-direction: column; border-bottom: 1px solid #283558">
+
+<div style="display: flex; flex-direction: column">
+<button class="faq" type="button" aria-expanded="true"><span class="d q" style="font-size: 25px; line-height: 1.2; color: #87503F;">Who can take part?</span><span class="d" style="font-size: 30px; width: 30px; text-align: center; color: #87503F">–</span></button>
+<p style="margin: 0; padding: 0 60px 22px 0; font-size: 16px; line-height: 1.6; color: #48392A">Any VGEC student. [Confirm: are other colleges welcome?]</p>
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button class="faq" type="button" aria-expanded="false"><span class="d q" style="font-size: 25px; line-height: 1.2;">Do I need to be an IEEE member?</span><span class="d" style="font-size: 30px; width: 30px; text-align: center; color: #87503F">+</span></button>
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button class="faq" type="button" aria-expanded="false"><span class="d q" style="font-size: 25px; line-height: 1.2;">Can I register for more than one event?</span><span class="d" style="font-size: 30px; width: 30px; text-align: center; color: #87503F">+</span></button>
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button class="faq" type="button" aria-expanded="false"><span class="d q" style="font-size: 25px; line-height: 1.2;">How much does it cost?</span><span class="d" style="font-size: 30px; width: 30px; text-align: center; color: #87503F">+</span></button>
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button class="faq" type="button" aria-expanded="false"><span class="d q" style="font-size: 25px; line-height: 1.2;">What should I bring?</span><span class="d" style="font-size: 30px; width: 30px; text-align: center; color: #87503F">+</span></button>
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button class="faq" type="button" aria-expanded="false"><span class="d q" style="font-size: 25px; line-height: 1.2;">Will there be certificates or prizes?</span><span class="d" style="font-size: 30px; width: 30px; text-align: center; color: #87503F">+</span></button>
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button class="faq" type="button" aria-expanded="false"><span class="d q" style="font-size: 25px; line-height: 1.2;">I have never done Garba. Is that a problem?</span><span class="d" style="font-size: 30px; width: 30px; text-align: center; color: #87503F">+</span></button>
+</div>
+
+</div>
+</section>
+
+<!-- ============ ORGANIZER + FEEDBACK ============ -->
+<section id="about" style="position: relative; height: 560px; overflow: hidden; background: #48392A; color: #EBE8DE">
+<div style="position: absolute; left: 64px; top: 90px; width: 560px; display: flex; flex-direction: column; gap: 22px">
+<span class="l" style="font-size: 11px; color: #C1AD84">§7 — Filed by</span>
+<div style="display: flex; gap: 24px; align-items: center">
+<div class="l" style="width: 104px; height: 104px; flex-shrink: 0; border: 1.5px dashed #C1AD84; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 9px; line-height: 1.5; color: #C1AD84">IEEE VGEC SB<br>logo</div>
+<h2 class="d" style="margin: 0; font-size: 46px; line-height: 1.02; font-weight: 400">IEEE VGEC Student Branch.</h2>
+</div>
+<p style="margin: 0; font-size: 17px; line-height: 1.6">Most days we talk about circuits and code. On 6 October, we're making a point about people.</p>
+<div style="display: flex; gap: 24px"><a class="l" href="#" style="font-size: 11px; color: #C1AD84">Instagram ↗</a><a class="l" href="https://www.ieee.org" style="font-size: 11px; color: #C1AD84">IEEE.org ↗</a></div>
+</div>
+<form style="position: absolute; left: 760px; right: 64px; top: 90px; display: flex; flex-direction: column; gap: 16px">
+<span class="l" style="font-size: 11px; color: #C1AD84">§8 — Report a bug in the day</span>
+<div style="display: flex; flex-direction: column; gap: 8px"><label class="l" for="fb-text" style="font-size: 10px; color: #C1AD84">Keep, fix, or never do again?</label>
+<textarea id="fb-text" rows="5" placeholder="Be honest. We're engineers; we can take it." style="background: transparent; color: #EBE8DE; border: 1px solid #C1AD84; border-radius: 0; padding: 14px; font: inherit; font-size: 16px; resize: none"></textarea></div>
+<div style="display: flex; align-items: center; justify-content: space-between"><span class="h" style="font-size: 24px; color: #C1AD84">we read all of them. even the mean ones.</span>
+<button class="l btn" type="button" style="height: 54px; padding: 0 26px; display: flex; align-items: center; gap: 12px; background: #C1AD84; color: #283558; border: 0; border-radius: 0; font-size: 12px; font-weight: 700; cursor: pointer">File report <span class="ar">→</span></button></div>
+</form>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer style="position: relative; height: 560px; overflow: hidden; background: #283558; color: #EBE8DE">
+<div style="position: absolute; left: 64px; right: 64px; top: 72px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 10px"><span class="l" style="font-size: 10px; color: #C1AD84">The event</span><span style="font-size: 15px; line-height: 1.6">IEEE Day 2026<br>Tuesday, 6 October 2026<br>VGEC, Chandkheda, Ahmedabad</span></div>
+<nav aria-label="Quick links" style="display: flex; flex-direction: column; gap: 8px"><span class="l" style="font-size: 10px; color: #C1AD84">Quick links</span><a href="#events" style="color: #EBE8DE; font-size: 15px">Events</a><a href="#flow" style="color: #EBE8DE; font-size: 15px">The flow</a><a href="#rules" style="color: #EBE8DE; font-size: 15px">Fine print</a><a href="#faq" style="color: #EBE8DE; font-size: 15px">FAQ</a><a href="#register" style="color: #EBE8DE; font-size: 15px">Register</a></nav>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="l" style="font-size: 10px; color: #C1AD84">Humans to call</span><span style="font-size: 15px; line-height: 1.5">[Coordinator] · [Phone]</span><span style="font-size: 15px; line-height: 1.5">[Coordinator] · [Phone]</span><span style="font-size: 15px; line-height: 1.5">[Coordinator] · [Phone]</span><span style="font-size: 15px; line-height: 1.5">[Contact email]</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="l" style="font-size: 10px; color: #C1AD84">Volunteers</span><a href="#" style="color: #EBE8DE; font-size: 15px">Volunteer portal →</a><a href="#top" class="l" style="color: #C1AD84; font-size: 11px; margin-top: 14px; text-decoration: none">Back to top ↑</a></div>
+</div>
+<div class="d" aria-hidden="true" style="position: absolute; left: 48px; top: 290px; font-size: 180px; line-height: 1; letter-spacing: -.03em; color: #C1AD84; white-space: nowrap">Out of spec.</div>
+<div style="position: absolute; left: 64px; right: 64px; bottom: 26px; display: flex; justify-content: space-between">
+<span class="l" style="font-size: 10px; color: #C1AD84">© 2026 IEEE VGEC Student Branch</span>
+<span class="l" style="font-size: 10px; color: #C1AD84">An IEEE Day 2026 celebration · Made on campus</span>
+</div>
+</footer>
+
+</div>
+
+</body>
+</html>
