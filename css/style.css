@@ -308,10 +308,15 @@ button {
 .btn--ticket { background: var(--color-brown-red); color: var(--color-cream); }
 .btn--ticket:hover { background: var(--color-deep-blue); }
 
-/* Link without href / not open yet */
+/* Link without href / not open yet.
+   Keeps its palette colour at full strength (no opacity — fading
+   blends it into off-palette tints); it just stops reacting. */
 .btn[aria-disabled="true"] {
-    opacity: 0.55;
     cursor: not-allowed;
+}
+
+.btn--ticket[aria-disabled="true"]:hover {
+    background: var(--color-brown-red);
 }
 
 .btn[aria-disabled="true"]:hover .btn__arrow {
