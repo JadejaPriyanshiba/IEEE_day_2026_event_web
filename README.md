@@ -164,7 +164,7 @@ Rules that apply to everyone (details in the PDF):
 | Branch | Who |
 |---|---|
 | `main` | Live site. **Nobody pushes here directly.** |
-| `feature/priyanshi-foundation` | Priyanshi |
+| `feature/foundation` | Priyanshi |
 | `feature/navbar-header-footer` | Parthvi + Pushkar |
 | `feature/event-cards` | Vansh + Daksh + Nilesh |
 | `feature/timeline` | Dhruvi + Dhwani |

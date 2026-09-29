@@ -157,6 +157,11 @@ button {
     outline-offset: 3px;
 }
 
+/* <main> receives focus from the skip link; it doesn't need a ring */
+main:focus {
+    outline: none;
+}
+
 
 /* ---------- 3. Shared classes ---------- */
 
@@ -175,11 +180,15 @@ button {
 }
 
 /* Section grounds — each also resets focus colour for contrast */
+/* Note: --border must be re-declared on each ground. A variable built
+   from another variable is fixed where it's declared (:root), so it
+   wouldn't pick up the new --color-line on its own. */
 .section--navy {
     --color-text: var(--color-cream);
     --color-body: var(--color-cream);
     --color-line: var(--color-sand);
     --color-line-soft: rgba(193, 173, 132, 0.4);
+    --border: 1px solid var(--color-line);
     --focus-color: var(--color-sand);
     background: var(--color-deep-blue);
     color: var(--color-cream);
@@ -193,6 +202,8 @@ button {
     --color-text: var(--color-cream);
     --color-body: var(--color-cream);
     --color-line: var(--color-sand);
+    --color-line-soft: rgba(193, 173, 132, 0.4);
+    --border: 1px solid var(--color-line);
     --focus-color: var(--color-sand);
     background: var(--color-dark-brown);
     color: var(--color-cream);
@@ -251,7 +262,7 @@ button {
 /* Metadata row: small caps label above a serif value */
 .meta-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
     gap: var(--space-3) var(--space-4);
     border-top: var(--border);
     padding-top: var(--space-3);
