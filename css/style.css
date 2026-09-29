@@ -1,0 +1,386 @@
+/* =========================================================
+   IEEE Day 2026 — global styles
+   Owner: Priyanshi
+
+   This file holds ONLY things every section shares:
+   1. Design tokens (CSS variables)
+   2. Reset + base elements
+   3. Shared classes (.container, .section, .btn, .label ...)
+
+   Section-specific styles go in that section's own file.
+   Need a new token or shared class? Ask Priyanshi instead of
+   adding it here, so we don't get merge conflicts.
+   ========================================================= */
+
+
+/* ---------- 1. Design tokens ---------- */
+
+:root {
+    /* Palette — the only five colours (+ one lighter paper tint) */
+    --color-deep-blue: #283558;
+    --color-brown-red: #87503F;
+    --color-sand: #C1AD84;
+    --color-dark-brown: #48392A;
+    --color-cream: #EBE8DE;
+    --color-paper: #F3F1EA;      /* inset cards / light alternate sections */
+
+    /* Semantic names — use THESE in your CSS, not the raw ones above */
+    --color-bg: var(--color-cream);          /* page canvas (~58%) */
+    --color-text: var(--color-deep-blue);    /* headings, rules, primary buttons */
+    --color-body: var(--color-dark-brown);   /* body copy + metadata (instead of grey) */
+    --color-accent: var(--color-brown-red);  /* "pencil mark": hand notes, "spec.", ticket CTAs */
+    --color-highlight: var(--color-sand);    /* "highlighter": only on dark grounds, never as text on cream */
+    --color-line: var(--color-deep-blue);
+    --color-line-soft: rgba(40, 53, 88, 0.25);
+    --focus-color: var(--color-deep-blue);   /* dark sections switch this to sand */
+
+    /* Typography */
+    --font-display: 'Gloock', Georgia, serif;
+    --font-label: 'Josefin Sans', Futura, 'Century Gothic', sans-serif;
+    --font-body: 'Instrument Sans', system-ui, sans-serif;
+    --font-hand: 'Nanum Pen Script', 'Comic Neue', cursive;
+
+    --fs-label: 0.6875rem;                        /* 11px — caps metadata */
+    --fs-small: 0.9375rem;                        /* 15px */
+    --fs-body: 1.0625rem;                         /* 17px */
+    --fs-lead: clamp(1.125rem, 1.6vw, 1.1875rem); /* 18–19px */
+    --fs-h3: clamp(1.75rem, 3.5vw, 2.75rem);
+    --fs-h2: clamp(2.5rem, 6vw, 4.5rem);          /* section titles, up to 72px */
+    --fs-display: clamp(4.5rem, 17vw, 16rem);     /* giant statements, up to 256px */
+    --fs-hand: clamp(1.375rem, 2.4vw, 2rem);
+
+    --lh-tight: 0.9;
+    --lh-heading: 1.02;
+    --lh-body: 1.6;
+    --tracking-label: 0.18em;
+
+    /* Spacing — 8pt scale */
+    --space-1: 0.25rem;  /*   4px */
+    --space-2: 0.5rem;   /*   8px */
+    --space-3: 1rem;     /*  16px */
+    --space-4: 1.5rem;   /*  24px */
+    --space-5: 2rem;     /*  32px */
+    --space-6: 3rem;     /*  48px */
+    --space-7: 4rem;     /*  64px */
+    --space-8: 6rem;     /*  96px */
+    --space-9: 8rem;     /* 128px */
+
+    /* Layout */
+    --container-max: 1440px;
+    --gutter: clamp(1rem, 4.5vw, 4rem);           /* 16px phone → 64px desktop */
+    --section-space: clamp(4rem, 9vw, 6rem);      /* vertical padding of a section */
+    --header-height: 0px;                         /* header team: set this if the header becomes sticky */
+
+    /* Shape + motion */
+    --radius: 0;                                  /* design rule: square corners, no pills */
+    --border: 1px solid var(--color-line);
+    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --duration-fast: 0.2s;
+    --duration: 0.35s;
+
+    /* Layers */
+    --z-base: 1;
+    --z-header: 100;
+    --z-overlay: 200;                             /* mobile menu, modals */
+}
+
+/* Breakpoints (CSS variables can't be used in @media, so use these numbers):
+   mobile  < 768px   · 4 columns
+   tablet  768–1023px · 8 columns
+   desktop ≥ 1024px  · 12 columns */
+
+
+/* ---------- 2. Reset + base ---------- */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: var(--lh-heading);
+}
+
+p, figure, dl, dd, ol, ul {
+    margin: 0;
+}
+
+img, svg, video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
+
+a:hover {
+    color: var(--color-body);
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+/* Every section with an id lands below a sticky header, if there is one */
+[id] {
+    scroll-margin-top: var(--header-height);
+}
+
+:focus-visible {
+    outline: 2px solid var(--focus-color);
+    outline-offset: 3px;
+}
+
+
+/* ---------- 3. Shared classes ---------- */
+
+/* Layout */
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+}
+
+.section {
+    position: relative;
+    padding-block: var(--section-space);
+    border-top: var(--border);
+}
+
+/* Section grounds — each also resets focus colour for contrast */
+.section--navy {
+    --color-text: var(--color-cream);
+    --color-body: var(--color-cream);
+    --color-line: var(--color-sand);
+    --color-line-soft: rgba(193, 173, 132, 0.4);
+    --focus-color: var(--color-sand);
+    background: var(--color-deep-blue);
+    color: var(--color-cream);
+}
+
+.section--paper {
+    background: var(--color-paper);
+}
+
+.section--brown {
+    --color-text: var(--color-cream);
+    --color-body: var(--color-cream);
+    --color-line: var(--color-sand);
+    --focus-color: var(--color-sand);
+    background: var(--color-dark-brown);
+    color: var(--color-cream);
+}
+
+/* Type voices */
+.display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: var(--lh-tight);
+    letter-spacing: -0.02em;
+}
+
+.label {
+    font-family: var(--font-label);
+    font-size: var(--fs-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    line-height: 1.5;
+}
+
+.hand {
+    font-family: var(--font-hand);
+    font-size: var(--fs-hand);
+    color: var(--color-accent);
+    line-height: 1.1;
+}
+
+.text-accent { color: var(--color-accent); }
+.text-highlight { color: var(--color-sand); }   /* only on dark grounds */
+
+/* Section heading pattern: "§2 — Five anomalies" + big title */
+.section-label {
+    font-family: var(--font-label);
+    font-size: var(--fs-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-3);
+}
+
+.section--navy .section-label,
+.section--brown .section-label {
+    color: var(--color-sand);
+}
+
+.section-title {
+    font-size: var(--fs-h2);
+    line-height: 1;
+    max-width: 18ch;
+    margin-bottom: var(--space-6);
+}
+
+/* Metadata row: small caps label above a serif value */
+.meta-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: var(--space-3) var(--space-4);
+    border-top: var(--border);
+    padding-top: var(--space-3);
+}
+
+.meta-row dt {
+    color: var(--color-body);
+}
+
+.meta-row dd {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.2;
+}
+
+/* Buttons: square, no shadow, one verb per event. Arrow travels on hover. */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    min-height: 3.25rem;
+    padding: 0 var(--space-4);
+    border: 0;
+    border-radius: var(--radius);
+    background: var(--color-deep-blue);
+    color: var(--color-cream);
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+
+.btn:hover {
+    background: var(--color-brown-red);
+    color: var(--color-cream);
+}
+
+.btn__arrow {
+    display: inline-block;
+    transition: transform var(--duration-fast) ease;
+}
+
+.btn:hover .btn__arrow {
+    transform: translateX(6px);
+}
+
+.btn--gold  { background: var(--color-sand);  color: var(--color-deep-blue); }
+.btn--cream { background: var(--color-cream); color: var(--color-brown-red); }
+.btn--brown { background: var(--color-dark-brown); color: var(--color-cream); }
+.btn--ticket { background: var(--color-brown-red); color: var(--color-cream); }
+.btn--ticket:hover { background: var(--color-deep-blue); }
+
+/* Link without href / not open yet */
+.btn[aria-disabled="true"] {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.btn[aria-disabled="true"]:hover .btn__arrow {
+    transform: none;
+}
+
+/* Accessibility helpers */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.skip-link {
+    position: absolute;
+    left: var(--space-3);
+    top: var(--space-3);
+    z-index: var(--z-overlay);
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-deep-blue);
+    color: var(--color-cream);
+    transform: translateY(-200%);
+}
+
+.skip-link:focus {
+    transform: none;
+}
+
+/* Dev-only placeholder showing where a team's work goes.
+   DELETE the .dev-slot element when you build your section. */
+.dev-slot {
+    display: grid;
+    place-items: center;
+    min-height: 10rem;
+    padding: var(--space-4);
+    border: 1.5px dashed currentColor;
+    font-family: var(--font-label);
+    font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    text-align: center;
+    opacity: 0.6;
+}
+
+.dev-slot::after {
+    content: "Owner: " attr(data-owner);
+    display: block;
+    margin-top: var(--space-2);
+}
+
+
+/* ---------- Reduced motion (applies to every team's animations) ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;       /* the one allowed !important: must beat section styles */
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
