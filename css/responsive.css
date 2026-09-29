@@ -1,0 +1,10 @@
+/* =========================================================
+   Responsive fixes + final styling pass
+   Owner: Hemal + Meet  (start after the sections are merged)
+
+   Loaded LAST, so rules here win over the section files.
+   Breakpoints used across the project:
+     mobile  < 768px
+     tablet  768px – 1023px
+     desktop ≥ 1024px
+   ========================================================= */
