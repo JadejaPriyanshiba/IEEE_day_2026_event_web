@@ -82,7 +82,7 @@
         if (readable && minutes !== lastMinute) {
             lastMinute = minutes;
             readable.textContent = days + ' days, ' + hours + ' hours and ' + minutes +
-                ' minutes until IEEE Day starts on 6 October 2026 at 10:30 AM.';
+                ' minutes until IEEE Day starts on 6 October 2026 at 8:30 AM.';
         }
     }
 

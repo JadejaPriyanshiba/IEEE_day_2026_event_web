@@ -524,14 +524,73 @@
     color: var(--color-muted);
 }
 
-.ticket__btn {
+.ticket__actions {
     grid-column: 1 / -1;
-    margin-top: 34px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-top: 24px;
+}
+
+.ticket__actions .btn {
+    flex: 1 1 140px;
+}
+
+.ticket__btn {
+    margin-top: 0;
 }
 
 .ticket__btn[aria-disabled="true"]::before {
     content: "Soon · ";
     color: var(--color-accent);
+}
+
+.ticket__rulebook-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 40px;
+    padding: 0.5rem 0.9rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid color-mix(in srgb, var(--ev) 40%, var(--color-line-strong));
+    background: color-mix(in srgb, var(--ev) 8%, transparent);
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background-color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+
+.ticket__rulebook-btn:hover {
+    border-color: var(--ev);
+    background: color-mix(in srgb, var(--ev) 18%, transparent);
+}
+
+.ticket__rulebook-btn svg {
+    flex-shrink: 0;
+    stroke: var(--ev);
+}
+
+.ticket__open-pass {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 42px;
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--ev) 12%, transparent);
+    border: 1px dashed color-mix(in srgb, var(--ev) 45%, transparent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text);
+    text-align: center;
 }
 
 .register__note {
@@ -544,7 +603,7 @@
 @media (min-width: 640px) {
     /* Laptop/tablet: one row, stub on the right behind a vertical tear */
     .ticket {
-        --stub: 250px;
+        --stub: 270px;
         grid-template-columns: 3rem 1fr var(--stub);
         column-gap: var(--space-4);
         padding: 20px 20px 20px 28px;
@@ -564,9 +623,19 @@
         bottom: 18px;
     }
 
-    .ticket__btn {
+    .ticket__actions {
         grid-column: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
         margin: 0 0 0 20px;
+        justify-content: center;
+    }
+
+    .ticket__actions .btn {
+        flex: 0 0 auto;
+        width: 100%;
     }
 }
 
@@ -577,78 +646,83 @@
 }
 
 
-/* ---------- Rules (terminal) ---------- */
-/* The terminal stays dark in both themes, like a real one. */
+/* ---------- Rules (Participant Guidelines) ---------- */
 
-.terminal {
-    max-width: 800px;
-    overflow: hidden;
+.rules__notice {
+    padding: var(--space-5);
     border: 1px solid var(--color-line-strong);
+    border-left: 5px solid var(--color-accent);
     border-radius: var(--radius-lg);
-    background: #0A1224;
-    color: #CFD6E4;
-    font-family: var(--font-mono);
-    font-size: 0.86rem;
+    background: var(--color-surface);
     box-shadow: var(--shadow-card);
 }
 
-.terminal__bar {
+.rules__notice-head {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 7px;
-    padding: 12px 16px;
-    background: #122039;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-line);
 }
 
-.terminal__bar i {
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    background: #FF5F57;
+.rules__notice-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 1rem + 0.5vw, 1.35rem);
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0;
 }
 
-.terminal__bar i:nth-child(2) { background: #FEBC2E; }
-.terminal__bar i:nth-child(3) { background: #28C840; }
-
-.terminal__bar span {
-    margin-left: auto;
-    font-size: 0.7rem;
-    color: #6B7489;
-}
-
-.terminal__body {
+.rules__notice-list {
     display: grid;
-    gap: 8px;
-    padding: var(--space-4) 18px;
+    gap: var(--space-4);
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.terminal__prompt {
-    color: #D9BE8C;
+.rules__notice-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-text);
 }
 
-.terminal__out {
-    padding-left: 1.2em;
-    color: #8FB0E8;
+.rules__notice-list li svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+    stroke: var(--color-accent);
 }
 
-.terminal__cursor {
-    display: inline-block;
-    width: 0.55em;
-    height: 1.1em;
-    vertical-align: text-bottom;
-    background: #D9BE8C;
-    animation: cursor-blink 1.1s steps(1) infinite;
+.rules__notice-list li strong {
+    color: var(--color-accent);
+    font-weight: 600;
 }
 
-@keyframes cursor-blink {
-    50% { opacity: 0; }
+.rules__notice-link {
+    color: var(--color-accent);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color var(--duration-fast) ease;
 }
 
-@media (min-width: 640px) {
-    .terminal__body {
-        padding: var(--space-5) var(--space-4);
-        font-size: 0.92rem;
+.rules__notice-link:hover {
+    color: var(--color-text);
+}
+
+@media (min-width: 680px) {
+    .rules__notice {
+        padding: var(--space-6);
+    }
+
+    .rules__notice-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4) var(--space-6);
     }
 }
 

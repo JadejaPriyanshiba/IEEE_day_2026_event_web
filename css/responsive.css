@@ -7,22 +7,148 @@
    for cross-section fixes found while testing on real phones.
    ========================================================= */
 
-/* Small phones (iPhone SE, older Androids ≈ 320–360px) */
+/* Small mobile devices (iPhone SE, older Androids ≈ 320–360px) */
 @media (max-width: 360px) {
     .hero__title {
-        font-size: 3.6rem;
+        font-size: 2.1rem;
+        line-height: 1.04;
+    }
+
+    .hero__sticker {
+        font-size: 0.7rem;
+        padding: 0.4em 0.75em;
+    }
+
+    .countdown__cell {
+        padding: 10px 2px 8px;
     }
 
     .countdown__cell b {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
+    }
+
+    .countdown__cell span {
+        font-size: 0.54rem;
+        letter-spacing: 0.08em;
     }
 
     .brand__text {
-        font-size: 0.8rem;
+        font-size: 0.78rem;
+    }
+
+    .event-card {
+        flex-basis: calc(100vw - 32px);
+        height: 520px;
+    }
+
+    .event-card__face {
+        padding: 16px 14px;
+    }
+
+    .event-card__title {
+        font-size: 1.1rem;
+    }
+
+    .event-card__desc {
+        font-size: 0.85rem;
     }
 
     .event-card__facts dd {
-        font-size: 0.78rem;
+        font-size: 0.8rem;
+    }
+
+    .event-card__facts dt {
+        font-size: 0.6rem;
+    }
+
+    .timeline__list {
+        --time-col: 3.8rem;
+        --rail-gap: 0.7rem;
+    }
+
+    .timeline__time {
+        font-size: 0.74rem;
+    }
+
+    .timeline__wave {
+        display: none;
+    }
+
+    .ticket {
+        padding: 14px 12px 14px 16px;
+    }
+
+    .ticket__num {
+        font-size: 1.1rem;
+    }
+
+    .ticket__meta span {
+        font-size: 0.64rem;
+        padding: 2px 6px;
+    }
+}
+
+/* General phones & compact screens (<= 480px) */
+@media (max-width: 480px) {
+    .timeline__list {
+        --time-col: 4.4rem;
+        --rail-gap: 1rem;
+    }
+
+    .timeline__time {
+        font-size: 0.82rem;
+    }
+
+    .timeline__time small {
+        font-size: 0.62rem;
+    }
+
+    .timeline__card {
+        padding: 11px 12px;
+    }
+
+    .timeline__name {
+        font-size: 0.95rem;
+    }
+
+    .timeline__wave {
+        width: 48px;
+        height: 22px;
+    }
+
+    .event-card {
+        height: 505px;
+    }
+
+    .event-card__desc {
+        font-size: 0.88rem;
+        line-height: 1.4;
+    }
+
+    .event-card__facts div {
+        padding: 8px 0;
+    }
+
+    .event-card__facts dd {
+        font-size: 0.85rem;
+    }
+
+    .ticket__meta {
+        gap: 5px;
+    }
+
+    .ticket__meta span {
+        font-size: 0.68rem;
+        padding: 2px 7px;
+    }
+
+    .ticket__name {
+        font-size: 1.02rem;
+    }
+
+    .ticket__actions .btn {
+        min-height: 42px;
+        font-size: 0.82rem;
     }
 }
 

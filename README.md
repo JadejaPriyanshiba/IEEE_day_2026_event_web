@@ -241,20 +241,19 @@ Then open GitHub, click **Compare & pull request**, set the base to `main`, and 
 
 ## Event information
 
-Use this as the source of truth. Anything shown as `[TBA]` is not confirmed yet.
+Confirmed details as of 6 October 2026:
 
-| # | Event | Format | Time | Fee | Tagline | Button verb |
-|---|---|---|---|---|---|---|
-| 01 | Treasure Hunt | Team | 10:30–11:30 AM | ₹100 | The campus is hiding something. | Join the hunt |
-| 02 | Workshop | [TBA] | [TBA] | [TBA] | Come curious. Leave with something new. | Get curious |
-| 03 | Brand Identity Challenge | Individual | [TBA] | [TBA] | A brand. A blank canvas. No bad ideas. | Build the brand |
-| 04 | Tech Charades | Team | [TBA] | [TBA] | No keyboard. No mouse. Just vibes. | Play it out |
-| 05 | Garba | Everyone | [TBA] | [TBA] | Yes, IEEE does Garba. | Join the circle |
+| # | Event | Format | Time | Fee | Venue | Registration Form | Rulebook |
+|---|---|---|---|---|---|---|---|
+| 01 | CLUESTLE HUNT | Team | 9:00–11:00 AM (8:30 AM Reporting) | ₹100 | A Block | [Form Link](https://forms.gle/72QvyyjabLZr2YGfA) | Given at reporting desk |
+| 02 | NLP: The Language of Machines (Workshop) | Open | 11:00 AM – 1:00 PM | Free | J Block Auditorium | [Form Link](https://forms.gle/cTFWqSD6ehUetmAm7) | — |
+| 03 | LogoLabz (Logo Design Challenge) | Individual | 1:30 PM – 3:15 PM | Free | J Block Auditorium | [Form Link](https://forms.gle/fBsXAFacX6NCqsjV9) | [Rulebook PDF](Rulebook_Logolabz.pdf) · [Drive Mirror](https://drive.google.com/file/d/1w554UOAv2lKu1ld5sq9s9BUPj73d14N5/view) |
+| 04 | Tech Charades | Individual | 3:30 PM – 4:30 PM | Free | J Block Auditorium | [Form Link](https://forms.gle/aD3humeoC4r9Qjvu6) | — |
+| 05 | Garba Celebration | Everyone | 4:00 PM onwards | Free | M & N Block | Open entry (no form required) | — |
 
-- **Treasure Hunt:** the VGEC campus becomes the playing field. Solve questions, follow hints, find the hidden whistles.
-- **Workshop:** topic to be announced.
-- **Brand Identity Challenge:** you get a hypothetical brand and design its logo/identity. Judged on uniqueness, innovation and creativity.
-- **Tech Charades:** dumb charades with tech terms.
-- **Garba:** a Gujarati Garba celebration.
+- **CLUESTLE HUNT:** VGEC campus becomes the playing field. Solve questions, follow hints, find the hidden checkpoints.
+- **NLP: The Language of Machines:** Keynote workshop by Dr. Uttam Chauhan (Associate Professor, GEC Modasa).
+- **LogoLabz:** Hypothetical brand identity & logo design challenge. Individual participation. Judged on design creativity and a short presentation.
+- **Tech Charades:** Dumb charades with technical concepts and computing terms. Individual participation showdown.
+- **Garba:** Traditional Gujarati Garba celebration to close the day. Open to everyone.
 
-Still missing: registration links, deadline, team sizes, the remaining times and fees, the workshop topic, contact details, and the logo file.
