@@ -14,4 +14,4 @@ desktop.ini
 node_modules/
 
 # for design html references nothing to do with tasks
-design_references/framework_references/
+# design_references/framework_references/
