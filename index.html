@@ -240,13 +240,165 @@
              ===================================================== -->
         <section class="section section--paper timeline" id="timeline" aria-labelledby="timeline-title">
             <div class="container">
-                <p class="section-label">§3 — The flow</p>
-                <h2 class="section-title" id="timeline-title">The day, plotted.</h2>
+                <div class="timeline__header">
+                    <div class="timeline__title-wrap">
+                        <p class="section-label">§3 — The flow</p>
+                        <h2 class="section-title timeline__title" id="timeline-title">
+                            The day, plotted.
+                            <span class="timeline__hand hand" aria-hidden="true">(very unscientifically)</span>
+                        </h2>
+                    </div>
+                    <p class="timeline__instruction">
+                        Drag along the line to scrub the day. Every anomaly has its own signal.
+                    </p>
+                </div>
 
-                <div class="dev-slot" data-owner="Dhruvi + Dhwani">Timeline goes here</div>
+                <!-- Interactive SVG Timeline Plot (Scrubber) -->
+                <div class="timeline__plot-wrapper" tabindex="0" role="slider" aria-label="Day schedule timeline scrubber" aria-valuemin="160" aria-valuemax="1312" aria-valuenow="560" aria-valuetext="Scrubbing: Workshop, Signal: Focused, Time: TBA">
+                    <div class="timeline__plot-inner">
+                        <svg class="timeline__svg" viewBox="0 0 1312 430" fill="none" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="The day's energy as a line: jagged hunt, smooth workshop, square-wave brand challenge, noisy charades, looping Garba">
+                            <title>The day, plotted as continuous signals</title>
+                            <desc>Drag or use arrow keys to scrub across the day: Hunt (running), Workshop (focused), Brand Identity (sharp), Tech Charades (loud), and Garba (circular).</desc>
+
+                            <!-- Clickable Anomaly Regions for direct jump / interaction -->
+                            <g class="timeline__regions" aria-hidden="true">
+                                <rect class="timeline__region-target" data-event-key="hunt" x="140" y="70" width="280" height="290"></rect>
+                                <rect class="timeline__region-target" data-event-key="workshop" x="420" y="70" width="270" height="290"></rect>
+                                <rect class="timeline__region-target" data-event-key="brand" x="690" y="70" width="260" height="290"></rect>
+                                <rect class="timeline__region-target" data-event-key="charades" x="950" y="70" width="190" height="290"></rect>
+                                <rect class="timeline__region-target" data-event-key="garba" x="1140" y="70" width="172" height="290"></rect>
+                            </g>
+
+                            <!-- Anomaly Titles (y=110) -->
+                            <g class="timeline__names" aria-hidden="true">
+                                <text class="timeline__event-name" data-event="hunt" x="160" y="110">Hunt</text>
+                                <text class="timeline__event-name is-active" data-event="workshop" x="440" y="110">Workshop</text>
+                                <text class="timeline__event-name" data-event="brand" x="700" y="110">Brand</text>
+                                <text class="timeline__event-name" data-event="charades" x="960" y="110">Charades</text>
+                                <text class="timeline__event-name" data-event="garba" x="1150" y="110">Garba</text>
+                            </g>
+
+                            <!-- Signal Subtitles (y=132) -->
+                            <g class="timeline__signals" aria-hidden="true">
+                                <text class="timeline__event-signal" data-event="hunt" x="160" y="132">SIGNAL: RUNNING</text>
+                                <text class="timeline__event-signal is-active" data-event="workshop" x="440" y="132">SIGNAL: FOCUSED</text>
+                                <text class="timeline__event-signal" data-event="brand" x="700" y="132">SIGNAL: SHARP</text>
+                                <text class="timeline__event-signal" data-event="charades" x="960" y="132">SIGNAL: LOUD</text>
+                                <text class="timeline__event-signal" data-event="garba" x="1150" y="132">SIGNAL: CIRCULAR</text>
+                            </g>
+
+                            <!-- Subtle Baseline -->
+                            <path class="timeline__axis" d="M0 300 H1312"></path>
+
+                            <!-- Waveform Segments -->
+                            <g class="timeline__waveforms">
+                                <!-- Baseline lead-in (0 to 160) -->
+                                <path class="timeline__segment timeline__segment--lead" d="M0 300 H160"></path>
+
+                                <!-- 01: Hunt (running heart spikes) -->
+                                <path class="timeline__segment timeline__segment--hunt" data-event="hunt" d="M160 300 L180 240 L200 290 L215 190 L235 270 L255 160 L275 250 L300 180 L320 280 L345 150 L365 240 L385 210 L400 300 H440"></path>
+
+                                <!-- 02: Workshop (smooth focused sine wave) -->
+                                <path class="timeline__segment timeline__segment--workshop" data-event="workshop" d="M440 300 Q 467 210 495 300 T 550 300 T 605 300 T 660 300 H700"></path>
+
+                                <!-- 03: Brand (sharp square pulses) -->
+                                <path class="timeline__segment timeline__segment--brand" data-event="brand" d="M700 300 V210 H740 V300 H780 V210 H820 V300 H860 V210 H900 V300 H960"></path>
+
+                                <!-- 04: Charades (loud chaotic audio burst) -->
+                                <path class="timeline__segment timeline__segment--charades" data-event="charades" d="M960 300 L970 260 L978 315 L985 230 L993 280 L1000 210 L1010 305 L1018 240 L1027 290 L1035 190 L1044 320 L1052 230 L1062 285 L1070 220 L1080 310 L1090 245 L1100 280 L1110 260 L1120 300 H1150"></path>
+
+                                <!-- 05: Garba (circular loops) -->
+                                <path class="timeline__segment timeline__segment--garba" data-event="garba" d="M1150 300 H1165 a24 24 0 1 1 1 0 H1215 a24 24 0 1 1 1 0 H1265 a24 24 0 1 1 1 0 H1312"></path>
+                            </g>
+
+                            <!-- Timestamp Labels (y=350) -->
+                            <g class="timeline__timestamps" aria-hidden="true">
+                                <text class="timeline__time-label" data-event="hunt" x="160" y="350">10:30</text>
+                                <text class="timeline__time-label" data-event="hunt" x="370" y="350">11:30</text>
+                                <text class="timeline__time-label" data-event="workshop" x="440" y="350">[TIME]</text>
+                                <text class="timeline__time-label" data-event="brand" x="700" y="350">[TIME]</text>
+                                <text class="timeline__time-label" data-event="charades" x="960" y="350">[TIME]</text>
+                                <text class="timeline__time-label" data-event="garba" x="1150" y="350">[EVENING]</text>
+                            </g>
+
+                            <!-- Dynamic Scrubber Guide and Marker Dot -->
+                            <g class="timeline__scrubber" id="timeline-scrubber" aria-hidden="true">
+                                <line class="timeline__scrub-line" id="timeline-scrub-line" x1="560" y1="150" x2="560" y2="385"></line>
+                                <circle class="timeline__scrub-halo" id="timeline-scrub-halo" cx="560" cy="265" r="14"></circle>
+                                <circle class="timeline__scrub-dot" id="timeline-scrub-dot" cx="560" cy="265" r="7"></circle>
+                            </g>
+
+                            <!-- Dynamic Scrubber Pill Badge -->
+                            <g class="timeline__badge-group" id="timeline-badge-group" aria-hidden="true">
+                                <rect class="timeline__badge-bg" id="timeline-badge-bg" x="465" y="388" width="190" height="24"></rect>
+                                <text class="timeline__badge-text" id="timeline-badge-text" x="560" y="404" text-anchor="middle">SCRUBBING · WORKSHOP · [TIME]</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Accessible Live Region for Screen Readers -->
+                <div class="visually-hidden" id="timeline-announcer" aria-live="polite" aria-atomic="true">
+                    Scrubbing: Workshop. Signal: Focused. Time: TBA.
+                </div>
+
+                <!-- Mobile-specific compact overview (from mobile design reference) -->
+                <div class="timeline__mobile-list" aria-label="Timeline schedule overview">
+                    <button type="button" class="timeline__mobile-item" data-event="hunt" data-scrub-x="255">
+                        <span class="timeline__mobile-time">10:30</span>
+                        <div class="timeline__mobile-info">
+                            <span class="timeline__mobile-name">Treasure Hunt</span>
+                            <span class="timeline__mobile-signal">Signal: running</span>
+                        </div>
+                        <svg class="timeline__mobile-mini" width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M0 24 L8 10 L14 22 L22 4 L30 20 L38 6 L46 22 L54 8 L62 20 L70 24"></path>
+                        </svg>
+                    </button>
+                    <button type="button" class="timeline__mobile-item is-active" data-event="workshop" data-scrub-x="560">
+                        <span class="timeline__mobile-time">[Time]</span>
+                        <div class="timeline__mobile-info">
+                            <span class="timeline__mobile-name">Workshop</span>
+                            <span class="timeline__mobile-signal">Signal: focused</span>
+                        </div>
+                        <svg class="timeline__mobile-mini timeline__mobile-mini--accent" width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M0 14 Q 9 0 18 14 T 35 14 T 52 14 T 70 14"></path>
+                        </svg>
+                    </button>
+                    <button type="button" class="timeline__mobile-item" data-event="brand" data-scrub-x="760">
+                        <span class="timeline__mobile-time">[Time]</span>
+                        <div class="timeline__mobile-info">
+                            <span class="timeline__mobile-name">Brand Identity</span>
+                            <span class="timeline__mobile-signal">Signal: sharp</span>
+                        </div>
+                        <svg class="timeline__mobile-mini" width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M0 24 V4 H12 V24 H24 V4 H36 V24 H48 V4 H60 V24 H70"></path>
+                        </svg>
+                    </button>
+                    <button type="button" class="timeline__mobile-item" data-event="charades" data-scrub-x="1040">
+                        <span class="timeline__mobile-time">[Time]</span>
+                        <div class="timeline__mobile-info">
+                            <span class="timeline__mobile-name">Tech Charades</span>
+                            <span class="timeline__mobile-signal">Signal: loud</span>
+                        </div>
+                        <svg class="timeline__mobile-mini timeline__mobile-mini--body" width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M0 14 L5 6 L9 22 L13 2 L17 20 L22 8 L26 26 L31 4 L36 18 L41 10 L46 24 L51 6 L56 18 L61 12 L66 16 L70 14"></path>
+                        </svg>
+                    </button>
+                    <button type="button" class="timeline__mobile-item" data-event="garba" data-scrub-x="1240">
+                        <span class="timeline__mobile-time">[Evening]</span>
+                        <div class="timeline__mobile-info">
+                            <span class="timeline__mobile-name">Garba</span>
+                            <span class="timeline__mobile-signal">Signal: circular</span>
+                        </div>
+                        <svg class="timeline__mobile-mini timeline__mobile-mini--accent" width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="13" cy="14" r="10"></circle>
+                            <circle cx="35" cy="14" r="10"></circle>
+                            <circle cx="57" cy="14" r="10"></circle>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </section>
-
         <!-- =====================================================
              REGISTRATION — foundation by Priyanshi
              Registration links (Google Forms?) are not known yet.
