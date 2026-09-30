@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEEE Day 2026 — IEEE VGEC</title>
+<script>
+  // Send phones to the mobile view and everything else to the laptop view.
+  // Add ?stay to the URL to keep this chooser page open.
+  if (!/[?&]stay\b/.test(location.search)) {
+    var small = Math.min(screen.width, window.innerWidth) < 768;
+    location.replace(small ? "mobile/" : "laptop/");
+  }
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Josefin+Sans:wght@600;700&display=swap">
+<style>
+  body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; background: #EBE8DE; color: #283558; font-family: 'Josefin Sans', Futura, sans-serif; padding: 16px; box-sizing: border-box; text-align: center; }
+  h1 { font-family: 'Gloock', Georgia, serif; font-weight: 400; font-size: 40px; margin: 0; }
+  nav { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  a { display: inline-flex; align-items: center; height: 48px; padding: 0 20px; background: #283558; color: #EBE8DE; text-decoration: none; text-transform: uppercase; letter-spacing: .14em; font-size: 12px; font-weight: 700; }
+  a:hover { background: #87503F; }
+</style>
+</head>
+<body>
+  <h1>IEEE Day 2026</h1>
+  <nav>
+    <a href="laptop/">Laptop view →</a>
+    <a href="mobile/">Mobile view →</a>
+  </nav>
+</body>
+</html>
