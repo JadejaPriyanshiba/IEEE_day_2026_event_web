@@ -81,214 +81,139 @@
 
         <!-- =====================================================
              REVEAL — foundation by Priyanshi
-             The countdown / "spec-o-meter" instrument from the design
-             is NOT assigned yet. Slot left below.
+             Instrument panel (spec-o-meter + countdown) inside:
+             markup here, styles in sections.css, logic in js/reveal.js.
              ===================================================== -->
         <section class="section section--navy reveal" id="reveal" aria-labelledby="reveal-title">
             <div class="container">
                 <!-- <p class="section-label">§0 — Background</p> -->
                 <p class="display reveal__setup">IEEE writes the rules your Wi-Fi runs on. Rules are great.</p>
                 <h2 class="display reveal__title" id="reveal-title">Today, we're breaking <span class="text-highlight">five.</span></h2>
-                <!-- ── Instrument panel: Spec-O-Meter left · Countdown right ── -->
+                <!-- ── Instrument panel: Spec-o-meter + split-flap countdown ──
+                     Motion #03 ("Interaction & motion.pdf"): the needle creeps toward the
+                     red zone as 6 Oct approaches; the seconds flap drops every tick.
+                     Values are filled in by js/reveal.js. -->
                 <div class="instrument-panel">
-
-                    <!-- Corner decorators -->
                     <span class="panel-dot panel-dot--tl" aria-hidden="true"></span>
                     <span class="panel-dot panel-dot--tr" aria-hidden="true"></span>
                     <span class="panel-dot panel-dot--bl" aria-hidden="true"></span>
                     <span class="panel-dot panel-dot--br" aria-hidden="true"></span>
 
-                    <!-- LEFT: Spec-O-Meter ─────────────────────────── -->
-                    <div class="specometer" aria-label="Instrument 00: Spec-O-Meter, reading 77% out of spec">
-                        <p class="label specometer__label" aria-hidden="true">Spec-O-Meter</p>
+                    <!-- Spec-o-meter: 0% on 6 Sep, 100% (red zone from 80%) at 10:30 IST on 6 Oct -->
+                    <div class="specometer">
+                        <p class="label specometer__label">Instrument 00 · Spec-o-meter</p>
 
-                        <!--
-                            SVG gauge. Pivot centre: (160, 175). Arc outer radius: 135.
-                            Angle formula for value V: θ = 180° − (V/100 · 180°)
-                            Rotation formula for ticks: rot = (V/100 · 180) − 90°
-                        -->
-                        <svg class="specometer__svg" viewBox="0 0 320 215"
-                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-
-                            <!-- Semicircular arc (0 → 100) -->
-                            <path d="M 25 175 A 135 135 0 0 1 295 175" fill="none" class="gauge-arc"/>
-
-                            <!-- Accent zone (75 → 100): V=75 at θ=45° → (255.5, 79.5) -->
-                            <path d="M 255.5 79.5 A 135 135 0 0 1 295 175" fill="none" class="gauge-arc--accent"/>
-
-                            <!-- Major ticks at 0, 25, 50, 75, 100
-                                 rot = (V/100·180)−90  -->
-                            <g class="gauge-tick--major">
-                                <line x1="160" y1="40" x2="160" y2="57" transform="rotate(-90,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="57" transform="rotate(-45,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="57" transform="rotate(0,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="57" transform="rotate(45,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="57" transform="rotate(90,160,175)"/>
+                        <!-- Pivot (240, 250), scale radius 200. Needle drawn pointing at 100%;
+                             JS rotates it by -(1 - value) * 180deg. -->
+                        <svg class="specometer__svg" viewBox="0 0 480 272" fill="none" aria-hidden="true">
+                            <path class="gauge-rim" d="M30 250 A210 210 0 0 1 450 250"/>
+                            <path class="gauge-band" d="M409.9 126.6 A210 210 0 0 1 450 250"/>
+                            <path class="gauge-scale" d="M40 250 A200 200 0 0 1 440 250"/>
+                            <g class="gauge-ticks">
+                                <path class="tick tick--major" d="M40.0 250.0 L62.0 250.0"/>
+                                <path class="tick" d="M40.6 234.3 L48.6 234.9"/>
+                                <path class="tick" d="M42.5 218.7 L50.4 220.0"/>
+                                <path class="tick" d="M45.5 203.3 L53.3 205.2"/>
+                                <path class="tick" d="M49.8 188.2 L57.4 190.7"/>
+                                <path class="tick" d="M55.2 173.5 L68.2 178.8"/>
+                                <path class="tick" d="M61.8 159.2 L68.9 162.8"/>
+                                <path class="tick" d="M69.5 145.5 L76.3 149.7"/>
+                                <path class="tick" d="M78.2 132.4 L84.7 137.1"/>
+                                <path class="tick" d="M87.9 120.1 L94.0 125.3"/>
+                                <path class="tick tick--major" d="M98.6 108.6 L114.1 124.1"/>
+                                <path class="tick" d="M110.1 97.9 L115.3 104.0"/>
+                                <path class="tick" d="M122.4 88.2 L127.1 94.7"/>
+                                <path class="tick" d="M135.5 79.5 L139.7 86.3"/>
+                                <path class="tick" d="M149.2 71.8 L152.8 78.9"/>
+                                <path class="tick" d="M163.5 65.2 L168.8 78.2"/>
+                                <path class="tick" d="M178.2 59.8 L180.7 67.4"/>
+                                <path class="tick" d="M193.3 55.5 L195.2 63.3"/>
+                                <path class="tick" d="M208.7 52.5 L210.0 60.4"/>
+                                <path class="tick" d="M224.3 50.6 L224.9 58.6"/>
+                                <path class="tick tick--major" d="M240.0 50.0 L240.0 72.0"/>
+                                <path class="tick" d="M255.7 50.6 L255.1 58.6"/>
+                                <path class="tick" d="M271.3 52.5 L270.0 60.4"/>
+                                <path class="tick" d="M286.7 55.5 L284.8 63.3"/>
+                                <path class="tick" d="M301.8 59.8 L299.3 67.4"/>
+                                <path class="tick" d="M316.5 65.2 L311.2 78.2"/>
+                                <path class="tick" d="M330.8 71.8 L327.2 78.9"/>
+                                <path class="tick" d="M344.5 79.5 L340.3 86.3"/>
+                                <path class="tick" d="M357.6 88.2 L352.9 94.7"/>
+                                <path class="tick" d="M369.9 97.9 L364.7 104.0"/>
+                                <path class="tick tick--major" d="M381.4 108.6 L365.9 124.1"/>
+                                <path class="tick" d="M392.1 120.1 L386.0 125.3"/>
+                                <path class="tick tick--red" d="M401.8 132.4 L395.3 137.1"/>
+                                <path class="tick tick--red" d="M410.5 145.5 L403.7 149.7"/>
+                                <path class="tick tick--red" d="M418.2 159.2 L411.1 162.8"/>
+                                <path class="tick tick--red" d="M424.8 173.5 L411.8 178.8"/>
+                                <path class="tick tick--red" d="M430.2 188.2 L422.6 190.7"/>
+                                <path class="tick tick--red" d="M434.5 203.3 L426.7 205.2"/>
+                                <path class="tick tick--red" d="M437.5 218.7 L429.6 220.0"/>
+                                <path class="tick tick--red" d="M439.4 234.3 L431.4 234.9"/>
+                                <path class="tick tick--major tick--red" d="M440.0 250.0 L418.0 250.0"/>
                             </g>
-
-                            <!-- Minor ticks every 5 units (skip the 5 majors) -->
-                            <g class="gauge-tick--minor">
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-81,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-72,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-63,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-54,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-36,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-27,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-18,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-9,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(9,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(18,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(27,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(36,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(54,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(63,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(72,160,175)"/>
-                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(81,160,175)"/>
+                            <g class="gauge-numbers">
+                                <text x="84" y="255">0</text>
+                                <text x="129.7" y="144.7">25</text>
+                                <text x="240" y="99">50</text>
+                                <text x="350.3" y="144.7">75</text>
+                                <text x="396" y="255">100</text>
                             </g>
-
-                            <!-- Scale labels at 0, 25, 50, 75, 100 -->
-                            <g class="gauge-labels">
-                                <text x="22"  y="193" text-anchor="middle">0</text>
-                                <text x="54"  y="71"  text-anchor="middle">25</text>
-                                <text x="160" y="24"  text-anchor="middle">50</text>
-                                <text x="266" y="71"  text-anchor="middle">75</text>
-                                <text x="298" y="193" text-anchor="middle">100</text>
+                            <text class="gauge-zone" x="40" y="271">IN SPEC</text>
+                            <text class="gauge-zone gauge-zone--out" x="440" y="271">OUT OF SPEC</text>
+                            <text class="gauge-note" x="240" y="182">% out of spec</text>
+                            <g class="gauge-needle" id="specometer-needle" transform="rotate(-180 240 250)">
+                                <path class="gauge-needle__shaft" d="M214 250 L428 250"/>
+                                <path class="gauge-needle__tip" d="M400 245 L428 250 L400 255 Z"/>
                             </g>
-
-                            <!-- Zone labels — anchored to edges so they never clip -->
-                            <g class="gauge-zone-labels">
-                                <text x="4"   y="209" text-anchor="start">IN SPEC</text>
-                                <text x="316" y="209" text-anchor="end">OUT OF SPEC</text>
-                            </g>
-
-                            <!-- Centre italic text -->
-                            <text class="gauge-center-text" x="152" y="130" text-anchor="middle">% out of spec</text>
-
-                            <!--
-                                Needle — animated by JS via the transform attribute.
-                                The line points straight up (160,175)→(160,55).
-                                Rotation formula: (V/100 * 180) − 90°
-                                  0% → rotate(-90)   = pointing left
-                                 50% → rotate(0)     = pointing up
-                                100% → rotate(90)    = pointing right
-                                Initial: rotate(-90) = 0% (needle at rest, left)
-                            -->
-                            <g id="specometer-needle" transform="rotate(-90,160,175)">
-                                <line class="gauge-needle"
-                                      x1="160" y1="175" x2="160" y2="55"
-                                      stroke-linecap="round"/>
-                            </g>
-
-                            <!-- Pivot (drawn on top of needle base) -->
-                            <circle class="gauge-pivot" cx="160" cy="175" r="7"/>
+                            <circle class="gauge-pivot" cx="240" cy="250" r="12"/>
+                            <circle class="gauge-pivot__pin" cx="240" cy="250" r="4"/>
                         </svg>
 
-                        <!-- Numeric reading — id for JS counter animation -->
-                        <div class="specometer__reading" aria-hidden="true">
+                        <p class="specometer__reading">
                             <span class="specometer__number" id="specometer-number">0</span><span class="specometer__unit">%</span>
-                        </div>
-                    </div><!-- /.specometer -->
+                            <span class="visually-hidden"> out of spec</span>
+                        </p>
+                    </div>
 
-                    <!-- RIGHT: Countdown ───────────────────────────── -->
+                    <!-- Countdown to the first whistle -->
                     <div class="countdown" id="countdown">
                         <div class="countdown__header">
-                            <!-- <span class="label countdown__label">T-minus · Until the first whistle</span> -->
-                            <span class="label countdown__date">06.10.2026 · 10:30 IST</span>
+                            <span class="label">T-minus · until the first whistle</span>
+                            <span class="label">06.10.2026 · 10:30 IST</span>
                         </div>
 
-                        <div class="countdown__clock" role="timer" aria-live="polite" aria-atomic="true">
-
-                            <!-- DAYS -->
+                        <!-- Tiles are decorative; the hidden line below is the readable version -->
+                        <div class="countdown__clock" aria-hidden="true">
                             <div class="flip-unit" data-unit="days">
-                                <div class="flip-pair">
-                                    <div class="flip-card" data-digit="0">
-                                        <div class="fc-top"><span>0</span></div>
-                                        <div class="fc-bot"><span>0</span></div>
-                                        <div class="fc-flap-top"><span>0</span></div>
-                                        <div class="fc-flap-bot"><span>0</span></div>
-                                    </div>
-                                    <div class="flip-card" data-digit="0">
-                                        <div class="fc-top"><span>0</span></div>
-                                        <div class="fc-bot"><span>0</span></div>
-                                        <div class="fc-flap-top"><span>0</span></div>
-                                        <div class="fc-flap-bot"><span>0</span></div>
-                                    </div>
-                                </div>
-                                <span class="flip-unit__label label">Days</span>
+                                <div class="flip-pair"><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span></div>
+                                <span class="label flip-unit__label">Days</span>
                             </div>
-
-                            <span class="countdown__sep" aria-hidden="true">:</span>
-
-                            <!-- HOURS -->
+                            <span class="countdown__sep">:</span>
                             <div class="flip-unit" data-unit="hours">
-                                <div class="flip-pair">
-                                    <div class="flip-card" data-digit="0">
-                                        <div class="fc-top"><span>0</span></div>
-                                        <div class="fc-bot"><span>0</span></div>
-                                        <div class="fc-flap-top"><span>0</span></div>
-                                        <div class="fc-flap-bot"><span>0</span></div>
-                                    </div>
-                                    <div class="flip-card" data-digit="0">
-                                        <div class="fc-top"><span>0</span></div>
-                                        <div class="fc-bot"><span>0</span></div>
-                                        <div class="fc-flap-top"><span>0</span></div>
-                                        <div class="fc-flap-bot"><span>0</span></div>
-                                    </div>
-                                </div>
-                                <span class="flip-unit__label label">Hours</span>
+                                <div class="flip-pair"><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span></div>
+                                <span class="label flip-unit__label">Hours</span>
                             </div>
-
-                            <span class="countdown__sep" aria-hidden="true">:</span>
-
-                            <!-- MINUTES -->
+                            <span class="countdown__sep">:</span>
                             <div class="flip-unit" data-unit="minutes">
-                                <div class="flip-pair">
-                                    <div class="flip-card" data-digit="0">
-                                        <div class="fc-top"><span>0</span></div>
-                                        <div class="fc-bot"><span>0</span></div>
-                                        <div class="fc-flap-top"><span>0</span></div>
-                                        <div class="fc-flap-bot"><span>0</span></div>
-                                    </div>
-                                    <div class="flip-card" data-digit="0">
-                                        <div class="fc-top"><span>0</span></div>
-                                        <div class="fc-bot"><span>0</span></div>
-                                        <div class="fc-flap-top"><span>0</span></div>
-                                        <div class="fc-flap-bot"><span>0</span></div>
-                                    </div>
-                                </div>
-                                <span class="flip-unit__label label">Minutes</span>
+                                <div class="flip-pair"><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span></div>
+                                <span class="label flip-unit__label"><span class="flip-unit__long">Minutes</span><span class="flip-unit__short">Mins</span></span>
                             </div>
-
-                            <span class="countdown__sep" aria-hidden="true">:</span>
-
-                            <!-- SECONDS -->
+                            <span class="countdown__sep">:</span>
                             <div class="flip-unit" data-unit="seconds">
-                                <div class="flip-pair">
-                                    <div class="flip-card" data-digit="0">
-                                        <div class="fc-top"><span>0</span></div>
-                                        <div class="fc-bot"><span>0</span></div>
-                                        <div class="fc-flap-top"><span>0</span></div>
-                                        <div class="fc-flap-bot"><span>0</span></div>
-                                    </div>
-                                    <div class="flip-card" data-digit="0">
-                                        <div class="fc-top"><span>0</span></div>
-                                        <div class="fc-bot"><span>0</span></div>
-                                        <div class="fc-flap-top"><span>0</span></div>
-                                        <div class="fc-flap-bot"><span>0</span></div>
-                                    </div>
-                                </div>
-                                <span class="flip-unit__label label">Seconds</span>
+                                <div class="flip-pair"><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span></div>
+                                <span class="label flip-unit__label"><span class="flip-unit__long">Seconds</span><span class="flip-unit__short">Secs</span></span>
                             </div>
+                        </div>
+                        <p class="visually-hidden" id="countdown-text" role="timer">IEEE Day starts on 6 October 2026 at 10:30 AM.</p>
 
-                        </div><!-- /.countdown__clock -->
-
-                        <!-- <div class="countdown__footer">
-                            <p>When the needle hits the red, the campus officially stops behaving. Until then: pick your anomaly.</p>
-                            <p class="label countdown__fig">Fig. 0 — Calibrated by nobody. Accurate anyway.</p> 
-                        </div> -->
-                    </div><!-- /.countdown -->
-
-                </div><!-- /.instrument-panel -->
+                        <div class="countdown__footer">
+                            <p class="countdown__note">When the needle hits the red, the campus officially stops behaving. Until then: pick your anomaly.</p>
+                            <p class="label countdown__fig">Fig. 0 — Calibrated by nobody. Accurate anyway.</p>
+                        </div>
+                        <p class="label countdown__foot-mobile">Needle hits red at 10:30 AM, 06.10</p>
+                    </div>
+                </div>
 
 
             </div>
