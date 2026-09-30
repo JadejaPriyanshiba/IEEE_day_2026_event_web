@@ -226,3 +226,303 @@
         border-left: 2px dashed var(--color-deep-blue);
     }
 }
+
+
+/* ---------- Instrument panel (reveal section) ----------
+   Mobile first: gauge on top, countdown below.
+   1024px+: gauge left, countdown right, as in the laptop mockup.
+   ------------------------------------------------------------ */
+
+.instrument-panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);   /* minmax(0, …) so nothing can push past the screen */
+    gap: var(--space-5);
+    padding: var(--space-5) var(--space-3) var(--space-4);
+    border: 1px solid var(--color-line-soft);
+    background: color-mix(in srgb, var(--color-cream) 3.5%, transparent);
+}
+
+.panel-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--color-sand);
+    border-radius: 50%;
+}
+
+.panel-dot--tl { top: 10px; left: 10px; }
+.panel-dot--tr { top: 10px; right: 10px; }
+.panel-dot--bl { bottom: 10px; left: 10px; }
+.panel-dot--br { bottom: 10px; right: 10px; }
+
+
+/* ---------- Spec-o-meter ---------- */
+
+.specometer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+}
+
+.specometer__label {
+    align-self: flex-start;
+    margin-bottom: var(--space-3);
+    color: var(--color-sand);
+}
+
+.specometer__svg {
+    width: 100%;
+    max-width: 30rem;
+    height: auto;
+    overflow: visible;
+}
+
+.gauge-rim   { stroke: var(--color-sand); stroke-width: 1; opacity: 0.5; }
+.gauge-band  { stroke: var(--color-accent); stroke-width: 14; }
+.gauge-scale { stroke: var(--color-sand); stroke-width: 1.5; }
+
+.tick        { stroke: var(--color-sand); stroke-width: 1.2; }
+.tick--major { stroke-width: 2; }
+.tick--red   { stroke: var(--color-accent); }
+
+.gauge-numbers text,
+.gauge-zone {
+    font-family: var(--font-label);
+    font-size: 15px;
+    letter-spacing: 1.5px;
+    fill: var(--color-sand);
+    text-anchor: middle;
+}
+
+.gauge-zone {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-anchor: start;
+}
+
+.gauge-zone--out {
+    fill: var(--color-cream);
+    text-anchor: end;
+}
+
+.gauge-note {
+    font-family: var(--font-hand);
+    font-size: 30px;
+    fill: var(--color-sand);
+    text-anchor: middle;
+}
+
+.gauge-needle__shaft { stroke: var(--color-cream); stroke-width: 3; stroke-linecap: round; }
+.gauge-needle__tip   { fill: var(--color-cream); }
+.gauge-pivot         { fill: var(--color-sand); }
+.gauge-pivot__pin    { fill: var(--color-deep-blue); }
+
+.specometer__reading {
+    margin-top: var(--space-2);
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 9vw, 3rem);
+    line-height: 1;
+    color: var(--color-cream);
+    font-variant-numeric: tabular-nums;
+}
+
+.specometer__unit {
+    font-size: 0.62em;
+    color: var(--color-sand);
+}
+
+
+/* ---------- Countdown ----------
+   The clock is a size container: tile width is worked out from the space the
+   countdown actually has (8 tiles + 3 colons + gaps), so it never overflows,
+   from a 320px phone up to the 70px tiles of the laptop mockup.
+   ------------------------------------------------------------ */
+
+.countdown {
+    container-type: inline-size;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.countdown__header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-1) var(--space-4);
+    color: var(--color-sand);
+}
+
+/* Scales down on small phones so "until the first whistle" stays on one line */
+.countdown__header .label {
+    font-size: clamp(0.5625rem, 2.9cqi, var(--fs-label));
+    white-space: nowrap;
+}
+
+.countdown__clock {
+    /* 8 tiles + pair gaps + 3 padded colons ≈ 10 tile widths */
+    --tile-w: clamp(1.375rem, calc(100cqi / 10), 4.375rem);
+    --tile-h: calc(var(--tile-w) * 1.43);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.flip-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.flip-pair {
+    display: flex;
+    gap: calc(var(--tile-w) * 0.09);
+}
+
+.flip-unit__label {
+    font-size: clamp(0.5625rem, 2.6cqi, var(--fs-label));
+    color: var(--color-sand);
+}
+
+.flip-unit__long { display: none; }
+
+.countdown__sep {
+    font-family: var(--font-display);
+    font-size: calc(var(--tile-w) * 0.8);
+    line-height: var(--tile-h);
+    color: var(--color-sand);
+    padding-inline: calc(var(--tile-w) * 0.12);   /* keeps the hinges clear of the colon */
+}
+
+/* One split-flap tile: cream card, navy fold line, sand hinges on both sides */
+.flap {
+    position: relative;
+    display: block;
+    width: var(--tile-w);
+    height: var(--tile-h);
+    background: var(--color-cream);
+    box-shadow: inset 0 calc(var(--tile-h) / -2) 0 color-mix(in srgb, var(--color-deep-blue) 7%, transparent);  /* lower half a shade darker */
+    color: var(--color-deep-blue);
+    font-family: var(--font-display);
+    font-size: calc(var(--tile-w) * 1.06);
+    line-height: var(--tile-h);
+    text-align: center;
+    perspective: calc(var(--tile-h) * 3);
+}
+
+/* fold line */
+.flap::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(50% - 1px);
+    height: 2px;
+    background: var(--color-deep-blue);
+    z-index: 2;
+}
+
+/* hinges */
+.flap::before {
+    content: "";
+    position: absolute;
+    top: calc(50% - var(--tile-w) * 0.085);
+    left: calc(var(--tile-w) * -0.07);
+    right: calc(var(--tile-w) * -0.07);
+    height: calc(var(--tile-w) * 0.17);
+    border-inline: calc(var(--tile-w) * 0.07) solid var(--color-sand);
+}
+
+.flap__num {
+    display: block;
+}
+
+/* The falling leaf: top half of the previous digit, folds down over the new one */
+.flap__leaf {
+    position: absolute;
+    inset: 0 0 50% 0;
+    overflow: hidden;
+    background: var(--color-paper);
+    transform-origin: 50% 100%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.flap__leaf span {
+    display: block;
+    height: var(--tile-h);
+}
+
+.flap__leaf.is-falling {
+    animation: flap-fall 0.32s ease-in forwards;
+}
+
+@keyframes flap-fall {
+    0%   { transform: rotateX(0);      opacity: 1; }
+    99%  { transform: rotateX(-90deg); opacity: 1; }
+    100% { transform: rotateX(-90deg); opacity: 0; }
+}
+
+.countdown__footer {
+    display: none;             /* phones use the short line below instead */
+    border-top: 1px solid var(--color-line-soft);
+    padding-top: var(--space-3);
+}
+
+.countdown__note {
+    max-width: 38rem;
+    margin-bottom: var(--space-3);
+    font-size: var(--fs-small);
+    color: var(--color-cream);
+}
+
+.countdown__fig,
+.countdown__foot-mobile {
+    color: var(--color-sand);
+}
+
+.countdown__foot-mobile {
+    font-size: 0.625rem;
+}
+
+/* Wide enough for full unit names */
+@container (min-width: 26rem) {
+    .flip-unit__long  { display: inline; }
+    .flip-unit__short { display: none; }
+}
+
+@media (min-width: 600px) {
+    .instrument-panel {
+        padding: var(--space-6) var(--space-5) var(--space-5);
+    }
+
+    .countdown__footer { display: block; }
+    .countdown__foot-mobile { display: none; }
+}
+
+/* Laptop mockup: gauge left, countdown right, hairline between them */
+@media (min-width: 1024px) {
+    .instrument-panel {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: 0;
+        padding: var(--space-5) var(--space-5) var(--space-5) var(--space-4);
+    }
+
+    .specometer {
+        padding-right: var(--space-5);
+        border-right: 1px solid var(--color-line-soft);
+    }
+
+    .countdown {
+        padding-left: var(--space-5);
+        gap: var(--space-5);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .flap__leaf.is-falling { animation: none; }
+}
