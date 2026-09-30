@@ -1,528 +1,705 @@
 /* =========================================================
-   Foundation sections — hero, reveal, intro, registration
+   Hero, ticker, about, registration, rules, outro
    Owner: Priyanshi
-
-   Mobile-first. Layout only goes as far as "works on every
-   screen"; final polish belongs to Hemal + Meet (responsive.css).
+   Mobile first. Uses tokens from style.css only.
    ========================================================= */
 
 
 /* ---------- Hero ---------- */
 
 .hero {
-    border-top: 0;
-    overflow: hidden;
+    position: relative;
+    overflow: clip;
+    padding: calc(var(--header-height) + 2.5rem) 0 3.5rem;
+    isolation: isolate;
+}
+
+/* Background: dot matrix + two slow glowing orbs + circuit traces,
+   faded out at the edges with a mask. */
+.hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(var(--color-dot) 1px, transparent 1.4px);
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(ellipse 100% 75% at 65% 25%, #000 25%, transparent 75%);
+    mask-image: radial-gradient(ellipse 100% 75% at 65% 25%, #000 25%, transparent 75%);
+}
+
+.hero__orb {
+    position: absolute;
+    border-radius: 50%;
+    will-change: transform;
+}
+
+.hero__orb--a {
+    top: -18%;
+    right: -35%;
+    width: min(130vw, 760px);
+    aspect-ratio: 1;
+    background: radial-gradient(closest-side, var(--glow-1), transparent);
+    animation: orb-drift 18s ease-in-out infinite alternate;
+}
+
+.hero__orb--b {
+    bottom: -10%;
+    left: -30%;
+    width: min(100vw, 520px);
+    aspect-ratio: 1;
+    background: radial-gradient(closest-side, var(--glow-2), transparent);
+    animation: orb-drift 22s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes orb-drift {
+    to { transform: translate(-8%, 10%) scale(1.08); }
+}
+
+.hero__circuit {
+    position: absolute;
+    top: calc(var(--header-height) + 10px);
+    right: -140px;
+    width: min(95vw, 560px);
+    opacity: 0.55;
+}
+
+.hero__traces path {
+    stroke: var(--color-line-strong);
+    stroke-width: 1.2;
+}
+
+.hero__pulses path {
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 6 94;
+    stroke-dashoffset: 100;
+    animation: pulse-travel 4.5s linear infinite;
+}
+
+.hero__pulses path:nth-child(2) {
+    stroke: var(--color-pop);
+    animation-delay: -1.6s;
+    animation-duration: 5.5s;
+}
+
+.hero__pulses path:nth-child(3) {
+    animation-delay: -3s;
+    animation-duration: 3.8s;
+}
+
+@keyframes pulse-travel {
+    to { stroke-dashoffset: 0; }
+}
+
+.hero__node {
+    fill: var(--color-bg);
+    stroke: var(--color-line-strong);
+    stroke-width: 1.5;
+}
+
+.hero__node--hot {
+    fill: var(--color-accent);
+    stroke: none;
 }
 
 .hero__grid {
     display: grid;
-    gap: var(--space-5);
+    gap: var(--space-6);
 }
 
-.hero__notice {
-    color: var(--color-body);
-    margin-bottom: var(--space-4);
-}
-
-.hero__kicker {
-    font-size: clamp(1.625rem, 3.2vw, 2.875rem);
-    line-height: 1;
-    color: var(--color-body);
-    margin-bottom: var(--space-3);
-}
-
-/* padding-bottom makes room for the "p" descender, which the tight
-   line-height would otherwise push into the meta row below */
+/* Title: two lines that rise out of a mask on load */
 .hero__title {
-    font-size: var(--fs-display);
-    line-height: 0.84;
-    padding-bottom: 0.14em;
+    margin: var(--space-4) 0;
+    font-size: clamp(2.5rem, 12.2vw, 5.6rem);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
 }
 
-.hero__figure {
-    max-width: 24rem;
-    color: var(--color-text);
+.hero__line {
+    display: block;
 }
 
-/* Drawn at 85% so the -14° tilt keeps its corners on screen on small phones */
-.hero__whistle {
-    width: 85%;
-    margin-inline: auto;
-    transform: rotate(-14deg);
+.hero__line--2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25em;
 }
 
-.hero__figure figcaption {
-    color: var(--color-body);
-    margin-top: var(--space-3);
+.hero__mask {
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 0.04em;
+    vertical-align: bottom;
+}
+
+.intro-line {
+    display: inline-block;
+}
+
+.hero__year {
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Lime date sticker slapped next to the year */
+.hero__sticker {
+    display: inline-block;
+    padding: 0.55em 0.95em;
+    border-radius: var(--radius-pill);
+    background: var(--color-pop);
+    color: var(--color-on-pop);
+    font-family: var(--font-mono);
+    font-size: clamp(0.7rem, 2.6vw, 0.95rem);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    white-space: nowrap;
+    transform: rotate(-7deg);
+    box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--color-pop) 70%, transparent);
 }
 
 .hero__lede {
-    max-width: 22rem;
-    color: var(--color-body);
-}
-
-@media (min-width: 1024px) {
-    .hero__grid {
-        grid-template-columns: 1.6fr 1fr;
-        align-items: start;
-    }
-
-    .hero__text { grid-column: 1; grid-row: 1 / span 2; }
-    .hero__figure { grid-column: 2; grid-row: 1; }
-    .hero__lede { grid-column: 2; grid-row: 2; }
-    .hero__meta { grid-column: 1 / -1; }
-}
-
-
-/* ---------- Reveal ---------- */
-
-.reveal {
-    border-top: 0;
-}
-
-.reveal__setup {
-    font-size: clamp(1.375rem, 2.6vw, 2.125rem);
-    line-height: 1.2;
-    color: var(--color-sand);
-    margin-bottom: var(--space-3);
-}
-
-.reveal__title {
-    font-size: clamp(3rem, 8vw, 7rem);
-    line-height: 0.95;
-    margin-bottom: var(--space-6);
-}
-
-
-/* ---------- Intro ("The day") ---------- */
-
-.intro__grid {
-    display: grid;
-    gap: var(--space-5);
-}
-
-.intro__date {
-    font-size: clamp(10rem, 28vw, 24rem);
-    line-height: 0.8;
-    letter-spacing: -0.04em;
-}
-
-.intro__text {
-    display: grid;
-    gap: var(--space-4);
-    max-width: 41rem;
-}
-
-.intro__text .section-title {
-    margin-bottom: 0;
-}
-
-.intro__text > p:not(.section-label) {
+    max-width: 40ch;
     font-size: var(--fs-lead);
-    color: var(--color-body);
+    color: var(--color-muted);
 }
 
-@media (min-width: 1024px) {
-    .intro__grid {
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-    }
-}
-
-
-/* ---------- Registration (ticket list) ---------- */
-
-.registration {
-    border-top: 0;
-}
-
-.registration__title {
-    font-size: clamp(3.5rem, 9vw, 6.25rem);
-    margin-bottom: var(--space-4);
-}
-
-.registration__deadline {
-    display: inline-block;
-    border: 1px dashed var(--color-sand);
-    padding: var(--space-3);
-    margin-bottom: var(--space-6);
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-}
-
-.ticket-list {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: var(--space-3);
-}
-
-/* Each ticket is a cream strip with a perforated (dashed) stub for the CTA */
-.ticket {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-2) var(--space-3);
-    align-items: center;
-    padding: var(--space-3);
-    background: var(--color-cream);
-    color: var(--color-deep-blue);
-    --focus-color: var(--color-deep-blue);
-}
-
-.ticket__number {
-    font-family: var(--font-display);
-    font-size: 2.375rem;
-    line-height: 1;
-}
-
-.ticket__name {
-    display: grid;
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    line-height: 1.15;
-}
-
-.ticket__name .label {
-    font-size: 0.5625rem;
-    color: var(--color-dark-brown);
-}
-
-/* Phones: time / team / fee stack neatly under the event name */
-.ticket__detail {
-    grid-column: 2;
-    font-size: var(--fs-small);
+.hero__lede strong {
+    color: var(--color-text);
     font-weight: 600;
-    line-height: 1.3;
 }
 
-.ticket .btn {
-    grid-column: 1 / -1;
-}
-
-@media (min-width: 1024px) {
-    .ticket {
-        grid-template-columns: 5rem 1fr 10rem 9rem 5.5rem 14rem;
-        min-height: 5.5rem;
-        padding: 0;
-    }
-
-    .ticket__number { text-align: center; }
-    .ticket__detail { grid-column: auto; }
-
-    .ticket .btn {
-        grid-column: auto;
-        align-self: stretch;
-        margin: var(--space-3);
-        position: relative;
-    }
-
-    /* perforation line */
-    .ticket .btn::before {
-        content: "";
-        position: absolute;
-        left: calc(var(--space-3) * -1 - 2px);
-        top: calc(var(--space-3) * -1);
-        bottom: calc(var(--space-3) * -1);
-        border-left: 2px dashed var(--color-deep-blue);
-    }
-}
-
-
-/* ---------- Instrument panel (reveal section) ----------
-   Mobile first: gauge on top, countdown below.
-   1024px+: gauge left, countdown right, as in the laptop mockup.
-   ------------------------------------------------------------ */
-
-.instrument-panel {
-    position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);   /* minmax(0, …) so nothing can push past the screen */
-    gap: var(--space-5);
-    padding: var(--space-5) var(--space-3) var(--space-4);
-    border: 1px solid var(--color-line-soft);
-    background: color-mix(in srgb, var(--color-cream) 3.5%, transparent);
-}
-
-.panel-dot {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border: 1px solid var(--color-sand);
-    border-radius: 50%;
-}
-
-.panel-dot--tl { top: 10px; left: 10px; }
-.panel-dot--tr { top: 10px; right: 10px; }
-.panel-dot--bl { bottom: 10px; left: 10px; }
-.panel-dot--br { bottom: 10px; right: 10px; }
-
-
-/* ---------- Spec-o-meter ---------- */
-
-.specometer {
+.hero__ctas {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: var(--space-5);
+}
+
+.hero__ctas .btn {
+    flex: 1 1 auto;
+}
+
+/* Load choreography (JS only, so no-JS visitors see everything) */
+.js .intro-line {
+    animation: line-rise 1.1s var(--ease) both;
+    animation-delay: calc(var(--i) * 110ms + 120ms);
+}
+
+.js .intro {
+    animation: intro-up 1s var(--ease) both;
+    animation-delay: calc(var(--i) * 110ms + 120ms);
+}
+
+.js .hero__sticker {
+    animation: sticker-pop 0.8s var(--ease-spring) 0.75s both;
+}
+
+@keyframes line-rise {
+    from { transform: translateY(105%); }
+}
+
+@keyframes intro-up {
+    from { opacity: 0; transform: translateY(18px); filter: blur(6px); }
+}
+
+@keyframes sticker-pop {
+    from { opacity: 0; transform: rotate(-35deg) scale(0.3); }
+}
+
+/* Countdown panel: gradient-edged card */
+.hero__panel {
+    display: grid;
+    gap: 12px;
+}
+
+.countdown {
+    padding: 18px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    background:
+        linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+        linear-gradient(140deg,
+            color-mix(in srgb, var(--color-accent) 70%, transparent),
+            var(--color-line) 38%,
+            var(--color-line) 62%,
+            color-mix(in srgb, var(--color-pop) 55%, transparent)) border-box;
+    box-shadow: var(--shadow-card);
+}
+
+.countdown__head {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    min-width: 0;
+    gap: var(--space-2);
+    margin-bottom: 14px;
+    color: var(--color-muted);
 }
 
-.specometer__label {
-    align-self: flex-start;
-    margin-bottom: var(--space-3);
-    color: var(--color-sand);
+.countdown__head .label:first-child {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-text);
 }
 
-.specometer__svg {
-    width: 100%;
-    max-width: 30rem;
-    height: auto;
-    overflow: visible;
+.countdown__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
 }
 
-.gauge-rim   { stroke: var(--color-sand); stroke-width: 1; opacity: 0.5; }
-.gauge-band  { stroke: var(--color-accent); stroke-width: 14; }
-.gauge-scale { stroke: var(--color-sand); stroke-width: 1.5; }
-
-.tick        { stroke: var(--color-sand); stroke-width: 1.2; }
-.tick--major { stroke-width: 2; }
-.tick--red   { stroke: var(--color-accent); }
-
-.gauge-numbers text,
-.gauge-zone {
-    font-family: var(--font-label);
-    font-size: 15px;
-    letter-spacing: 1.5px;
-    fill: var(--color-sand);
-    text-anchor: middle;
+.countdown__cell {
+    display: grid;
+    justify-items: center;
+    padding: 14px 4px 10px;
+    border-radius: 12px;
+    background: var(--color-surface-2);
+    overflow: hidden;
 }
 
-.gauge-zone {
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-anchor: start;
-}
-
-.gauge-zone--out {
-    fill: var(--color-cream);
-    text-anchor: end;
-}
-
-.gauge-note {
-    font-family: var(--font-hand);
-    font-size: 30px;
-    fill: var(--color-sand);
-    text-anchor: middle;
-}
-
-.gauge-needle__shaft { stroke: var(--color-cream); stroke-width: 3; stroke-linecap: round; }
-.gauge-needle__tip   { fill: var(--color-cream); }
-.gauge-pivot         { fill: var(--color-sand); }
-.gauge-pivot__pin    { fill: var(--color-deep-blue); }
-
-.specometer__reading {
-    margin-top: var(--space-2);
-    font-family: var(--font-display);
-    font-size: clamp(2.25rem, 9vw, 3rem);
-    line-height: 1;
-    color: var(--color-cream);
+.countdown__cell b {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: clamp(1.8rem, 9vw, 2.9rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
     font-variant-numeric: tabular-nums;
 }
 
-.specometer__unit {
-    font-size: 0.62em;
-    color: var(--color-sand);
+.countdown__cell:last-child b {
+    color: var(--color-accent);
 }
 
-
-/* ---------- Countdown ----------
-   The clock is a size container: tile width is worked out from the space the
-   countdown actually has (8 tiles + 3 colons + gaps), so it never overflows,
-   from a 320px phone up to the 70px tiles of the laptop mockup.
-   ------------------------------------------------------------ */
-
-.countdown {
-    container-type: inline-size;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+.countdown__cell b.is-tick {
+    animation: digit-roll 0.5s var(--ease);
 }
 
-.countdown__header {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: var(--space-1) var(--space-4);
-    color: var(--color-sand);
+@keyframes digit-roll {
+    from { transform: translateY(-45%); opacity: 0; filter: blur(3px); }
 }
 
-/* Scales down on small phones so "until the first whistle" stays on one line */
-.countdown__header .label {
-    font-size: clamp(0.5625rem, 2.9cqi, var(--fs-label));
-    white-space: nowrap;
+.countdown__cell span {
+    margin-top: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
 }
 
-.countdown__clock {
-    /* 8 tiles + pair gaps + 3 padded colons ≈ 10 tile widths */
-    --tile-w: clamp(1.375rem, calc(100cqi / 10), 4.375rem);
-    --tile-h: calc(var(--tile-w) * 1.43);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.flip-unit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-2);
-}
-
-.flip-pair {
-    display: flex;
-    gap: calc(var(--tile-w) * 0.09);
-}
-
-.flip-unit__label {
-    font-size: clamp(0.5625rem, 2.6cqi, var(--fs-label));
-    color: var(--color-sand);
-}
-
-.flip-unit__long { display: none; }
-
-.countdown__sep {
-    font-family: var(--font-display);
-    font-size: calc(var(--tile-w) * 0.8);
-    line-height: var(--tile-h);
-    color: var(--color-sand);
-    padding-inline: calc(var(--tile-w) * 0.12);   /* keeps the hinges clear of the colon */
-}
-
-/* One split-flap tile: cream card, navy fold line, sand hinges on both sides */
-.flap {
-    position: relative;
-    display: block;
-    width: var(--tile-w);
-    height: var(--tile-h);
-    background: var(--color-cream);
-    box-shadow: inset 0 calc(var(--tile-h) / -2) 0 color-mix(in srgb, var(--color-deep-blue) 7%, transparent);  /* lower half a shade darker */
-    color: var(--color-deep-blue);
-    font-family: var(--font-display);
-    font-size: calc(var(--tile-w) * 1.06);
-    line-height: var(--tile-h);
-    text-align: center;
-    perspective: calc(var(--tile-h) * 3);
-}
-
-/* fold line */
-.flap::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: calc(50% - 1px);
-    height: 2px;
-    background: var(--color-deep-blue);
-    z-index: 2;
-}
-
-/* hinges */
-.flap::before {
-    content: "";
-    position: absolute;
-    top: calc(50% - var(--tile-w) * 0.085);
-    left: calc(var(--tile-w) * -0.07);
-    right: calc(var(--tile-w) * -0.07);
-    height: calc(var(--tile-w) * 0.17);
-    border-inline: calc(var(--tile-w) * 0.07) solid var(--color-sand);
-}
-
-.flap__num {
-    display: block;
-}
-
-/* The falling leaf: top half of the previous digit, folds down over the new one */
-.flap__leaf {
-    position: absolute;
-    inset: 0 0 50% 0;
+/* Quick facts (2 x 2) */
+.facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
     overflow: hidden;
-    background: var(--color-paper);
-    transform-origin: 50% 100%;
-    opacity: 0;
-    pointer-events: none;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-line);
 }
 
-.flap__leaf span {
-    display: block;
-    height: var(--tile-h);
+.facts__item {
+    padding: 12px 16px;
+    background: var(--color-surface);
 }
 
-.flap__leaf.is-falling {
-    animation: flap-fall 0.32s ease-in forwards;
+.facts dt {
+    color: var(--color-muted);
+    font-size: 0.62rem;
 }
 
-@keyframes flap-fall {
-    0%   { transform: rotateX(0);      opacity: 1; }
-    99%  { transform: rotateX(-90deg); opacity: 1; }
-    100% { transform: rotateX(-90deg); opacity: 0; }
+.facts dd {
+    margin-top: 2px;
+    font-weight: 600;
 }
 
-.countdown__footer {
-    display: none;             /* phones use the short line below instead */
-    border-top: 1px solid var(--color-line-soft);
-    padding-top: var(--space-3);
-}
-
-.countdown__note {
-    max-width: 38rem;
-    margin-bottom: var(--space-3);
-    font-size: var(--fs-small);
-    color: var(--color-cream);
-}
-
-.countdown__fig,
-.countdown__foot-mobile {
-    color: var(--color-sand);
-}
-
-.countdown__foot-mobile {
-    font-size: 0.625rem;
-}
-
-/* Wide enough for full unit names */
-@container (min-width: 26rem) {
-    .flip-unit__long  { display: inline; }
-    .flip-unit__short { display: none; }
-}
-
-@media (min-width: 600px) {
-    .instrument-panel {
-        padding: var(--space-6) var(--space-5) var(--space-5);
+@media (min-width: 640px) {
+    .hero__ctas .btn {
+        flex: 0 0 auto;
     }
 
-    .countdown__footer { display: block; }
-    .countdown__foot-mobile { display: none; }
+    .hero__circuit {
+        right: -60px;
+        opacity: 0.7;
+    }
 }
 
-/* Laptop mockup: gauge left, countdown right, hairline between them */
 @media (min-width: 1024px) {
-    .instrument-panel {
-        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-        gap: 0;
-        padding: var(--space-5) var(--space-5) var(--space-5) var(--space-4);
+    .hero {
+        display: flex;
+        align-items: center;
+        min-height: min(92svh, 860px);
+        padding-bottom: var(--space-7);
     }
 
-    .specometer {
-        padding-right: var(--space-5);
-        border-right: 1px solid var(--color-line-soft);
+    .hero__grid {
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: end;
+        gap: var(--space-7);
+    }
+
+    .hero__circuit {
+        top: 50%;
+        right: -40px;
+        width: 600px;
+        transform: translateY(-55%);
+        opacity: 0.85;
     }
 
     .countdown {
-        padding-left: var(--space-5);
-        gap: var(--space-5);
+        padding: 22px;
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .flap__leaf.is-falling { animation: none; }
+
+/* ---------- Ticker ---------- */
+
+.ticker {
+    position: relative;
+    z-index: 2;
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    background: var(--color-pop);
+    color: var(--color-on-pop);
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.ticker__track {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-right: 1.5rem;
+    animation: marquee 40s linear infinite;
+}
+
+.ticker__track i {
+    width: 7px;
+    height: 7px;
+    background: currentColor;
+    transform: rotate(45deg);
+}
+
+@keyframes marquee {
+    to { transform: translateX(-50%); }
+}
+
+
+/* ---------- About ---------- */
+
+.about__grid {
+    display: grid;
+    gap: var(--space-5);
+}
+
+.about__body > p {
+    font-size: var(--fs-lead);
+    color: var(--color-muted);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: var(--space-5);
+}
+
+.stats li {
+    padding: 18px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
+}
+
+.stats b {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+}
+
+.stats span {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+}
+
+@media (min-width: 1024px) {
+    .about__grid {
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: center;
+        gap: var(--space-8);
+    }
+}
+
+
+/* ---------- Registration (tickets) ---------- */
+
+.tickets {
+    display: grid;
+    gap: 12px;
+}
+
+/* Phone: info on top, a dashed tear line, then the stub (button).
+   --tear is the distance of the tear line from the bottom edge. */
+.ticket {
+    --notch: 10px;
+    --tear: 80px;
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 14px;
+    padding: 18px 18px 16px 22px;
+    border-radius: var(--radius);
+    background:
+        linear-gradient(90deg, var(--color-line-strong) 55%, transparent 0) 0 calc(100% - var(--tear)) / 10px 1px repeat-x,
+        var(--color-surface);
+    box-shadow: var(--shadow-card);
+    -webkit-mask:
+        radial-gradient(circle var(--notch) at 0 calc(100% - var(--tear)), transparent 98%, #000) left / 51% 100% no-repeat,
+        radial-gradient(circle var(--notch) at 100% calc(100% - var(--tear)), transparent 98%, #000) right / 51% 100% no-repeat;
+    mask:
+        radial-gradient(circle var(--notch) at 0 calc(100% - var(--tear)), transparent 98%, #000) left / 51% 100% no-repeat,
+        radial-gradient(circle var(--notch) at 100% calc(100% - var(--tear)), transparent 98%, #000) right / 51% 100% no-repeat;
+}
+
+/* Accent spine */
+.ticket::before {
+    content: "";
+    position: absolute;
+    top: 18px;
+    bottom: calc(var(--tear) + 18px);
+    left: 0;
+    width: 3px;
+    border-radius: 0 3px 3px 0;
+    background: var(--ev);
+}
+
+.ticket__num {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--ev);
+}
+
+.ticket__name {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.ticket__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.ticket__meta span {
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-2);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-muted);
+}
+
+.ticket__btn {
+    grid-column: 1 / -1;
+    margin-top: 34px;
+}
+
+.ticket__btn[aria-disabled="true"]::before {
+    content: "Soon · ";
+    color: var(--color-accent);
+}
+
+.register__note {
+    margin-top: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-muted);
+}
+
+@media (min-width: 640px) {
+    /* Laptop/tablet: one row, stub on the right behind a vertical tear */
+    .ticket {
+        --stub: 250px;
+        grid-template-columns: 3rem 1fr var(--stub);
+        column-gap: var(--space-4);
+        padding: 20px 20px 20px 28px;
+        background:
+            linear-gradient(var(--color-line-strong) 55%, transparent 0) calc(100% - var(--stub) - 20px) 0 / 1px 10px repeat-y,
+            var(--color-surface);
+        -webkit-mask:
+            radial-gradient(circle var(--notch) at calc(100% - var(--stub) - 20px) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+            radial-gradient(circle var(--notch) at calc(100% - var(--stub) - 20px) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+        mask:
+            radial-gradient(circle var(--notch) at calc(100% - var(--stub) - 20px) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+            radial-gradient(circle var(--notch) at calc(100% - var(--stub) - 20px) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+        transition: transform var(--duration) var(--ease);
+    }
+
+    .ticket::before {
+        bottom: 18px;
+    }
+
+    .ticket__btn {
+        grid-column: auto;
+        margin: 0 0 0 20px;
+    }
+}
+
+@media (min-width: 640px) and (hover: hover) {
+    .ticket:hover {
+        transform: translateX(6px);
+    }
+}
+
+
+/* ---------- Rules (terminal) ---------- */
+/* The terminal stays dark in both themes, like a real one. */
+
+.terminal {
+    max-width: 800px;
+    overflow: hidden;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-lg);
+    background: #0A1224;
+    color: #CFD6E4;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    box-shadow: var(--shadow-card);
+}
+
+.terminal__bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 12px 16px;
+    background: #122039;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.terminal__bar i {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #FF5F57;
+}
+
+.terminal__bar i:nth-child(2) { background: #FEBC2E; }
+.terminal__bar i:nth-child(3) { background: #28C840; }
+
+.terminal__bar span {
+    margin-left: auto;
+    font-size: 0.7rem;
+    color: #6B7489;
+}
+
+.terminal__body {
+    display: grid;
+    gap: 8px;
+    padding: var(--space-4) 18px;
+}
+
+.terminal__prompt {
+    color: #D9BE8C;
+}
+
+.terminal__out {
+    padding-left: 1.2em;
+    color: #8FB0E8;
+}
+
+.terminal__cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.1em;
+    vertical-align: text-bottom;
+    background: #D9BE8C;
+    animation: cursor-blink 1.1s steps(1) infinite;
+}
+
+@keyframes cursor-blink {
+    50% { opacity: 0; }
+}
+
+@media (min-width: 640px) {
+    .terminal__body {
+        padding: var(--space-5) var(--space-4);
+        font-size: 0.92rem;
+    }
+}
+
+
+/* ---------- Outro (final call to action) ---------- */
+
+.outro__inner {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: var(--space-3);
+    padding: var(--space-7) var(--space-3);
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: 28px;
+    background:
+        radial-gradient(ellipse 70% 60% at 50% 0%, var(--glow-1), transparent 70%),
+        radial-gradient(ellipse 50% 40% at 50% 110%, var(--glow-2), transparent 70%),
+        var(--color-surface);
+    text-align: center;
+    isolation: isolate;
+}
+
+/* Dot matrix inside the card */
+.outro__inner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: radial-gradient(var(--color-dot) 1px, transparent 1.4px);
+    background-size: 20px 20px;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 20%, transparent 70%);
+    mask-image: radial-gradient(ellipse at 50% 50%, #000 20%, transparent 70%);
+}
+
+.outro__kicker {
+    color: var(--color-muted);
+}
+
+.outro__title {
+    font-size: clamp(2.8rem, 14vw, 8rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+
+.outro__title span {
+    color: var(--color-accent);
+}
+
+.outro__sub {
+    margin-bottom: var(--space-3);
+    color: var(--color-muted);
 }

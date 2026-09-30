@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IEEE Day 2026 — IEEE VGEC Student Branch</title>
+<meta name="description" content="IEEE Day 2026 at VGEC, Tuesday 6 October. A treasure hunt, a workshop, a brand challenge, tech charades and Garba.">
+<meta name="theme-color" content="#1A325A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--indigo:#1A325A;--terra:#964B36;--straw:#C9AF80;--cream:#EDE9DF;--umber:#4B3621;--deep:#101f3a;
+--mono:'JetBrains Mono',ui-monospace,Consolas,monospace;--sans:'Space Grotesk',system-ui,sans-serif;--serif:'Cormorant Garamond',Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--deep);color:var(--cream);font-family:var(--sans);line-height:1.6;overflow-x:hidden;
+background-image:linear-gradient(rgba(201,175,128,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(201,175,128,.06) 1px,transparent 1px);background-size:44px 44px}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+.mono{font-family:var(--mono)}
+.skip{position:absolute;left:-999px}.skip:focus{left:10px;top:10px;background:var(--straw);color:var(--umber);padding:8px;z-index:99}
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(16,31,58,.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(201,175,128,.25)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:56px;gap:14px}
+.logo{font-family:var(--mono);font-weight:600;font-size:.85rem;letter-spacing:.08em;color:var(--straw);text-decoration:none;white-space:nowrap}
+.logo b{color:var(--terra);background:var(--cream);padding:1px 6px;border-radius:3px;margin-right:6px}
+nav ul{display:flex;gap:18px;list-style:none;font-family:var(--mono);font-size:.75rem;overflow-x:auto}
+nav ul a{text-decoration:none;opacity:.8;white-space:nowrap}nav ul a:hover{color:var(--straw);opacity:1}
+/* hero */
+header{position:relative;padding:84px 0 60px;min-height:88vh;display:flex;align-items:center}
+.tag{display:inline-block;font-family:var(--mono);font-size:.75rem;color:var(--straw);border:1px dashed var(--straw);padding:5px 12px;border-radius:99px;margin-bottom:26px}
+.tag i{display:inline-block;width:8px;height:8px;background:var(--terra);border-radius:50%;margin-right:8px;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.2}}
+.kicker{font-family:var(--mono);color:var(--straw);font-size:.95rem}
+h1{font-size:clamp(3.4rem,12vw,8.5rem);line-height:.95;font-weight:700;letter-spacing:-.04em;margin:8px 0 20px}
+h1 em{font-family:var(--serif);font-weight:600;color:var(--straw);letter-spacing:-.02em;position:relative}
+h1 .glitch{display:inline-block;position:relative}
+h1 .glitch::before,h1 .glitch::after{content:attr(data-t);position:absolute;left:0;top:0;width:100%;overflow:hidden;font-family:var(--serif);font-style:italic;font-weight:600}
+h1 .glitch::before{color:var(--terra);transform:translate(3px,0);clip-path:inset(0 0 55% 0);animation:gl 3.2s infinite steps(1)}
+h1 .glitch::after{color:var(--cream);opacity:.6;transform:translate(-3px,0);clip-path:inset(60% 0 0 0);animation:gl 2.6s infinite steps(1) reverse}
+@keyframes gl{0%,88%{transform:translate(0)}90%{transform:translate(4px,-2px)}94%{transform:translate(-4px,2px)}100%{transform:translate(0)}}
+.lead{max-width:560px;font-size:1.1rem;opacity:.9}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:rgba(201,175,128,.3);border:1px solid rgba(201,175,128,.3);margin-top:38px;max-width:760px}
+.meta div{background:var(--indigo);padding:12px 16px}
+.meta span{display:block;font-family:var(--mono);font-size:.68rem;color:var(--straw);text-transform:uppercase;letter-spacing:.12em}
+.meta strong{font-weight:500}
+.cta{display:inline-block;margin-top:30px;background:var(--terra);color:var(--cream);padding:14px 26px;border-radius:6px;font-family:var(--mono);font-weight:600;text-decoration:none;box-shadow:5px 5px 0 var(--straw);transition:.15s}
+.cta:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--straw)}
+.trace{position:absolute;right:-40px;top:90px;width:min(52vw,520px);opacity:.5;pointer-events:none}
+.trace path{stroke-dasharray:6 8;animation:dash 14s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-280}}
+/* ticker */
+.ticker{background:var(--straw);color:var(--umber);font-family:var(--mono);font-weight:600;font-size:.8rem;overflow:hidden;white-space:nowrap;padding:9px 0;border-block:2px solid var(--umber)}
+.ticker div{display:inline-block;animation:mq 28s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+/* sections */
+section{padding:84px 0}
+.sec{font-family:var(--mono);color:var(--terra);font-size:.8rem;letter-spacing:.1em;background:var(--cream);display:inline-block;padding:2px 10px;border-radius:3px}
+h2{font-size:clamp(1.9rem,5vw,3.2rem);line-height:1.1;letter-spacing:-.03em;margin:14px 0 18px;max-width:760px}
+h2 em{font-family:var(--serif);color:var(--straw)}
+.sub{max-width:640px;opacity:.85}
+/* countdown */
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px;max-width:640px}
+.cd div{background:var(--indigo);border:1px solid var(--straw);border-radius:8px;padding:18px 6px;text-align:center;box-shadow:inset 0 0 30px rgba(0,0,0,.25)}
+.cd b{display:block;font-family:var(--mono);font-size:clamp(1.8rem,7vw,3rem);color:var(--straw)}
+.cd span{font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+/* cards */
+.sw{margin-top:34px}
+.track{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;padding:18px 4px 26px;scrollbar-width:none;cursor:grab;-webkit-overflow-scrolling:touch}
+.track::-webkit-scrollbar{display:none}.track.drag{cursor:grabbing;scroll-snap-type:none}
+.card{flex:0 0 min(310px,78vw);scroll-snap-align:center;perspective:1000px;height:360px;outline:none;user-select:none;opacity:.55;transform:scale(.92);transition:.35s}
+.card.act{opacity:1;transform:scale(1)}
+.ctl{display:flex;align-items:center;justify-content:center;gap:18px}
+.ctl button{width:44px;height:44px;border-radius:50%;border:1px solid var(--straw);background:var(--indigo);color:var(--straw);font-size:1.1rem;cursor:pointer;transition:.2s}
+.ctl button:hover{background:var(--terra);color:var(--cream)}
+.dots{display:flex;gap:8px}.dots i{width:9px;height:9px;border-radius:99px;background:rgba(201,175,128,.35);transition:.3s;cursor:pointer}.dots i.on{width:26px;background:var(--straw)}
+.in{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.card.flip .in{transform:rotateY(180deg)}@media(hover:hover){.card:hover .in{transform:rotateY(180deg)}}
+.f,.b{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;padding:22px;display:flex;flex-direction:column;justify-content:space-between}
+.f{background:var(--indigo);border:1px solid var(--straw)}
+.b{background:var(--terra);transform:rotateY(180deg);border:1px solid var(--cream)}
+.n{font-family:var(--mono);font-size:3.2rem;color:var(--straw);line-height:1}
+.f h3{font-size:1.4rem;line-height:1.15}.f p{font-size:.9rem;opacity:.8}
+.hint{font-family:var(--mono);font-size:.68rem;color:var(--straw)}
+.b dl{font-family:var(--mono);font-size:.8rem}.b dt{opacity:.7;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;margin-top:8px}
+.b a{align-self:flex-start;background:var(--cream);color:var(--umber);padding:8px 14px;border-radius:5px;font-family:var(--mono);font-size:.78rem;font-weight:600;text-decoration:none}
+/* timeline */
+.tl{margin-top:40px;border-left:2px dashed var(--straw);padding-left:28px;max-width:720px}
+.tl li{list-style:none;position:relative;padding:0 0 30px}
+.tl li::before{content:"";position:absolute;left:-37px;top:6px;width:14px;height:14px;background:var(--terra);border:2px solid var(--cream);border-radius:50%}
+.tl time{font-family:var(--mono);color:var(--straw);font-size:.82rem}
+.tl h3{font-size:1.2rem}.tl p{opacity:.75;font-size:.92rem}
+/* register */
+.reg{margin-top:34px;display:grid;gap:10px}
+.reg a{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:14px;background:var(--indigo);border:1px solid rgba(201,175,128,.35);border-radius:8px;padding:16px 18px;text-decoration:none;transition:.2s}
+.reg a:hover{background:var(--terra);transform:translateX(6px);border-color:var(--cream)}
+.reg .n{font-size:1.5rem}.reg small{display:block;font-family:var(--mono);font-size:.72rem;opacity:.75}
+.reg .go{font-family:var(--mono);font-size:.8rem;color:var(--straw)}.reg a:hover .go{color:var(--cream)}
+/* rules + faq */
+.rules{background:var(--umber);border-left:4px solid var(--straw);padding:20px 24px;margin-top:30px;max-width:720px;border-radius:0 8px 8px 0;font-family:var(--mono);font-size:.85rem}
+details{background:var(--indigo);border:1px solid rgba(201,175,128,.3);border-radius:8px;margin-top:12px;max-width:720px}
+summary{cursor:pointer;padding:16px 20px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::after{content:"+";font-family:var(--mono);color:var(--straw)}details[open] summary::after{content:"–"}
+details p{padding:0 20px 18px;opacity:.85}
+footer{border-top:1px solid rgba(201,175,128,.3);padding:40px 0;font-family:var(--mono);font-size:.78rem;background:var(--umber)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}footer span{color:var(--straw)}
+.rv{opacity:0;transform:translateY(24px);transition:.7s}.rv.on{opacity:1;transform:none}
+@media(max-width:640px){nav ul{display:none}.trace{opacity:.25}.reg a{grid-template-columns:40px 1fr}.reg .go{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav><div class="wrap"><a class="logo" href="#top"><b>IEEE</b>DAY.2026</a>
+<ul><li><a href="#day">/day</a></li><li><a href="#events">/events</a></li><li><a href="#flow">/timeline</a></li><li><a href="#register">/register</a></li><li><a href="#faq">/q&amp;a</a></li></ul></div></nav>
+
+<header id="top"><div class="wrap">
+<svg class="trace" viewBox="0 0 400 400" fill="none" stroke="#C9AF80" stroke-width="2" aria-hidden="true">
+<path d="M0 60H120L160 100H300L340 60H400"/><path d="M0 160H90L130 200H250V300L290 340H400"/><path d="M0 260H60L100 300H180"/>
+<circle cx="340" cy="60" r="7" fill="#964B36"/><circle cx="290" cy="340" r="7" fill="#964B36"/><circle cx="180" cy="300" r="7" fill="#C9AF80"/></svg>
+<div class="tag mono"><i></i>IEEE VGEC STUDENT BRANCH PRESENTS</div>
+<p class="kicker mono">&gt; 06.10.2026 · vgec, chandkheda</p>
+<h1>IEEE <span class="glitch" data-t="Day."><em>Day.</em></span></h1>
+<p class="lead">On Tuesday, 6 October, VGEC celebrates IEEE Day with five experiences: a hunt, a workshop, a design duel, charades and Garba.</p>
+<div class="meta"><div><span>Event</span><strong>IEEE Day 2026</strong></div><div><span>Filed by</span><strong>VGEC Student Branch</strong></div><div><span>Date</span><strong>Tue, 6 Oct 2026</strong></div><div><span>Venue</span><strong>VGEC, Chandkheda</strong></div></div>
+<a class="cta" href="#register">./register --now →</a>
+</div></header>
+
+<div class="ticker" aria-hidden="true"><div>TREASURE HUNT ✦ WORKSHOP ✦ BRAND IDENTITY CHALLENGE ✦ TECH CHARADES ✦ GARBA ✦ TREASURE HUNT ✦ WORKSHOP ✦ BRAND IDENTITY CHALLENGE ✦ TECH CHARADES ✦ GARBA ✦ TREASURE HUNT ✦ WORKSHOP ✦ BRAND IDENTITY CHALLENGE ✦ TECH CHARADES ✦ GARBA ✦ TREASURE HUNT ✦ WORKSHOP ✦ BRAND IDENTITY CHALLENGE ✦ TECH CHARADES ✦ GARBA ✦ </div></div>
+
+<main id="main">
+<section id="day"><div class="wrap rv">
+<h2>IEEE writes the rules your Wi-Fi runs on. <em>Today, we celebrate.</em></h2>
+<p class="mono" style="color:var(--straw);font-size:.85rem">countdown to 06.10.2026 · 10:30 IST</p>
+<div class="cd" id="cd"><div><b id="d">--</b><span>days</span></div><div><b id="h">--</b><span>hrs</span></div><div><b id="m">--</b><span>min</span></div><div><b id="s">--</b><span>sec</span></div></div>
+<h2 style="margin-top:56px">One day. Five experiences. <em>No syllabus.</em></h2>
+<p class="sub">IEEE Day marks the first time engineers gathered to share ideas, back in 1884. We're celebrating with a hunt, a workshop, a design duel, charades and Garba — because the people were always the point.</p>
+<div class="meta"><div><span>Who</span><strong>VGEC students</strong></div><div><span>Where</span><strong>VGEC campus</strong></div><div><span>Starts</span><strong>10:30 AM</strong></div><div><span>Reg. closes</span><strong>[Date TBA]</strong></div></div>
+</div></section>
+
+<section id="events"><div class="wrap rv">
+<h2>The <em>lineup.</em></h2>
+<div class="sw"><div class="track" id="track">
+<div class="card" tabindex="0"><div class="in"><div class="f"><span class="n">01</span><div><h3>Treasure Hunt</h3><p>The campus is hiding something.</p></div><span class="hint">flip ↻</span></div><div class="b"><dl><dt>Time</dt><dd>10:30–11:30 AM</dd><dt>Format</dt><dd>Team</dd><dt>Fee</dt><dd>₹100</dd></dl><a href="#register">Join the hunt →</a></div></div></div>
+<div class="card" tabindex="0"><div class="in"><div class="f"><span class="n">02</span><div><h3>Workshop</h3><p>Come curious. Leave with something new.</p></div><span class="hint">flip ↻</span></div><div class="b"><dl><dt>Time</dt><dd>[TBA]</dd><dt>Seats</dt><dd>[TBA]</dd><dt>Fee</dt><dd>[TBA]</dd></dl><a href="#register">Get curious →</a></div></div></div>
+<div class="card" tabindex="0"><div class="in"><div class="f"><span class="n">03</span><div><h3>Brand Identity Challenge</h3><p>A brand. A blank canvas. No bad ideas.</p></div><span class="hint">flip ↻</span></div><div class="b"><dl><dt>Time</dt><dd>[TBA]</dd><dt>Format</dt><dd>Individual</dd><dt>Fee</dt><dd>[TBA]</dd></dl><a href="#register">Build the brand →</a></div></div></div>
+<div class="card" tabindex="0"><div class="in"><div class="f"><span class="n">04</span><div><h3>Tech Charades</h3><p>No keyboard. No mouse. Just vibes.</p></div><span class="hint">flip ↻</span></div><div class="b"><dl><dt>Time</dt><dd>[TBA]</dd><dt>Team size</dt><dd>[TBA]</dd><dt>Fee</dt><dd>[TBA]</dd></dl><a href="#register">Play it out →</a></div></div></div>
+<div class="card" tabindex="0"><div class="in"><div class="f"><span class="n">05</span><div><h3>Garba</h3><p>Yes, IEEE does Garba.</p></div><span class="hint">flip ↻</span></div><div class="b"><dl><dt>Time</dt><dd>Evening</dd><dt>Who</dt><dd>Everyone</dd><dt>Fee</dt><dd>[TBA]</dd></dl><a href="#register">Join the circle →</a></div></div></div>
+</div><div class="ctl"><button id="prev" aria-label="Previous">←</button><div class="dots" id="dots"></div><button id="next" aria-label="Next">→</button></div></div></div></section>
+
+<section id="flow"><div class="wrap rv">
+<h2>The day, <em>plotted.</em></h2>
+<ol class="tl">
+<li><time>10:30 – 11:30 AM</time><h3>Treasure Hunt</h3><p>Teams hit the campus. Something is hiding.</p></li>
+<li><time>[Time TBA]</time><h3>Workshop</h3><p>Come curious. Leave with something new.</p></li>
+<li><time>[Time TBA]</time><h3>Brand Identity Challenge</h3><p>Design duel, blank canvas.</p></li>
+<li><time>[Time TBA]</time><h3>Tech Charades</h3><p>Act it out. No keyboard allowed.</p></li>
+<li><time>Evening</time><h3>Garba</h3><p>The circle closes the day.</p></li>
+</ol></div></section>
+
+<section id="register"><div class="wrap rv">
+<h2>Choose your <em>chaos.</em></h2>
+<p class="sub mono" style="font-size:.85rem">registration closes [Date TBA]</p>
+<!-- TODO: replace each href="#" with the event's Google Form link -->
+<div class="reg">
+<a href="#"><span class="n">01</span><div>Treasure Hunt<small>10:30–11:30 AM · Team · ₹100</small></div><span class="go">Join the hunt →</span></a>
+<a href="#"><span class="n">02</span><div>Workshop<small>[Time] · [Seats] · [Fee]</small></div><span class="go">Get curious →</span></a>
+<a href="#"><span class="n">03</span><div>Brand Identity Challenge<small>[Time] · Individual · [Fee]</small></div><span class="go">Build the brand →</span></a>
+<a href="#"><span class="n">04</span><div>Tech Charades<small>[Time] · [Team size] · [Fee]</small></div><span class="go">Play it out →</span></a>
+<a href="#"><span class="n">05</span><div>Garba<small>Evening · Everyone · [Fee]</small></div><span class="go">Join the circle →</span></a>
+</div></div></section>
+
+<section id="rules"><div class="wrap rv">
+<h2>Rules &amp; <em>guidelines.</em></h2>
+<div class="rules">Rules and guidelines will be announced soon.</div>
+</div></section>
+
+<section id="faq"><div class="wrap rv">
+<h2>Questions, <em>answered.</em></h2>
+<details><summary>Who can participate?</summary><p>VGEC students. Individual events are solo; some events are team-based.</p></details>
+<details><summary>Where and when does it start?</summary><p>VGEC campus, Chandkheda. Tuesday, 6 October 2026, from 10:30 AM.</p></details>
+<details><summary>When does registration close?</summary><p>[Date TBA] — we'll update this page.</p></details>
+<!-- Add more Q&A here -->
+</div></section>
+</main>
+
+<footer><div class="wrap"><div><span>IEEE VGEC Student Branch</span><br>Vishwakarma Government Engineering College, Chandkheda</div><div>IEEE Day 2026 · 06.10.2026<br>// engineers, together</div></div></footer>
+
+<script>
+const T=new Date('2026-10-06T10:30:00+05:30').getTime();
+const p=n=>String(n).padStart(2,'0');
+function tick(){let x=Math.max(0,T-Date.now());
+d.textContent=p(Math.floor(x/864e5));h.textContent=p(Math.floor(x%864e5/36e5));
+m.textContent=p(Math.floor(x%36e5/6e4));s.textContent=p(Math.floor(x%6e4/1e3));}
+tick();setInterval(tick,1000);
+const tr=document.getElementById('track'),cards=[...tr.children],dots=document.getElementById('dots');
+let moved=false;
+cards.forEach((c,i)=>{const dt=document.createElement('i');dt.onclick=()=>go(i);dots.appendChild(dt);
+c.addEventListener('click',e=>{if(moved||e.target.closest('a'))return;c.classList.toggle('flip')});
+c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();c.classList.toggle('flip')}})});
+function go(i){const c=cards[Math.max(0,Math.min(cards.length-1,i))];tr.scrollTo({left:c.offsetLeft-(tr.clientWidth-c.clientWidth)/2,behavior:'smooth'})}
+function cur(){const mid=tr.scrollLeft+tr.clientWidth/2;let b=0,bd=1e9;cards.forEach((c,i)=>{const d=Math.abs(c.offsetLeft+c.clientWidth/2-mid);if(d<bd){bd=d;b=i}});return b}
+function upd(){const a=cur();cards.forEach((c,i)=>c.classList.toggle('act',i===a));[...dots.children].forEach((d,i)=>d.classList.toggle('on',i===a))}
+tr.addEventListener('scroll',upd,{passive:true});upd();
+prev.onclick=()=>go(cur()-1);next.onclick=()=>go(cur()+1);
+let down=false,sx=0,sl=0;
+tr.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;down=true;moved=false;sx=e.clientX;sl=tr.scrollLeft});
+addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-sx;if(Math.abs(dx)>5){moved=true;tr.classList.add('drag')}tr.scrollLeft=sl-dx});
+addEventListener('pointerup',()=>{if(!down)return;down=false;tr.classList.remove('drag');setTimeout(()=>{moved=false},0);go(cur())});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

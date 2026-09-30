@@ -1,306 +1,187 @@
 /* =========================================================
-   Timeline ("The flow")
+   Timeline ("The day, plotted")
    Owner: Dhruvi + Dhwani
+   Section: #timeline
 
-   Your markup lives in index.html inside <section id="timeline">.
-   Only style things inside your section here.
-   Use the tokens from css/style.css (var(--color-text),
-   var(--space-4), var(--font-display) ...) — no raw hex colours.
+   A vertical rail: time on the left, event card on the right.
+   Each event draws its own "signal" wave when it scrolls in.
+   js/timeline.js adds .is-live / .is-done on the day itself.
    ========================================================= */
 
-/* Section wrapper */
 .timeline {
+    background: var(--color-bg-alt);
+    border-block: 1px solid var(--color-line);
+}
+
+.timeline__list {
+    --time-col: 5rem;
+    --rail-gap: 1.5rem;
+    --rail-x: calc(var(--time-col) + var(--rail-gap) / 2);
     position: relative;
-    user-select: none;
-    -webkit-user-select: none;
+    display: grid;
+    gap: var(--space-3);
+    max-width: 860px;
 }
 
-/* Header lockup: Title + handwritten note on the left, instruction on the right */
-.timeline__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: var(--space-4);
-    margin-bottom: var(--space-6);
-    flex-wrap: wrap;
+/* The rail */
+.timeline__list::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    left: var(--rail-x);
+    width: 0;
+    border-left: 2px dashed var(--color-line-strong);
 }
 
-.timeline__title-wrap {
-    flex: 1 1 30rem;
+.timeline__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--time-col) 1fr;
+    column-gap: var(--rail-gap);
+    align-items: start;
 }
 
-.timeline__title {
-    font-size: var(--fs-h2);
-    line-height: var(--lh-heading);
-    max-width: none;
-    margin-bottom: 0;
-    color: var(--color-text);
+/* The node on the rail */
+.timeline__item::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    left: calc(var(--rail-x) - 6px);
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--ev);
+    border-radius: 50%;
+    background: var(--color-bg-alt);
 }
 
-.timeline__hand {
-    display: inline-block;
-    font-family: var(--font-hand);
-    font-size: var(--fs-hand);
+.timeline__time {
+    padding-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.2;
     color: var(--color-accent);
-    transform: rotate(-3deg);
-    transform-origin: left center;
-    margin-left: var(--space-2);
-    vertical-align: baseline;
+    text-align: right;
 }
 
-.timeline__instruction {
-    max-width: 20rem;
-    font-family: var(--font-body);
-    font-size: var(--fs-body);
-    line-height: 1.55;
-    color: var(--color-body);
-    margin-top: var(--space-4);
-}
-
-/* Interactive SVG plot viewport */
-.timeline__plot-wrapper {
-    position: relative;
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    outline: none;
-    touch-action: pan-y;
-}
-
-.timeline__plot-wrapper:focus-visible {
-    outline: 2px solid var(--focus-color);
-    outline-offset: 4px;
-}
-
-.timeline__plot-inner {
-    position: relative;
-    width: 100%;
-    min-width: 58rem;
-}
-
-@media (min-width: 1024px) {
-    .timeline__plot-inner {
-        min-width: 100%;
-    }
-}
-
-.timeline__svg {
+.timeline__time small {
     display: block;
-    width: 100%;
-    height: auto;
+    margin-top: 2px;
+    font-size: 0.66rem;
+    font-weight: 400;
+    color: var(--color-muted);
+}
+
+.timeline__card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: 14px 16px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    transition: border-color var(--duration) ease, box-shadow var(--duration) ease;
+}
+
+.timeline__name {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.timeline__signal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ev);
+}
+
+.timeline__live {
+    display: none;
+    padding: 1px 7px;
+    border-radius: 99px;
+    background: var(--ev);
+    color: var(--color-bg);
+    font-weight: 600;
+}
+
+.timeline__wave {
+    flex: none;
+    width: 70px;
+    height: 28px;
     overflow: visible;
-    cursor: ew-resize;
-}
-
-/* Baseline */
-.timeline__axis {
-    stroke: var(--color-text);
-    stroke-width: 1px;
-    opacity: 0.3;
-}
-
-/* Signal Waveform Segments */
-.timeline__segment {
-    stroke-width: 3px;
+    fill: none;
+    stroke: var(--ev);
+    stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
-    transition: stroke-width var(--duration-fast) var(--ease),
-                stroke var(--duration-fast) var(--ease),
-                opacity var(--duration-fast) var(--ease);
 }
 
-.timeline__segment--lead {
-    stroke: var(--color-text);
+/* Wave draws itself when the item is revealed */
+.timeline__wave > * {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.4s var(--ease) 0.2s;
 }
 
-.timeline__segment--hunt {
-    stroke: var(--color-text);
+.js .timeline__item:not(.is-in) .timeline__wave > * {
+    stroke-dashoffset: 400;
 }
 
-.timeline__segment--workshop {
-    stroke: var(--color-accent);
+@media (hover: hover) {
+    .timeline__card:hover {
+        border-color: color-mix(in srgb, var(--ev) 55%, transparent);
+    }
 }
 
-.timeline__segment--brand {
-    stroke: var(--color-text);
+/* Live / done states (only on 6 Oct) */
+.timeline__item.is-live::before {
+    background: var(--ev);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--ev) 25%, transparent);
 }
 
-.timeline__segment--charades {
-    stroke: var(--color-body);
+.timeline__item.is-live .timeline__card {
+    border-color: var(--ev);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ev) 18%, transparent);
 }
 
-.timeline__segment--garba {
-    stroke: var(--color-accent);
+.timeline__item.is-live .timeline__live {
+    display: inline-block;
 }
 
-/* Anomaly Titles and Subtitles */
-.timeline__event-name {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    fill: var(--color-text);
-    cursor: pointer;
-    transition: opacity var(--duration-fast) var(--ease);
-    opacity: 0.8;
+.timeline__list .timeline__item.is-done {
+    opacity: 0.55;
 }
 
-.timeline__event-name:hover,
-.timeline__event-name.is-active {
-    opacity: 1;
-    font-weight: 700;
-}
-
-.timeline__event-signal {
-    font-family: var(--font-label);
-    font-size: 0.625rem;
-    letter-spacing: 0.15em;
-    fill: var(--color-body);
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: opacity var(--duration-fast) var(--ease),
-                fill var(--duration-fast) var(--ease);
-    opacity: 0.8;
-}
-
-.timeline__event-signal.is-active {
-    opacity: 1;
-    fill: var(--color-text);
-}
-
-.timeline__time-label {
-    font-family: var(--font-label);
-    font-size: 0.6875rem;
-    letter-spacing: 0.18em;
-    fill: var(--color-text);
-}
-
-/* Scrubber dynamic elements */
-.timeline__scrubber {
-    pointer-events: none;
-}
-
-.timeline__scrub-line {
-    stroke: var(--color-accent);
-    stroke-width: 1.5px;
-    stroke-dasharray: 3 5;
-    transition: stroke var(--duration-fast) var(--ease);
-}
-
-.timeline__scrub-halo {
-    fill: var(--color-accent);
-    opacity: 0.18;
-    transition: fill var(--duration-fast) var(--ease);
-}
-
-.timeline__scrub-dot {
-    fill: var(--color-accent);
-    transition: fill var(--duration-fast) var(--ease);
-}
-
-/* Scrubber Badge */
-.timeline__badge-group {
-    pointer-events: none;
-}
-
-.timeline__badge-bg {
-    fill: var(--color-accent);
-    transition: fill var(--duration-fast) var(--ease);
-}
-
-.timeline__badge-text {
-    fill: var(--color-cream);
-    font-family: var(--font-label);
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-}
-
-/* Clickable anomaly hit targets */
-.timeline__region-target {
-    fill: transparent;
-    cursor: pointer;
-}
-
-/* Compact Mobile Overview (for small screens < 768px) */
-.timeline__mobile-list {
-    display: none;
-}
-
-@media (max-width: 767px) {
-    .timeline__header {
-        margin-bottom: var(--space-4);
+@media (min-width: 640px) {
+    .timeline__list {
+        --time-col: 7rem;
+        --rail-gap: 2.5rem;
     }
 
-    .timeline__instruction {
-        margin-top: var(--space-2);
-        max-width: 100%;
+    .timeline__time {
+        font-size: 1.05rem;
     }
 
-    .timeline__mobile-list {
-        display: flex;
-        flex-direction: column;
-        margin-top: var(--space-6);
-        border-bottom: var(--border);
+    .timeline__card {
+        padding: 18px 22px;
     }
 
-    .timeline__mobile-item {
-        min-height: 4rem;
-        display: grid;
-        grid-template-columns: 4.5rem 1fr 4.375rem;
-        align-items: center;
-        border: 0;
-        border-top: var(--border);
-        background: transparent;
-        text-align: left;
-        padding: var(--space-3) var(--space-2);
-        color: var(--color-text);
-        cursor: pointer;
-        transition: background-color var(--duration-fast) var(--ease);
-    }
-
-    .timeline__mobile-item:hover,
-    .timeline__mobile-item.is-active {
-        background: rgba(135, 80, 63, 0.08);
-    }
-
-    .timeline__mobile-time {
-        font-family: var(--font-label);
-        font-size: 0.625rem;
-        letter-spacing: 0.15em;
-        color: var(--color-text);
-    }
-
-    .timeline__mobile-info {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-1);
-    }
-
-    .timeline__mobile-name {
-        font-family: var(--font-display);
+    .timeline__name {
         font-size: 1.25rem;
-        line-height: var(--lh-tight);
-        color: var(--color-text);
     }
 
-    .timeline__mobile-signal {
-        font-family: var(--font-label);
-        font-size: 0.5rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--color-body);
-    }
-
-    .timeline__mobile-mini {
-        color: var(--color-text);
-    }
-
-    .timeline__mobile-mini--accent {
-        color: var(--color-accent);
-    }
-
-    .timeline__mobile-mini--body {
-        color: var(--color-body);
+    .timeline__wave {
+        width: 120px;
+        height: 40px;
     }
 }

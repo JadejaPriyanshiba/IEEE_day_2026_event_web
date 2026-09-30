@@ -3,24 +3,40 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>IEEE Day 2026 — IEEE VGEC Student Branch</title>
     <meta name="description"
         content="IEEE Day 2026 at VGEC, Tuesday 6 October. A treasure hunt, a workshop, a brand challenge, tech charades and Garba.">
-    <meta name="theme-color" content="#283558">
+    <meta name="theme-color" content="#06080D" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#F5F6F8" media="(prefers-color-scheme: light)">
+    <meta name="color-scheme" content="dark light">
 
-    <!-- Fonts: Gloock (display), Josefin Sans (labels), Instrument Sans (body), Nanum Pen Script (hand notes) -->
+    <!-- Theme: runs before paint so there is no flash of the wrong theme.
+         Saved choice wins, otherwise follow the device setting. -->
+    <script>
+        (function () {
+            var t = null;
+            try { t = localStorage.getItem('ieeeday-theme'); } catch (e) { }
+            if (t !== 'light' && t !== 'dark') {
+                t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+            }
+            document.documentElement.setAttribute('data-theme', t);
+            document.documentElement.classList.add('js');
+        })();
+    </script>
+
+    <!-- Fonts: Unbounded (display), Geist (body), Geist Mono (labels, numbers) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Gloock&family=Instrument+Sans:wght@400;500;600;700&family=Josefin+Sans:wght@400;600;700&family=Nanum+Pen+Script&display=swap">
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Unbounded:wght@500;600;700;800&display=swap">
 
     <!--
         CSS load order matters. Do not reorder.
         Each team owns exactly one file (see README → "Where do I work?").
     -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Priyanshi: tokens, reset, shared classes -->
-    <link rel="stylesheet" href="css/sections.css"> <!-- Priyanshi: hero, intro, registration -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Priyanshi: tokens, themes, reset, shared classes -->
+    <link rel="stylesheet" href="css/sections.css"> <!-- Priyanshi: hero, about, registration, rules, outro -->
     <link rel="stylesheet" href="css/header-footer.css"> <!-- Parthvi + Pushkar -->
     <link rel="stylesheet" href="css/events.css"> <!-- Vansh + Daksh + Nilesh -->
     <link rel="stylesheet" href="css/timeline.css"> <!-- Dhruvi + Dhwani -->
@@ -34,802 +50,641 @@
 
     <!-- =====================================================
          HEADER + NAVBAR — owned by Parthvi + Pushkar
-         Build the logo lockup, nav links and mobile "Index" menu here.
-         Nav links should point to: #events #timeline #rules #qa #registration
          ===================================================== -->
     <header class="site-header" id="site-header">
         <div class="container site-header__inner">
-            <a href="#hero" class="site-header__brand" aria-label="IEEE Day 2026 - VGEC Student Branch Home"><span
-                    class="site-header__brand-text"><span class="site-header__brand-org">IEEE</span><span
-                        class="site-header__brand-branch">STUDENT BRANCH</span></span></a>
-            <nav class="site-nav site-nav--desktop" aria-label="Main Navigation">
+            <a href="#top" class="brand" aria-label="IEEE Day 2026, back to top">
+                <span class="brand__mark" aria-hidden="true"><i></i></span>
+                <span class="brand__text">IEEE DAY<b>’26</b></span>
+            </a>
+
+            <nav class="site-nav" aria-label="Main">
                 <ul class="site-nav__list">
                     <li><a href="#events" class="site-nav__link">Events</a></li>
-                    <li><a href="#timeline" class="site-nav__link">The Flow</a></li>
-                    <li><a href="#rules" class="site-nav__link">Fine Print</a></li>
-                    <li><a href="#qa" class="site-nav__link">FAQ</a></li>
-                    <li><a href="#registration" class="btn btn--header-cta">Register Now <span class="btn__arrow"
-                                aria-hidden="true">→</span></a></li>
+                    <li><a href="#timeline" class="site-nav__link">Schedule</a></li>
+                    <li><a href="#rules" class="site-nav__link">Rules</a></li>
+                    <li><a href="#faq" class="site-nav__link">FAQ</a></li>
                 </ul>
             </nav>
-            <button type="button" class="site-header__menu-btn" id="menu-toggle-btn" aria-expanded="false"
-                aria-controls="mobile-index-menu" aria-label="Open index menu"><span>INDEX</span><span
-                    class="site-header__menu-icon"
-                    aria-hidden="true"><span></span><span></span><span></span></span></button>
+
+            <div class="site-header__actions">
+                <button type="button" class="icon-btn theme-toggle" id="theme-toggle" aria-label="Switch to light theme">
+                    <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+                    <svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+                </button>
+                <a href="#register" class="btn btn--primary btn--sm site-header__cta">Register <span class="btn__arrow" aria-hidden="true">→</span></a>
+                <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+                    <span class="menu-btn__bars" aria-hidden="true"><span></span><span></span></span>
+                </button>
+            </div>
         </div>
-        <div class="site-index-drawer" id="mobile-index-menu" aria-hidden="true" role="dialog" aria-modal="true"
-            aria-label="Site Index Navigation">
-            <div class="site-index-drawer__header"><span class="site-index-drawer__meta">§ DIRECTORY · INDEX
-                    01</span><button type="button" class="site-index-drawer__close-btn" id="menu-close-btn"
-                    aria-label="Close index menu">CLOSE <span aria-hidden="true">✕</span></button></div>
-            <nav aria-label="Index Navigation">
-                <ul class="index-menu-list">
-                    <li><a href="#events" class="index-menu-row">§2 <span>Events</span><span
-                                aria-hidden="true">→</span></a></li>
-                    <li><a href="#timeline" class="index-menu-row">§3 <span>The Flow</span><span
-                                aria-hidden="true">→</span></a></li>
-                    <li><a href="#rules" class="index-menu-row">§5 <span>Fine Print</span><span
-                                aria-hidden="true">→</span></a></li>
-                    <li><a href="#qa" class="index-menu-row">§6 <span>FAQ</span><span aria-hidden="true">→</span></a>
-                    </li>
-                    <li><a href="#registration" class="index-menu-row">§4 <span>Register Now</span><span
-                                aria-hidden="true">→</span></a></li>
-                </ul>
-            </nav>
-        </div>
+        <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress"></span></div>
     </header>
+
+    <!-- Mobile menu (full screen) -->
+    <div class="menu" id="menu" hidden>
+        <nav class="container menu__inner" aria-label="Menu">
+            <p class="label menu__meta">Index · 06.10.2026</p>
+            <ol class="menu__list">
+                <li><a href="#events" class="menu__link"><span class="menu__num">01</span>Events<span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+                <li><a href="#timeline" class="menu__link"><span class="menu__num">02</span>Schedule<span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+                <li><a href="#register" class="menu__link"><span class="menu__num">03</span>Register<span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+                <li><a href="#rules" class="menu__link"><span class="menu__num">04</span>Rules<span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+                <li><a href="#faq" class="menu__link"><span class="menu__num">05</span>FAQ<span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+            </ol>
+            <div class="menu__foot">
+                <p class="label">Tue · 06 Oct 2026 · VGEC, Chandkheda</p>
+                <a href="#register" class="btn btn--primary btn--block btn--lg">Register <span class="btn__arrow" aria-hidden="true">→</span></a>
+            </div>
+        </nav>
+    </div>
 
     <main id="main" tabindex="-1">
 
         <!-- =====================================================
-             HERO — foundation by Priyanshi
+             HERO — Priyanshi
+             Countdown logic lives in js/countdown.js
              ===================================================== -->
-        <section class="section hero" id="hero" aria-labelledby="hero-title">
+        <section class="hero" id="top" aria-labelledby="hero-title">
+            <div class="hero__bg" aria-hidden="true">
+                <span class="hero__orb hero__orb--a"></span>
+                <span class="hero__orb hero__orb--b"></span>
+                <svg class="hero__circuit" viewBox="0 0 400 400" fill="none">
+                    <g class="hero__traces">
+                        <path d="M0 60H120L160 100H300L340 60H400" />
+                        <path d="M0 160H90L130 200H250V300L290 340H400" />
+                        <path d="M0 260H60L100 300H180" />
+                        <path d="M400 200H330L300 230V400" />
+                        <path d="M200 0V40L230 70H260" />
+                    </g>
+                    <g class="hero__pulses">
+                        <path pathLength="100" d="M0 60H120L160 100H300L340 60H400" />
+                        <path pathLength="100" d="M0 160H90L130 200H250V300L290 340H400" />
+                        <path pathLength="100" d="M400 200H330L300 230V400" />
+                    </g>
+                    <circle class="hero__node hero__node--hot" cx="340" cy="60" r="5" />
+                    <circle class="hero__node hero__node--hot" cx="290" cy="340" r="5" />
+                    <circle class="hero__node" cx="180" cy="300" r="5" />
+                    <circle class="hero__node" cx="260" cy="70" r="4" />
+                    <circle class="hero__node" cx="300" cy="230" r="4" />
+                </svg>
+            </div>
+
             <div class="container hero__grid">
                 <div class="hero__text">
-                    <p class="label hero__notice">Notice 01 · Std. 06·10·2026 · Draft · Not for serious use</p>
-                    <p class="display hero__kicker">Something at VGEC is</p>
-                    <h1 class="display hero__title" id="hero-title">Out of <span class="text-accent">spec.</span></h1>
+                    <p class="chip hero__chip intro" style="--i:0"><span class="live-dot" aria-hidden="true"></span>IEEE VGEC Student Branch presents</p>
+                    <h1 class="hero__title" id="hero-title">
+                        <span class="hero__line"><span class="hero__mask"><span class="intro-line" style="--i:1">IEEE DAY</span></span></span>
+                        <span class="hero__line hero__line--2">
+                            <span class="hero__mask"><span class="intro-line hero__year" style="--i:2">2026</span></span>
+                            <span class="hero__sticker" aria-hidden="true">Tue · 06.10</span>
+                        </span>
+                    </h1>
+                    <p class="hero__lede intro" style="--i:3">One day. Five events. <strong>Zero syllabus.</strong> A treasure hunt, a workshop, a design duel, tech charades, and Garba to close it out.</p>
+                    <div class="hero__ctas intro" style="--i:4">
+                        <a href="#register" class="btn btn--primary btn--lg">Register now <span class="btn__arrow" aria-hidden="true">→</span></a>
+                        <a href="#events" class="btn btn--ghost btn--lg">Explore events</a>
+                    </div>
                 </div>
 
-                <figure class="hero__figure">
-                    <svg class="hero__whistle" viewBox="0 0 380 320" fill="none" stroke="currentColor" stroke-width="3"
-                        stroke-linecap="round" stroke-linejoin="round" role="img"
-                        aria-label="Line drawing of a whistle">
-                        <circle cx="150" cy="172" r="82" style="fill: var(--color-bg)"></circle>
-                        <path d="M150 90 H330 V142 H226" style="fill: var(--color-bg)" stroke="none"></path>
-                        <path d="M152 90 H330 V142 H226"></path>
-                </figure>
+                <div class="hero__panel intro" style="--i:5">
+                    <div class="countdown" id="countdown" data-target="2026-10-06T10:30:00+05:30">
+                        <div class="countdown__head">
+                            <span class="label"><span class="live-dot" aria-hidden="true"></span><span id="countdown-status">T-minus · first whistle</span></span>
+                            <span class="label countdown__time">10:30 IST</span>
+                        </div>
+                        <div class="countdown__grid" aria-hidden="true">
+                            <div class="countdown__cell"><b data-unit="days">--</b><span>Days</span></div>
+                            <div class="countdown__cell"><b data-unit="hours">--</b><span>Hours</span></div>
+                            <div class="countdown__cell"><b data-unit="minutes">--</b><span>Mins</span></div>
+                            <div class="countdown__cell"><b data-unit="seconds">--</b><span>Secs</span></div>
+                        </div>
+                        <p class="visually-hidden" id="countdown-text">IEEE Day starts on Tuesday 6 October 2026 at 10:30 AM.</p>
+                    </div>
 
-                <p class="hero__lede">On Tuesday, 6 October, five things will happen at VGEC that don't appear in any
-                    IEEE handbook. This page is the evidence.</p>
-
-                <dl class="meta-row hero__meta">
-                    <div>
-                        <dt class="label">Event</dt>
-                        <dd>IEEE Day 2026</dd>
-                    </div>
-                    <div>
-                        <dt class="label">Filed by</dt>
-                        <dd>VGEC Student Branch</dd>
-                    </div>
-                    <div>
-                        <dt class="label">Date</dt>
-                        <dd><time datetime="2026-10-06">Tue, 6 October 2026</time></dd>
-                    </div>
-                    <div>
-                        <dt class="label">Venue</dt>
-                        <dd>VGEC, Chandkheda</dd>
-                    </div>
-                </dl>
+                    <dl class="facts">
+                        <div class="facts__item"><dt class="label">Date</dt><dd><time datetime="2026-10-06">Tue, 6 Oct</time></dd></div>
+                        <div class="facts__item"><dt class="label">Starts</dt><dd><time datetime="2026-10-06T10:30">10:30 AM</time></dd></div>
+                        <div class="facts__item"><dt class="label">Venue</dt><dd>VGEC campus</dd></div>
+                        <div class="facts__item"><dt class="label">Open to</dt><dd>All branches</dd></div>
+                    </dl>
+                </div>
             </div>
         </section>
+
+        <!-- Ticker (decorative) -->
+        <div class="ticker" aria-hidden="true">
+            <div class="ticker__track">
+                <span>Treasure Hunt</span><i></i><span>Workshop</span><i></i><span>Brand Identity Challenge</span><i></i><span>Tech Charades</span><i></i><span>Garba</span><i></i>
+                <span>Treasure Hunt</span><i></i><span>Workshop</span><i></i><span>Brand Identity Challenge</span><i></i><span>Tech Charades</span><i></i><span>Garba</span><i></i>
+            </div>
+        </div>
 
         <!-- =====================================================
-             REVEAL — foundation by Priyanshi
-             Instrument panel (spec-o-meter + countdown) inside:
-             markup here, styles in sections.css, logic in js/reveal.js.
+             ABOUT — Priyanshi
              ===================================================== -->
-        <section class="section section--navy reveal" id="reveal" aria-labelledby="reveal-title">
-            <div class="container">
-                <!-- <p class="section-label">§0 — Background</p> -->
-                <p class="display reveal__setup">IEEE writes the rules your Wi-Fi runs on. Rules are great.</p>
-                <h2 class="display reveal__title" id="reveal-title">Today, we're breaking <span class="text-highlight">five.</span></h2>
-                <!-- ── Instrument panel: Spec-o-meter + split-flap countdown ──
-                     Motion #03 ("Interaction & motion.pdf"): the needle creeps toward the
-                     red zone as 6 Oct approaches; the seconds flap drops every tick.
-                     Values are filled in by js/reveal.js. -->
-                <div class="instrument-panel">
-                    <span class="panel-dot panel-dot--tl" aria-hidden="true"></span>
-                    <span class="panel-dot panel-dot--tr" aria-hidden="true"></span>
-                    <span class="panel-dot panel-dot--bl" aria-hidden="true"></span>
-                    <span class="panel-dot panel-dot--br" aria-hidden="true"></span>
-
-                    <!-- Spec-o-meter: 0% on 6 Sep, 100% (red zone from 80%) at 10:30 IST on 6 Oct -->
-                    <div class="specometer">
-                        <p class="label specometer__label">Instrument 00 · Spec-o-meter</p>
-
-                        <!-- Pivot (240, 250), scale radius 200. Needle drawn pointing at 100%;
-                             JS rotates it by -(1 - value) * 180deg. -->
-                        <svg class="specometer__svg" viewBox="0 0 480 272" fill="none" aria-hidden="true">
-                            <path class="gauge-rim" d="M30 250 A210 210 0 0 1 450 250"/>
-                            <path class="gauge-band" d="M409.9 126.6 A210 210 0 0 1 450 250"/>
-                            <path class="gauge-scale" d="M40 250 A200 200 0 0 1 440 250"/>
-                            <g class="gauge-ticks">
-                                <path class="tick tick--major" d="M40.0 250.0 L62.0 250.0"/>
-                                <path class="tick" d="M40.6 234.3 L48.6 234.9"/>
-                                <path class="tick" d="M42.5 218.7 L50.4 220.0"/>
-                                <path class="tick" d="M45.5 203.3 L53.3 205.2"/>
-                                <path class="tick" d="M49.8 188.2 L57.4 190.7"/>
-                                <path class="tick" d="M55.2 173.5 L68.2 178.8"/>
-                                <path class="tick" d="M61.8 159.2 L68.9 162.8"/>
-                                <path class="tick" d="M69.5 145.5 L76.3 149.7"/>
-                                <path class="tick" d="M78.2 132.4 L84.7 137.1"/>
-                                <path class="tick" d="M87.9 120.1 L94.0 125.3"/>
-                                <path class="tick tick--major" d="M98.6 108.6 L114.1 124.1"/>
-                                <path class="tick" d="M110.1 97.9 L115.3 104.0"/>
-                                <path class="tick" d="M122.4 88.2 L127.1 94.7"/>
-                                <path class="tick" d="M135.5 79.5 L139.7 86.3"/>
-                                <path class="tick" d="M149.2 71.8 L152.8 78.9"/>
-                                <path class="tick" d="M163.5 65.2 L168.8 78.2"/>
-                                <path class="tick" d="M178.2 59.8 L180.7 67.4"/>
-                                <path class="tick" d="M193.3 55.5 L195.2 63.3"/>
-                                <path class="tick" d="M208.7 52.5 L210.0 60.4"/>
-                                <path class="tick" d="M224.3 50.6 L224.9 58.6"/>
-                                <path class="tick tick--major" d="M240.0 50.0 L240.0 72.0"/>
-                                <path class="tick" d="M255.7 50.6 L255.1 58.6"/>
-                                <path class="tick" d="M271.3 52.5 L270.0 60.4"/>
-                                <path class="tick" d="M286.7 55.5 L284.8 63.3"/>
-                                <path class="tick" d="M301.8 59.8 L299.3 67.4"/>
-                                <path class="tick" d="M316.5 65.2 L311.2 78.2"/>
-                                <path class="tick" d="M330.8 71.8 L327.2 78.9"/>
-                                <path class="tick" d="M344.5 79.5 L340.3 86.3"/>
-                                <path class="tick" d="M357.6 88.2 L352.9 94.7"/>
-                                <path class="tick" d="M369.9 97.9 L364.7 104.0"/>
-                                <path class="tick tick--major" d="M381.4 108.6 L365.9 124.1"/>
-                                <path class="tick" d="M392.1 120.1 L386.0 125.3"/>
-                                <path class="tick tick--red" d="M401.8 132.4 L395.3 137.1"/>
-                                <path class="tick tick--red" d="M410.5 145.5 L403.7 149.7"/>
-                                <path class="tick tick--red" d="M418.2 159.2 L411.1 162.8"/>
-                                <path class="tick tick--red" d="M424.8 173.5 L411.8 178.8"/>
-                                <path class="tick tick--red" d="M430.2 188.2 L422.6 190.7"/>
-                                <path class="tick tick--red" d="M434.5 203.3 L426.7 205.2"/>
-                                <path class="tick tick--red" d="M437.5 218.7 L429.6 220.0"/>
-                                <path class="tick tick--red" d="M439.4 234.3 L431.4 234.9"/>
-                                <path class="tick tick--major tick--red" d="M440.0 250.0 L418.0 250.0"/>
-                            </g>
-                            <g class="gauge-numbers">
-                                <text x="84" y="255">0</text>
-                                <text x="129.7" y="144.7">25</text>
-                                <text x="240" y="99">50</text>
-                                <text x="350.3" y="144.7">75</text>
-                                <text x="396" y="255">100</text>
-                            </g>
-                            <text class="gauge-zone" x="40" y="271">IN SPEC</text>
-                            <text class="gauge-zone gauge-zone--out" x="440" y="271">OUT OF SPEC</text>
-                            <text class="gauge-note" x="240" y="182">% out of spec</text>
-                            <g class="gauge-needle" id="specometer-needle" transform="rotate(-180 240 250)">
-                                <path class="gauge-needle__shaft" d="M214 250 L428 250"/>
-                                <path class="gauge-needle__tip" d="M400 245 L428 250 L400 255 Z"/>
-                            </g>
-                            <circle class="gauge-pivot" cx="240" cy="250" r="12"/>
-                            <circle class="gauge-pivot__pin" cx="240" cy="250" r="4"/>
-                        </svg>
-
-                        <p class="specometer__reading">
-                            <span class="specometer__number" id="specometer-number">0</span><span class="specometer__unit">%</span>
-                            <span class="visually-hidden"> out of spec</span>
-                        </p>
-                    </div>
-
-                    <!-- Countdown to the first whistle -->
-                    <div class="countdown" id="countdown">
-                        <div class="countdown__header">
-                            <span class="label">T-minus · until the first whistle</span>
-                            <span class="label">06.10.2026 · 10:30 IST</span>
-                        </div>
-
-                        <!-- Tiles are decorative; the hidden line below is the readable version -->
-                        <div class="countdown__clock" aria-hidden="true">
-                            <div class="flip-unit" data-unit="days">
-                                <div class="flip-pair"><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span></div>
-                                <span class="label flip-unit__label">Days</span>
-                            </div>
-                            <span class="countdown__sep">:</span>
-                            <div class="flip-unit" data-unit="hours">
-                                <div class="flip-pair"><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span></div>
-                                <span class="label flip-unit__label">Hours</span>
-                            </div>
-                            <span class="countdown__sep">:</span>
-                            <div class="flip-unit" data-unit="minutes">
-                                <div class="flip-pair"><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span></div>
-                                <span class="label flip-unit__label"><span class="flip-unit__long">Minutes</span><span class="flip-unit__short">Mins</span></span>
-                            </div>
-                            <span class="countdown__sep">:</span>
-                            <div class="flip-unit" data-unit="seconds">
-                                <div class="flip-pair"><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span><span class="flap" data-digit="0"><span class="flap__num">0</span><span class="flap__leaf"><span>0</span></span></span></div>
-                                <span class="label flip-unit__label"><span class="flip-unit__long">Seconds</span><span class="flip-unit__short">Secs</span></span>
-                            </div>
-                        </div>
-                        <p class="visually-hidden" id="countdown-text" role="timer">IEEE Day starts on 6 October 2026 at 10:30 AM.</p>
-
-                        <div class="countdown__footer">
-                            <p class="countdown__note">When the needle hits the red, the campus officially stops behaving. Until then: pick your anomaly.</p>
-                            <p class="label countdown__fig">Fig. 0 — Calibrated by nobody. Accurate anyway.</p>
-                        </div>
-                        <p class="label countdown__foot-mobile">Needle hits red at 10:30 AM, 06.10</p>
-                    </div>
+        <section class="section about" id="about" aria-labelledby="about-title">
+            <div class="container about__grid">
+                <div data-reveal>
+                    <p class="eyebrow"><span class="eyebrow__num">00</span><span data-scramble>Why today</span></p>
+                    <h2 class="section-title" id="about-title">IEEE writes the rules your Wi-Fi runs on. <em>Today, we celebrate.</em></h2>
                 </div>
-
-
+                <div class="about__body" data-reveal>
+                    <p>IEEE Day marks the first time engineers gathered to share their ideas, back in 1884. We're celebrating with a hunt, a workshop, a design duel, charades and Garba, because the people were always the point.</p>
+                    <ul class="stats">
+                        <li><b>05</b><span>Events</span></li>
+                        <li><b>01</b><span>Day</span></li>
+                        <li><b>10:30</b><span>First whistle</span></li>
+                        <li><b>All</b><span>Branches welcome</span></li>
+                    </ul>
+                </div>
             </div>
         </section>
-        
+
         <!-- =====================================================
              EVENTS — owned by Vansh + Daksh + Nilesh
-             Five flip/event cards go inside .events-grid.
+             Flip cards: the front is the poster (live motif), the back is
+             the spec sheet (details + register). js/events.js handles the
+             flip, tilt and rail. Without JS both faces simply stack.
              Event data lives in README → "Event information".
              ===================================================== -->
         <section class="section events" id="events" aria-labelledby="events-title">
             <div class="container">
-                <p class="section-label">§2 — Five anomalies</p>
-                <h2 class="section-title" id="events-title">Filed under: not the syllabus.</h2>
-
-                <div class="events-grid" aria-label="IEEE Day 2026 events">
-
-
-                    <div class="events-carousel" aria-roledescription="carousel" aria-label="IEEE Day 2026 events">
-
-                        <div class="events-carousel__viewport">
-                            <div class="events-carousel__track">
-
-                                <!-- 01 — Treasure Hunt -->
-                                <article class="event-card" data-index="0">
-                                    <div class="event-card__header">
-                                        <span class="event-card__number label">01 / 05</span>
-                                        <span class="event-card__format label">TEAM</span>
-                                    </div>
-
-                                    <div class="event-card__body">
-                                        <p class="event-card__eyebrow label">ANOMALY 01</p>
-                                        <h3 class="event-card__title">Treasure Hunt</h3>
-                                        <p class="event-card__tagline">The campus is hiding something.</p>
-
-                                        <dl class="event-card__details">
-                                            <div>
-                                                <dt class="label">When</dt>
-                                                <dd>10:30–11:30 AM</dd>
-                                            </div>
-                                            <div>
-                                                <dt class="label">Format</dt>
-                                                <dd>Team</dd>
-                                            </div>
-                                            <div>
-                                                <dt class="label">Fee</dt>
-                                                <dd>₹100</dd>
-                                            </div>
-                                        </dl>
-                                    </div>
-
-                                    <div class="event-card__footer">
-                                        <a class="btn btn--gold event-card__register" data-registration-url=""
-                                            aria-disabled="true">
-                                            Join the hunt <span class="btn__arrow" aria-hidden="true">→</span>
-                                        </a>
-                                    </div>
-                                </article>
-
-
-                                <!-- 02 — Workshop -->
-                                <article class="event-card" data-index="1">
-                                    <div class="event-card__header">
-                                        <span class="event-card__number label">02 / 05</span>
-                                        <span class="event-card__format label">TBA</span>
-                                    </div>
-
-                                    <div class="event-card__body">
-                                        <p class="event-card__eyebrow label">ANOMALY 02</p>
-                                        <h3 class="event-card__title">Workshop</h3>
-                                        <p class="event-card__tagline">Come curious. Leave with something new.</p>
-
-                                        <dl class="event-card__details">
-                                            <div>
-                                                <dt class="label">When</dt>
-                                                <dd>[TBA]</dd>
-                                            </div>
-                                            <div>
-                                                <dt class="label">Format</dt>
-                                                <dd>[TBA]</dd>
-                                            </div>
-                                            <div>
-                                                <dt class="label">Fee</dt>
-                                                <dd>[TBA]</dd>
-                                            </div>
-                                        </dl>
-                                    </div>
-
-                                    <div class="event-card__footer">
-                                        <a class="btn btn--gold event-card__register" data-registration-url=""
-                                            aria-disabled="true">
-                                            Get curious <span class="btn__arrow" aria-hidden="true">→</span>
-                                        </a>
-                                    </div>
-                                </article>
-
-
-                                <!-- 03 — Brand Identity Challenge -->
-                                <article class="event-card" data-index="2">
-                                    <div class="event-card__header">
-                                        <span class="event-card__number label">03 / 05</span>
-                                        <span class="event-card__format label">INDIVIDUAL</span>
-                                    </div>
-
-                                    <div class="event-card__body">
-                                        <p class="event-card__eyebrow label">ANOMALY 03</p>
-                                        <h3 class="event-card__title">Brand Identity Challenge</h3>
-                                        <p class="event-card__tagline">A brand. A blank canvas. No bad ideas.</p>
-
-                                        <dl class="event-card__details">
-                                            <div>
-                                                <dt class="label">When</dt>
-                                                <dd>[TBA]</dd>
-                                            </div>
-                                            <div>
-                                                <dt class="label">Format</dt>
-                                                <dd>Individual</dd>
-                                            </div>
-                                            <div>
-                                                <dt class="label">Fee</dt>
-                                                <dd>[TBA]</dd>
-                                            </div>
-                                        </dl>
-                                    </div>
-
-                                    <div class="event-card__footer">
-                                        <a class="btn btn--gold event-card__register" data-registration-url=""
-                                            aria-disabled="true">
-                                            Build the brand <span class="btn__arrow" aria-hidden="true">→</span>
-                                        </a>
-                                    </div>
-                                </article>
-
-
-                                <!-- 04 — Tech Charades -->
-                                <article class="event-card" data-index="3">
-                                    <div class="event-card__header">
-                                        <span class="event-card__number label">04 / 05</span>
-                                        <span class="event-card__format label">TEAM</span>
-                                    </div>
-
-                                    <div class="event-card__body">
-                                        <p class="event-card__eyebrow label">ANOMALY 04</p>
-                                        <h3 class="event-card__title">Tech Charades</h3>
-                                        <p class="event-card__tagline">No keyboard. No mouse. Just vibes.</p>
-
-                                        <dl class="event-card__details">
-                                            <div>
-                                                <dt class="label">When</dt>
-                                                <dd>[TBA]</dd>
-                                            </div>
-                                            <div>
-                                                <dt class="label">Format</dt>
-                                                <dd>Team</dd>
-                                            </div>
-                                            <div>
-                                                <dt class="label">Fee</dt>
-                                                <dd>[TBA]</dd>
-                                            </div>
-                                        </dl>
-                                    </div>
-
-                                    <div class="event-card__footer">
-                                        <a class="btn btn--gold event-card__register" data-registration-url=""
-                                            aria-disabled="true">
-                                            Play it out <span class="btn__arrow" aria-hidden="true">→</span>
-                                        </a>
-                                    </div>
-                                </article>
-
-
-                                <!-- 05 — Garba -->
-                                <article class="event-card" data-index="4">
-                                    <div class="event-card__header">
-                                        <span class="event-card__number label">05 / 05</span>
-                                        <span class="event-card__format label">EVERYONE</span>
-                                    </div>
-
-                                    <div class="event-card__body">
-                                        <p class="event-card__eyebrow label">ANOMALY 05</p>
-                                        <h3 class="event-card__title">Garba</h3>
-                                        <p class="event-card__tagline">Yes, IEEE does Garba.</p>
-
-                                        <dl class="event-card__details">
-                                            <div>
-                                                <dt class="label">When</dt>
-                                                <dd>[TBA]</dd>
-                                            </div>
-                                            <div>
-                                                <dt class="label">Format</dt>
-                                                <dd>Everyone</dd>
-                                            </div>
-                                            <div>
-                                                <dt class="label">Fee</dt>
-                                                <dd>[TBA]</dd>
-                                            </div>
-                                        </dl>
-                                    </div>
-
-                                    <div class="event-card__footer">
-                                        <a class="btn btn--gold event-card__register" data-registration-url=""
-                                            aria-disabled="true">
-                                            Join the circle <span class="btn__arrow" aria-hidden="true">→</span>
-                                        </a>
-                                    </div>
-                                </article>
-
-                            </div>
-                        </div>
-
-                        <div class="events-carousel__controls">
-                            <button class="events-carousel__arrow events-carousel__arrow--prev" type="button"
-                                aria-label="Previous event">
-                                ←
-                            </button>
-
-                            <div class="events-carousel__counter" aria-live="polite">
-                                <span class="events-carousel__current">01</span>
-                                <span aria-hidden="true"> / 05</span>
-                            </div>
-
-                            <button class="events-carousel__arrow events-carousel__arrow--next" type="button"
-                                aria-label="Next event">
-                                →
-                            </button>
-                        </div>
-
-                        <p class="events-carousel__hint label">
-                            Swipe to rotate · 01 / 05
-                        </p>
-
+                <div class="section-head section-head--row" data-reveal>
+                    <div>
+                        <p class="eyebrow"><span class="eyebrow__num">01</span><span data-scramble>The lineup</span></p>
+                        <h2 class="section-title" id="events-title">Five events. <em>Pick your poison.</em></h2>
                     </div>
+                    <p class="section-sub">Tap a card to flip it for time, format and fee. Go solo or squad up.</p>
+                </div>
 
+                <div class="events__rail" id="events-rail">
+
+                    <!-- 01 — Treasure Hunt: radar sweep -->
+                    <article class="event-card" style="--ev: var(--ev-1)" aria-labelledby="ev-1">
+                        <div class="event-card__inner">
+                            <div class="event-card__face event-card__front">
+                                <div class="event-card__top">
+                                    <span class="event-card__num">01</span>
+                                    <span class="chip chip--sm">Team</span>
+                                </div>
+                                <div class="event-card__art">
+                                    <svg class="motif motif--radar" viewBox="0 0 240 150" aria-hidden="true">
+                                        <g class="m-faint"><circle cx="120" cy="75" r="22"/><circle cx="120" cy="75" r="44"/><circle cx="120" cy="75" r="66"/><path d="M50 75H190M120 5V145"/></g>
+                                        <path class="m-sweep" d="M120 75 L120 9 A66 66 0 0 1 177.2 42 Z"/>
+                                        <circle class="m-dot m-blip" cx="152" cy="52" r="4"/>
+                                        <circle class="m-dot m-blip m-blip--2" cx="92" cy="104" r="3"/>
+                                        <circle class="m-dot m-blip m-blip--3" cx="164" cy="104" r="3"/>
+                                        <path class="m-x" d="M76 36l12 12M88 36L76 48"/>
+                                    </svg>
+                                </div>
+                                <div class="event-card__bottom">
+                                    <h3 class="event-card__title" id="ev-1">Treasure Hunt</h3>
+                                    <p class="event-card__tagline">The campus is hiding something.</p>
+                                    <button type="button" class="event-card__flip" aria-label="Show Treasure Hunt details">
+                                        <span>Tap for details</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="event-card__face event-card__back">
+                                <div class="event-card__top">
+                                    <span class="event-card__num">01</span>
+                                    <span class="label event-card__back-name">Treasure Hunt</span>
+                                </div>
+                                <p class="event-card__desc">VGEC becomes the playing field. Solve questions, follow hints, find the hidden whistles.</p>
+                                <dl class="event-card__facts">
+                                    <div><dt>When</dt><dd>10:30 – 11:30 AM</dd></div>
+                                    <div><dt>Format</dt><dd>Team</dd></div>
+                                    <div><dt>Fee</dt><dd>₹100</dd></div>
+                                </dl>
+                                <div class="event-card__actions">
+                                    <a href="#register" class="btn btn--primary btn--block">Join the hunt <span class="btn__arrow" aria-hidden="true">→</span></a>
+                                    <button type="button" class="event-card__flip event-card__flip--back" aria-label="Flip Treasure Hunt card back">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></svg><span>Flip back</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 02 — Workshop: chip with signals flowing in -->
+                    <article class="event-card" style="--ev: var(--ev-2)" aria-labelledby="ev-2">
+                        <div class="event-card__inner">
+                            <div class="event-card__face event-card__front">
+                                <div class="event-card__top">
+                                    <span class="event-card__num">02</span>
+                                    <span class="chip chip--sm">TBA</span>
+                                </div>
+                                <div class="event-card__art">
+                                    <svg class="motif motif--chip" viewBox="0 0 240 150" aria-hidden="true">
+                                        <g class="m-faint"><path d="M0 40H50L70 60H90"/><path d="M0 110H50L70 90H90"/><path d="M240 40H190L170 60H150"/><path d="M240 110H190L170 90H150"/><path d="M120 0V45"/><path d="M120 150V105"/></g>
+                                        <g class="m-pulse"><path pathLength="100" d="M0 40H50L70 60H90"/><path pathLength="100" d="M240 110H190L170 90H150"/><path pathLength="100" d="M120 0V45"/><path pathLength="100" d="M0 110H50L70 90H90"/></g>
+                                        <rect class="m-chip" x="90" y="45" width="60" height="60" rx="8"/>
+                                        <rect class="m-chip-core" x="104" y="59" width="32" height="32" rx="4"/>
+                                        <text class="m-text" x="120" y="80" text-anchor="middle">&lt;/&gt;</text>
+                                    </svg>
+                                </div>
+                                <div class="event-card__bottom">
+                                    <h3 class="event-card__title" id="ev-2">Workshop</h3>
+                                    <p class="event-card__tagline">Come curious. Leave with something new.</p>
+                                    <button type="button" class="event-card__flip" aria-label="Show Workshop details">
+                                        <span>Tap for details</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="event-card__face event-card__back">
+                                <div class="event-card__top">
+                                    <span class="event-card__num">02</span>
+                                    <span class="label event-card__back-name">Workshop</span>
+                                </div>
+                                <p class="event-card__desc">The topic is still under wraps. It drops soon, so keep an eye on this page.</p>
+                                <dl class="event-card__facts">
+                                    <div><dt>When</dt><dd>[TBA]</dd></div>
+                                    <div><dt>Format</dt><dd>[TBA]</dd></div>
+                                    <div><dt>Fee</dt><dd>[TBA]</dd></div>
+                                </dl>
+                                <div class="event-card__actions">
+                                    <a href="#register" class="btn btn--primary btn--block">Get curious <span class="btn__arrow" aria-hidden="true">→</span></a>
+                                    <button type="button" class="event-card__flip event-card__flip--back" aria-label="Flip Workshop card back">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></svg><span>Flip back</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 03 — Brand Identity Challenge: pen tool drawing a curve -->
+                    <article class="event-card" style="--ev: var(--ev-3)" aria-labelledby="ev-3">
+                        <div class="event-card__inner">
+                            <div class="event-card__face event-card__front">
+                                <div class="event-card__top">
+                                    <span class="event-card__num">03</span>
+                                    <span class="chip chip--sm">Individual</span>
+                                </div>
+                                <div class="event-card__art">
+                                    <svg class="motif motif--pen" viewBox="0 0 240 150" aria-hidden="true">
+                                        <rect class="m-faint m-artboard" x="30" y="18" width="180" height="114" rx="4"/>
+                                        <path class="m-faint" d="M55 112 L92 24 M185 112 L148 24"/>
+                                        <path class="m-draw" pathLength="100" d="M55 112 C 92 24, 148 24, 185 112"/>
+                                        <circle class="m-handle" cx="92" cy="24" r="4.5"/>
+                                        <circle class="m-handle" cx="148" cy="24" r="4.5"/>
+                                        <rect class="m-anchor" x="50" y="107" width="10" height="10"/>
+                                        <rect class="m-anchor" x="180" y="107" width="10" height="10"/>
+                                        <circle class="m-dot m-nib" r="5"/>
+                                    </svg>
+                                </div>
+                                <div class="event-card__bottom">
+                                    <h3 class="event-card__title" id="ev-3">Brand Identity Challenge</h3>
+                                    <p class="event-card__tagline">A brand. A blank canvas. No bad ideas.</p>
+                                    <button type="button" class="event-card__flip" aria-label="Show Brand Identity Challenge details">
+                                        <span>Tap for details</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="event-card__face event-card__back">
+                                <div class="event-card__top">
+                                    <span class="event-card__num">03</span>
+                                    <span class="label event-card__back-name">Brand Identity</span>
+                                </div>
+                                <p class="event-card__desc">Get a hypothetical brand, design its logo and identity. Judged on uniqueness, innovation and creativity.</p>
+                                <dl class="event-card__facts">
+                                    <div><dt>When</dt><dd>[TBA]</dd></div>
+                                    <div><dt>Format</dt><dd>Individual</dd></div>
+                                    <div><dt>Fee</dt><dd>[TBA]</dd></div>
+                                </dl>
+                                <div class="event-card__actions">
+                                    <a href="#register" class="btn btn--primary btn--block">Build the brand <span class="btn__arrow" aria-hidden="true">→</span></a>
+                                    <button type="button" class="event-card__flip event-card__flip--back" aria-label="Flip Brand Identity Challenge card back">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></svg><span>Flip back</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 04 — Tech Charades: muted bubble, loud equaliser -->
+                    <article class="event-card" style="--ev: var(--ev-4)" aria-labelledby="ev-4">
+                        <div class="event-card__inner">
+                            <div class="event-card__face event-card__front">
+                                <div class="event-card__top">
+                                    <span class="event-card__num">04</span>
+                                    <span class="chip chip--sm">Team</span>
+                                </div>
+                                <div class="event-card__art">
+                                    <svg class="motif motif--charades" viewBox="0 0 240 150" aria-hidden="true">
+                                        <path class="m-bubble" d="M32 36h78a12 12 0 0 1 12 12v38a12 12 0 0 1-12 12H66l-20 18V98H32a12 12 0 0 1-12-12V48a12 12 0 0 1 12-12Z"/>
+                                        <path class="m-mute" d="M52 54l40 26M92 54L52 80"/>
+                                        <g class="m-bars">
+                                            <rect x="140" y="50" width="6" height="50" rx="3" style="--d:0s"/>
+                                            <rect x="151" y="50" width="6" height="50" rx="3" style="--d:-.3s"/>
+                                            <rect x="162" y="50" width="6" height="50" rx="3" style="--d:-.6s"/>
+                                            <rect x="173" y="50" width="6" height="50" rx="3" style="--d:-.15s"/>
+                                            <rect x="184" y="50" width="6" height="50" rx="3" style="--d:-.45s"/>
+                                            <rect x="195" y="50" width="6" height="50" rx="3" style="--d:-.75s"/>
+                                            <rect x="206" y="50" width="6" height="50" rx="3" style="--d:-.2s"/>
+                                            <rect x="217" y="50" width="6" height="50" rx="3" style="--d:-.55s"/>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="event-card__bottom">
+                                    <h3 class="event-card__title" id="ev-4">Tech Charades</h3>
+                                    <p class="event-card__tagline">No keyboard. No mouse. Just vibes.</p>
+                                    <button type="button" class="event-card__flip" aria-label="Show Tech Charades details">
+                                        <span>Tap for details</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="event-card__face event-card__back">
+                                <div class="event-card__top">
+                                    <span class="event-card__num">04</span>
+                                    <span class="label event-card__back-name">Tech Charades</span>
+                                </div>
+                                <p class="event-card__desc">Dumb charades, but every word is a tech term. Act out "recursion". We dare you.</p>
+                                <dl class="event-card__facts">
+                                    <div><dt>When</dt><dd>[TBA]</dd></div>
+                                    <div><dt>Format</dt><dd>Team</dd></div>
+                                    <div><dt>Fee</dt><dd>[TBA]</dd></div>
+                                </dl>
+                                <div class="event-card__actions">
+                                    <a href="#register" class="btn btn--primary btn--block">Play it out <span class="btn__arrow" aria-hidden="true">→</span></a>
+                                    <button type="button" class="event-card__flip event-card__flip--back" aria-label="Flip Tech Charades card back">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></svg><span>Flip back</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 05 — Garba: rings of dancers turning -->
+                    <article class="event-card" style="--ev: var(--ev-5)" aria-labelledby="ev-5">
+                        <div class="event-card__inner">
+                            <div class="event-card__face event-card__front">
+                                <div class="event-card__top">
+                                    <span class="event-card__num">05</span>
+                                    <span class="chip chip--sm">Everyone</span>
+                                </div>
+                                <div class="event-card__art">
+                                    <svg class="motif motif--garba" viewBox="0 0 240 150" aria-hidden="true">
+                                        <circle class="m-faint" cx="120" cy="75" r="66" stroke-dasharray="2 7"/>
+                                        <g class="m-ring m-ring--outer">
+                                            <circle class="m-faint" cx="120" cy="75" r="50"/>
+                                            <circle class="m-dot" cx="170" cy="75" r="4.5"/><circle class="m-dot" cx="155.4" cy="110.4" r="4.5"/>
+                                            <circle class="m-dot" cx="120" cy="125" r="4.5"/><circle class="m-dot" cx="84.6" cy="110.4" r="4.5"/>
+                                            <circle class="m-dot" cx="70" cy="75" r="4.5"/><circle class="m-dot" cx="84.6" cy="39.6" r="4.5"/>
+                                            <circle class="m-dot" cx="120" cy="25" r="4.5"/><circle class="m-dot" cx="155.4" cy="39.6" r="4.5"/>
+                                        </g>
+                                        <g class="m-ring m-ring--inner">
+                                            <circle class="m-faint" cx="120" cy="75" r="30"/>
+                                            <circle class="m-dot m-dot--soft" cx="120" cy="45" r="3.5"/><circle class="m-dot m-dot--soft" cx="148.5" cy="65.7" r="3.5"/>
+                                            <circle class="m-dot m-dot--soft" cx="137.6" cy="99.3" r="3.5"/><circle class="m-dot m-dot--soft" cx="102.4" cy="99.3" r="3.5"/>
+                                            <circle class="m-dot m-dot--soft" cx="91.5" cy="65.7" r="3.5"/>
+                                        </g>
+                                        <circle class="m-core" cx="120" cy="75" r="9"/>
+                                    </svg>
+                                </div>
+                                <div class="event-card__bottom">
+                                    <h3 class="event-card__title" id="ev-5">Garba</h3>
+                                    <p class="event-card__tagline">Yes, IEEE does Garba.</p>
+                                    <button type="button" class="event-card__flip" aria-label="Show Garba details">
+                                        <span>Tap for details</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="event-card__face event-card__back">
+                                <div class="event-card__top">
+                                    <span class="event-card__num">05</span>
+                                    <span class="label event-card__back-name">Garba</span>
+                                </div>
+                                <p class="event-card__desc">A Gujarati Garba celebration to close the day. Solo, duo or the whole friend group.</p>
+                                <dl class="event-card__facts">
+                                    <div><dt>When</dt><dd>[TBA]</dd></div>
+                                    <div><dt>Format</dt><dd>Everyone</dd></div>
+                                    <div><dt>Fee</dt><dd>[TBA]</dd></div>
+                                </dl>
+                                <div class="event-card__actions">
+                                    <a href="#register" class="btn btn--primary btn--block">Join the circle <span class="btn__arrow" aria-hidden="true">→</span></a>
+                                    <button type="button" class="event-card__flip event-card__flip--back" aria-label="Flip Garba card back">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></svg><span>Flip back</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- Rail controls (phones/tablets; hidden on laptops where all cards are visible) -->
+                <div class="events__controls">
+                    <button type="button" class="icon-btn" id="events-prev" aria-label="Previous event"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+                    <div class="events__dots" id="events-dots" aria-hidden="true"></div>
+                    <span class="label events__count" aria-live="polite"><span id="events-current">01</span> / 05</span>
+                    <button type="button" class="icon-btn" id="events-next" aria-label="Next event"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
                 </div>
             </div>
         </section>
 
         <!-- =====================================================
-             TIMELINE ("The flow") — owned by Dhruvi + Dhwani
+             TIMELINE — owned by Dhruvi + Dhwani
+             Each event has its own "signal". js/timeline.js marks the
+             live / done state on the day itself.
              ===================================================== -->
-        <section class="section section--paper timeline" id="timeline" aria-labelledby="timeline-title">
+        <section class="section timeline" id="timeline" aria-labelledby="timeline-title">
             <div class="container">
-                <div class="timeline__header">
-                    <div class="timeline__title-wrap">
-                        <p class="section-label">§3 — The flow</p>
-                        <h2 class="section-title timeline__title" id="timeline-title">
-                            The day, plotted.
-                            <span class="timeline__hand hand" aria-hidden="true">(very unscientifically)</span>
-                        </h2>
-                    </div>
-                    <p class="timeline__instruction">
-                        Drag along the line to scrub the day. Every anomaly has its own signal.
-                    </p>
+                <div class="section-head" data-reveal>
+                    <p class="eyebrow"><span class="eyebrow__num">02</span><span data-scramble>Schedule</span></p>
+                    <h2 class="section-title" id="timeline-title">The day, <em>plotted.</em></h2>
+                    <p class="section-sub">Tuesday, 6 October. Times marked TBA get locked in soon.</p>
                 </div>
 
-                <!-- Interactive SVG Timeline Plot (Scrubber) -->
-                <div class="timeline__plot-wrapper" tabindex="0" role="slider" aria-label="Day schedule timeline scrubber" aria-valuemin="160" aria-valuemax="1312" aria-valuenow="560" aria-valuetext="Scrubbing: Workshop, Signal: Focused, Time: TBA">
-                    <div class="timeline__plot-inner">
-                        <svg class="timeline__svg" viewBox="0 0 1312 430" fill="none" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="The day's energy as a line: jagged hunt, smooth workshop, square-wave brand challenge, noisy charades, looping Garba">
-                            <title>The day, plotted as continuous signals</title>
-                            <desc>Drag or use arrow keys to scrub across the day: Hunt (running), Workshop (focused), Brand Identity (sharp), Tech Charades (loud), and Garba (circular).</desc>
-
-                            <!-- Clickable Anomaly Regions for direct jump / interaction -->
-                            <g class="timeline__regions" aria-hidden="true">
-                                <rect class="timeline__region-target" data-event-key="hunt" x="140" y="70" width="280" height="290"></rect>
-                                <rect class="timeline__region-target" data-event-key="workshop" x="420" y="70" width="270" height="290"></rect>
-                                <rect class="timeline__region-target" data-event-key="brand" x="690" y="70" width="260" height="290"></rect>
-                                <rect class="timeline__region-target" data-event-key="charades" x="950" y="70" width="190" height="290"></rect>
-                                <rect class="timeline__region-target" data-event-key="garba" x="1140" y="70" width="172" height="290"></rect>
-                            </g>
-
-                            <!-- Anomaly Titles (y=110) -->
-                            <g class="timeline__names" aria-hidden="true">
-                                <text class="timeline__event-name" data-event="hunt" x="160" y="110">Hunt</text>
-                                <text class="timeline__event-name is-active" data-event="workshop" x="440" y="110">Workshop</text>
-                                <text class="timeline__event-name" data-event="brand" x="700" y="110">Brand</text>
-                                <text class="timeline__event-name" data-event="charades" x="960" y="110">Charades</text>
-                                <text class="timeline__event-name" data-event="garba" x="1150" y="110">Garba</text>
-                            </g>
-
-                            <!-- Signal Subtitles (y=132) -->
-                            <g class="timeline__signals" aria-hidden="true">
-                                <text class="timeline__event-signal" data-event="hunt" x="160" y="132">SIGNAL: RUNNING</text>
-                                <text class="timeline__event-signal is-active" data-event="workshop" x="440" y="132">SIGNAL: FOCUSED</text>
-                                <text class="timeline__event-signal" data-event="brand" x="700" y="132">SIGNAL: SHARP</text>
-                                <text class="timeline__event-signal" data-event="charades" x="960" y="132">SIGNAL: LOUD</text>
-                                <text class="timeline__event-signal" data-event="garba" x="1150" y="132">SIGNAL: CIRCULAR</text>
-                            </g>
-
-                            <!-- Subtle Baseline -->
-                            <path class="timeline__axis" d="M0 300 H1312"></path>
-
-                            <!-- Waveform Segments -->
-                            <g class="timeline__waveforms">
-                                <!-- Baseline lead-in (0 to 160) -->
-                                <path class="timeline__segment timeline__segment--lead" d="M0 300 H160"></path>
-
-                                <!-- 01: Hunt (running heart spikes) -->
-                                <path class="timeline__segment timeline__segment--hunt" data-event="hunt" d="M160 300 L180 240 L200 290 L215 190 L235 270 L255 160 L275 250 L300 180 L320 280 L345 150 L365 240 L385 210 L400 300 H440"></path>
-
-                                <!-- 02: Workshop (smooth focused sine wave) -->
-                                <path class="timeline__segment timeline__segment--workshop" data-event="workshop" d="M440 300 Q 467 210 495 300 T 550 300 T 605 300 T 660 300 H700"></path>
-
-                                <!-- 03: Brand (sharp square pulses) -->
-                                <path class="timeline__segment timeline__segment--brand" data-event="brand" d="M700 300 V210 H740 V300 H780 V210 H820 V300 H860 V210 H900 V300 H960"></path>
-
-                                <!-- 04: Charades (loud chaotic audio burst) -->
-                                <path class="timeline__segment timeline__segment--charades" data-event="charades" d="M960 300 L970 260 L978 315 L985 230 L993 280 L1000 210 L1010 305 L1018 240 L1027 290 L1035 190 L1044 320 L1052 230 L1062 285 L1070 220 L1080 310 L1090 245 L1100 280 L1110 260 L1120 300 H1150"></path>
-
-                                <!-- 05: Garba (circular loops) -->
-                                <path class="timeline__segment timeline__segment--garba" data-event="garba" d="M1150 300 H1165 a24 24 0 1 1 1 0 H1215 a24 24 0 1 1 1 0 H1265 a24 24 0 1 1 1 0 H1312"></path>
-                            </g>
-
-                            <!-- Timestamp Labels (y=350) -->
-                            <g class="timeline__timestamps" aria-hidden="true">
-                                <text class="timeline__time-label" data-event="hunt" x="160" y="350">10:30</text>
-                                <text class="timeline__time-label" data-event="hunt" x="370" y="350">11:30</text>
-                                <text class="timeline__time-label" data-event="workshop" x="440" y="350">[TIME]</text>
-                                <text class="timeline__time-label" data-event="brand" x="700" y="350">[TIME]</text>
-                                <text class="timeline__time-label" data-event="charades" x="960" y="350">[TIME]</text>
-                                <text class="timeline__time-label" data-event="garba" x="1150" y="350">[EVENING]</text>
-                            </g>
-
-                            <!-- Dynamic Scrubber Guide and Marker Dot -->
-                            <g class="timeline__scrubber" id="timeline-scrubber" aria-hidden="true">
-                                <line class="timeline__scrub-line" id="timeline-scrub-line" x1="560" y1="150" x2="560" y2="385"></line>
-                                <circle class="timeline__scrub-halo" id="timeline-scrub-halo" cx="560" cy="265" r="14"></circle>
-                                <circle class="timeline__scrub-dot" id="timeline-scrub-dot" cx="560" cy="265" r="7"></circle>
-                            </g>
-
-                            <!-- Dynamic Scrubber Pill Badge -->
-                            <g class="timeline__badge-group" id="timeline-badge-group" aria-hidden="true">
-                                <rect class="timeline__badge-bg" id="timeline-badge-bg" x="465" y="388" width="190" height="24"></rect>
-                                <text class="timeline__badge-text" id="timeline-badge-text" x="560" y="404" text-anchor="middle">SCRUBBING · WORKSHOP · [TIME]</text>
-                            </g>
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- Accessible Live Region for Screen Readers -->
-                <div class="visually-hidden" id="timeline-announcer" aria-live="polite" aria-atomic="true">
-                    Scrubbing: Workshop. Signal: Focused. Time: TBA.
-                </div>
-
-                <!-- Mobile-specific compact overview (from mobile design reference) -->
-                <div class="timeline__mobile-list" aria-label="Timeline schedule overview">
-                    <button type="button" class="timeline__mobile-item" data-event="hunt" data-scrub-x="255">
-                        <span class="timeline__mobile-time">10:30</span>
-                        <div class="timeline__mobile-info">
-                            <span class="timeline__mobile-name">Treasure Hunt</span>
-                            <span class="timeline__mobile-signal">Signal: running</span>
+                <ol class="timeline__list">
+                    <li class="timeline__item" style="--ev: var(--ev-1)" data-start="2026-10-06T10:30:00+05:30" data-end="2026-10-06T11:30:00+05:30" data-reveal>
+                        <time class="timeline__time" datetime="2026-10-06T10:30">10:30<small>to 11:30 AM</small></time>
+                        <div class="timeline__card">
+                            <div>
+                                <h3 class="timeline__name">Treasure Hunt</h3>
+                                <p class="timeline__signal">Signal: running <span class="timeline__live">Live now</span></p>
+                            </div>
+                            <svg class="timeline__wave" viewBox="0 0 70 28" aria-hidden="true"><path d="M0 24 L8 10 L14 22 L22 4 L30 20 L38 6 L46 22 L54 8 L62 20 L70 24"/></svg>
                         </div>
-                        <svg class="timeline__mobile-mini" width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M0 24 L8 10 L14 22 L22 4 L30 20 L38 6 L46 22 L54 8 L62 20 L70 24"></path>
-                        </svg>
-                    </button>
-                    <button type="button" class="timeline__mobile-item is-active" data-event="workshop" data-scrub-x="560">
-                        <span class="timeline__mobile-time">[Time]</span>
-                        <div class="timeline__mobile-info">
-                            <span class="timeline__mobile-name">Workshop</span>
-                            <span class="timeline__mobile-signal">Signal: focused</span>
-                        </div>
-                        <svg class="timeline__mobile-mini timeline__mobile-mini--accent" width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M0 14 Q 9 0 18 14 T 35 14 T 52 14 T 70 14"></path>
-                        </svg>
-                    </button>
-                    <button type="button" class="timeline__mobile-item" data-event="brand" data-scrub-x="760">
-                        <span class="timeline__mobile-time">[Time]</span>
-                        <div class="timeline__mobile-info">
-                            <span class="timeline__mobile-name">Brand Identity</span>
-                            <span class="timeline__mobile-signal">Signal: sharp</span>
-                        </div>
-                        <svg class="timeline__mobile-mini" width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M0 24 V4 H12 V24 H24 V4 H36 V24 H48 V4 H60 V24 H70"></path>
-                        </svg>
-                    </button>
-                    <button type="button" class="timeline__mobile-item" data-event="charades" data-scrub-x="1040">
-                        <span class="timeline__mobile-time">[Time]</span>
-                        <div class="timeline__mobile-info">
-                            <span class="timeline__mobile-name">Tech Charades</span>
-                            <span class="timeline__mobile-signal">Signal: loud</span>
-                        </div>
-                        <svg class="timeline__mobile-mini timeline__mobile-mini--body" width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M0 14 L5 6 L9 22 L13 2 L17 20 L22 8 L26 26 L31 4 L36 18 L41 10 L46 24 L51 6 L56 18 L61 12 L66 16 L70 14"></path>
-                        </svg>
-                    </button>
-                    <button type="button" class="timeline__mobile-item" data-event="garba" data-scrub-x="1240">
-                        <span class="timeline__mobile-time">[Evening]</span>
-                        <div class="timeline__mobile-info">
-                            <span class="timeline__mobile-name">Garba</span>
-                            <span class="timeline__mobile-signal">Signal: circular</span>
-                        </div>
-                        <svg class="timeline__mobile-mini timeline__mobile-mini--accent" width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <circle cx="13" cy="14" r="10"></circle>
-                            <circle cx="35" cy="14" r="10"></circle>
-                            <circle cx="57" cy="14" r="10"></circle>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </section>
-        <!-- =====================================================
-             REGISTRATION — foundation by Priyanshi
-             Registration links (Google Forms?) are not known yet.
-             Buttons are <a> WITHOUT href until real URLs arrive,
-             so they cannot send anyone to a broken page.
-             ===================================================== -->
-        <section class="section section--navy registration" id="registration" aria-labelledby="registration-title">
-            <div class="container">
-                <p class="section-label">§4 — Registration</p>
-                <h2 class="display registration__title" id="registration-title">Choose your <span
-                        class="text-highlight">chaos.</span></h2>
-                <p class="registration__deadline">Registration closes [Date TBA].</p>
-
-                <ol class="ticket-list">
-                    <li class="ticket">
-                        <span class="ticket__number">01</span>
-                        <div class="ticket__name"><span>Treasure Hunt</span><span class="label">The campus is hiding
-                                something</span></div>
-                        <span class="ticket__detail">10:30–11:30 AM</span>
-                        <span class="ticket__detail">Team</span>
-                        <span class="ticket__detail">₹100</span>
-                        <a class="btn btn--ticket" aria-disabled="true">Join the hunt <span class="btn__arrow"
-                                aria-hidden="true">→</span></a>
                     </li>
-                    <li class="ticket">
-                        <span class="ticket__number">02</span>
-                        <div class="ticket__name"><span>Workshop</span><span class="label">Come curious. Leave with
-                                something new</span></div>
-                        <span class="ticket__detail">[Time]</span>
-                        <span class="ticket__detail">[Seats]</span>
-                        <span class="ticket__detail">[Fee]</span>
-                        <a class="btn btn--ticket" aria-disabled="true">Get curious <span class="btn__arrow"
-                                aria-hidden="true">→</span></a>
-                    </li>
-                    <li class="ticket">
-                        <span class="ticket__number">03</span>
-                        <div class="ticket__name"><span>Brand Identity Challenge</span><span class="label">A brand. A
-                                blank canvas. No bad ideas</span></div>
-                        <span class="ticket__detail">[Time]</span>
-                        <span class="ticket__detail">Individual</span>
-                        <span class="ticket__detail">[Fee]</span>
-                        <a class="btn btn--ticket" aria-disabled="true">Build the brand <span class="btn__arrow"
-                                aria-hidden="true">→</span></a>
-                    </li>
-                    <li class="ticket">
-                        <span class="ticket__number">04</span>
-                        <div class="ticket__name"><span>Tech Charades</span><span class="label">No keyboard. No mouse.
-                                Just vibes</span></div>
-                        <span class="ticket__detail">[Time]</span>
-                        <span class="ticket__detail">[Team size]</span>
-                        <span class="ticket__detail">[Fee]</span>
-                        <a class="btn btn--ticket" aria-disabled="true">Play it out <span class="btn__arrow"
-                                aria-hidden="true">→</span></a>
-                    </li>
-                    <li class="ticket">
-                        <span class="ticket__number">05</span>
-                        <div class="ticket__name"><span>Garba</span><span class="label">Yes, IEEE does Garba</span>
+                    <li class="timeline__item" style="--ev: var(--ev-2)" data-reveal>
+                        <span class="timeline__time">TBA</span>
+                        <div class="timeline__card">
+                            <div>
+                                <h3 class="timeline__name">Workshop</h3>
+                                <p class="timeline__signal">Signal: focused</p>
+                            </div>
+                            <svg class="timeline__wave" viewBox="0 0 70 28" aria-hidden="true"><path d="M0 14 Q 9 0 18 14 T 35 14 T 52 14 T 70 14"/></svg>
                         </div>
-                        <span class="ticket__detail">[Evening]</span>
-                        <span class="ticket__detail">Everyone</span>
-                        <span class="ticket__detail">[Fee]</span>
-                        <a class="btn btn--ticket" aria-disabled="true">Join the circle <span class="btn__arrow"
-                                aria-hidden="true">→</span></a>
+                    </li>
+                    <li class="timeline__item" style="--ev: var(--ev-3)" data-reveal>
+                        <span class="timeline__time">TBA</span>
+                        <div class="timeline__card">
+                            <div>
+                                <h3 class="timeline__name">Brand Identity Challenge</h3>
+                                <p class="timeline__signal">Signal: sharp</p>
+                            </div>
+                            <svg class="timeline__wave" viewBox="0 0 70 28" aria-hidden="true"><path d="M0 24 V4 H12 V24 H24 V4 H36 V24 H48 V4 H60 V24 H70"/></svg>
+                        </div>
+                    </li>
+                    <li class="timeline__item" style="--ev: var(--ev-4)" data-reveal>
+                        <span class="timeline__time">TBA</span>
+                        <div class="timeline__card">
+                            <div>
+                                <h3 class="timeline__name">Tech Charades</h3>
+                                <p class="timeline__signal">Signal: loud</p>
+                            </div>
+                            <svg class="timeline__wave" viewBox="0 0 70 28" aria-hidden="true"><path d="M0 14 L5 6 L9 22 L13 2 L17 20 L22 8 L26 26 L31 4 L36 18 L41 10 L46 24 L51 6 L56 18 L61 12 L66 16 L70 14"/></svg>
+                        </div>
+                    </li>
+                    <li class="timeline__item" style="--ev: var(--ev-5)" data-reveal>
+                        <span class="timeline__time">Evening<small>TBA</small></span>
+                        <div class="timeline__card">
+                            <div>
+                                <h3 class="timeline__name">Garba</h3>
+                                <p class="timeline__signal">Signal: circular</p>
+                            </div>
+                            <svg class="timeline__wave" viewBox="0 0 70 28" aria-hidden="true"><circle cx="13" cy="14" r="10"/><circle cx="35" cy="14" r="10"/><circle cx="57" cy="14" r="10"/></svg>
+                        </div>
                     </li>
                 </ol>
             </div>
         </section>
 
         <!-- =====================================================
-             FINE PRINT (rules) — NOT ASSIGNED YET
+             REGISTRATION — Priyanshi
+             Links are not known yet. Paste each Google Form URL into
+             data-registration-url and js/main.js turns the button on.
+             Until then the button stays disabled, so nobody lands on a broken page.
+             ===================================================== -->
+        <section class="section register" id="register" aria-labelledby="register-title">
+            <div class="container">
+                <div class="section-head" data-reveal>
+                    <p class="eyebrow"><span class="eyebrow__num">03</span><span data-scramble>Registration</span></p>
+                    <h2 class="section-title" id="register-title">Choose your <em>chaos.</em></h2>
+                    <p class="section-sub"><span class="chip chip--warn"><span class="live-dot" aria-hidden="true"></span>Registration closes [Date TBA]</span></p>
+                </div>
+
+                <ol class="tickets">
+                    <li class="ticket" style="--ev: var(--ev-1)" data-reveal>
+                        <span class="ticket__num">01</span>
+                        <div class="ticket__body">
+                            <h3 class="ticket__name">Treasure Hunt</h3>
+                            <p class="ticket__meta"><span>10:30–11:30 AM</span><span>Team</span><span>₹100</span></p>
+                        </div>
+                        <a class="btn btn--primary ticket__btn" data-registration-url="" aria-disabled="true">Join the hunt <span class="btn__arrow" aria-hidden="true">→</span></a>
+                    </li>
+                    <li class="ticket" style="--ev: var(--ev-2)" data-reveal>
+                        <span class="ticket__num">02</span>
+                        <div class="ticket__body">
+                            <h3 class="ticket__name">Workshop</h3>
+                            <p class="ticket__meta"><span>[Time]</span><span>[Seats]</span><span>[Fee]</span></p>
+                        </div>
+                        <a class="btn btn--primary ticket__btn" data-registration-url="" aria-disabled="true">Get curious <span class="btn__arrow" aria-hidden="true">→</span></a>
+                    </li>
+                    <li class="ticket" style="--ev: var(--ev-3)" data-reveal>
+                        <span class="ticket__num">03</span>
+                        <div class="ticket__body">
+                            <h3 class="ticket__name">Brand Identity Challenge</h3>
+                            <p class="ticket__meta"><span>[Time]</span><span>Individual</span><span>[Fee]</span></p>
+                        </div>
+                        <a class="btn btn--primary ticket__btn" data-registration-url="" aria-disabled="true">Build the brand <span class="btn__arrow" aria-hidden="true">→</span></a>
+                    </li>
+                    <li class="ticket" style="--ev: var(--ev-4)" data-reveal>
+                        <span class="ticket__num">04</span>
+                        <div class="ticket__body">
+                            <h3 class="ticket__name">Tech Charades</h3>
+                            <p class="ticket__meta"><span>[Time]</span><span>[Team size]</span><span>[Fee]</span></p>
+                        </div>
+                        <a class="btn btn--primary ticket__btn" data-registration-url="" aria-disabled="true">Play it out <span class="btn__arrow" aria-hidden="true">→</span></a>
+                    </li>
+                    <li class="ticket" style="--ev: var(--ev-5)" data-reveal>
+                        <span class="ticket__num">05</span>
+                        <div class="ticket__body">
+                            <h3 class="ticket__name">Garba</h3>
+                            <p class="ticket__meta"><span>[Evening]</span><span>Everyone</span><span>[Fee]</span></p>
+                        </div>
+                        <a class="btn btn--primary ticket__btn" data-registration-url="" aria-disabled="true">Join the circle <span class="btn__arrow" aria-hidden="true">→</span></a>
+                    </li>
+                </ol>
+                <p class="register__note">Links go live soon. The buttons unlock on their own.</p>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             RULES — not assigned yet
+             Replace the terminal lines with the real rulebook once it's confirmed.
              ===================================================== -->
         <section class="section rules" id="rules" aria-labelledby="rules-title">
             <div class="container">
-                <p class="section-label">§5 — The fine print</p>
-                <h2 class="section-title" id="rules-title">Rules. Yes, even here.</h2>
+                <div class="section-head" data-reveal>
+                    <p class="eyebrow"><span class="eyebrow__num">04</span><span data-scramble>The fine print</span></p>
+                    <h2 class="section-title" id="rules-title">Rules. <em>Yes, even here.</em></h2>
+                </div>
 
-                <div class="dev-slot" data-owner="Unassigned">Rules / guidelines</div>
+                <div class="terminal" data-reveal>
+                    <div class="terminal__bar" aria-hidden="true"><i></i><i></i><i></i><span>~/ieee-day/rulebook.txt</span></div>
+                    <div class="terminal__body">
+                        <p><span class="terminal__prompt">$</span> cat rulebook.txt</p>
+                        <p class="terminal__out">Rules and guidelines will be announced soon.</p>
+                        <p class="terminal__out">Event-specific rules will be listed here, one block per event.</p>
+                        <p><span class="terminal__prompt">$</span> <span class="terminal__cursor" aria-hidden="true"></span></p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- =====================================================
              Q&A — owned by Nitant
+             Native <details>: works without JS. js/qa.js keeps one open at a time.
              ===================================================== -->
-        <section class="section section--paper qa" id="qa" aria-labelledby="qa-title">
-            <div class="container">
-
-                <!-- Heading row: full width -->
-                <div class="qa-header">
-                    <!-- <p class="section-label">§6 — FAQ</p> -->
-                    <h2 class="section-title" id="qa-title">Questions we've already been asked.</h2>
-                    <!-- <p class="qa-contact">Still stuck? Ask a volunteer on the day, or write to <a href="mailto:ieee@vgec.ac.in">ieee@vgec.ac.in</a>.</p> -->
+        <section class="section qa" id="faq" aria-labelledby="qa-title">
+            <div class="container qa__grid">
+                <div class="section-head" data-reveal>
+                    <p class="eyebrow"><span class="eyebrow__num">05</span><span data-scramble>FAQ</span></p>
+                    <h2 class="section-title" id="qa-title">Questions, <em>answered.</em></h2>
+                    <p class="section-sub">Still stuck? <a href="#contact">Call one of the humans</a> in the footer.</p>
                 </div>
 
-                <!-- Questions: two columns -->
-                <div class="qa-columns">
-
-                    <!-- Left column -->
-                    <div class="qa-list">
-
-                        <div class="qa-item" id="qa-item-15">
-                            <button class="qa-trigger" aria-expanded="false" aria-controls="qa-answer-15">
-                                <span class="qa-question">I'm from a different branch or year. Am I still eligible?</span>
-                                <span class="qa-icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="qa-answer" id="qa-answer-15" role="region">
-                                <p>Yes — all VGEC students from any branch and any year are welcome. IEEE Day is not a department event; it belongs to the whole campus.</p>
-                            </div>
-                        </div>
-
-                        <div class="qa-item" id="qa-item-2">
-                            <button class="qa-trigger" aria-expanded="false" aria-controls="qa-answer-2">
-                                <span class="qa-question">Do I need to be an IEEE member?</span>
-                                <span class="qa-icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="qa-answer" id="qa-answer-2" role="region">
-                                <p>No — IEEE Day is open to all VGEC students. Joining IEEE is encouraged but never a barrier to participating.</p>
-                            </div>
-                        </div>
-
-                        <div class="qa-item" id="qa-item-11">
-                            <button class="qa-trigger" aria-expanded="false" aria-controls="qa-answer-11">
-                                <span class="qa-question">Do I need to bring a laptop?</span>
-                                <span class="qa-icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="qa-answer" id="qa-answer-11" role="region">
-                                <p>Not required for most events. The Workshop may involve a practical component — a laptop is useful but not mandatory. We'll confirm in the workshop announcement. For everything else, just yourself.</p>
-                            </div>
-                        </div>
-
-                    </div><!-- /.qa-list left -->
-
-                    <!-- Right column -->
-                    <div class="qa-list">
-
-                        <div class="qa-item" id="qa-item-3">
-                            <button class="qa-trigger" aria-expanded="false" aria-controls="qa-answer-3">
-                                <span class="qa-question">Can I register for more than one event?</span>
-                                <span class="qa-icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="qa-answer" id="qa-answer-3" role="region">
-                                <p>Yes — of course. Check the schedule before registering for multiple events to make sure timeslots don't overlap.</p>
-                            </div>
-                        </div>
-
-                        <div class="qa-item" id="qa-item-6">
-                            <button class="qa-trigger" aria-expanded="false" aria-controls="qa-answer-6">
-                                <span class="qa-question">Will there be certificates or prizes?</span>
-                                <span class="qa-icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="qa-answer" id="qa-answer-6" role="region">
-                                <p>Yes — participation certificates for all, and prizes/hard copy certificates for winners of competitive events. Details to be announced closer to the date.</p>
-                            </div>
-                        </div>
-
-                        <div class="qa-item" id="qa-item-9">
-                            <button class="qa-trigger" aria-expanded="false" aria-controls="qa-answer-9">
-                                <span class="qa-question">Can I come alone, or do I need a team?</span>
-                                <span class="qa-icon" aria-hidden="true"></span>
-                            </button>
-                            <div class="qa-answer" id="qa-answer-9" role="region">
-                                <p>Depends on the event. Treasure Hunt is team-based (5 members). Brand Identity Challenge, the Workshop and Tech Charades are individual. Garba is open to everyone — solo, duo, whole friend group.</p>
-                            </div>
-                        </div>
-
-                    </div><!-- /.qa-list right -->
-
-                </div><!-- /.qa-columns -->
+                <div class="qa-list" data-reveal>
+                    <details class="qa-item">
+                        <summary class="qa-q">I'm from a different branch or year. Am I still eligible?<span class="qa-icon" aria-hidden="true"></span></summary>
+                        <div class="qa-a"><p>Yes. All VGEC students from any branch and any year are welcome. IEEE Day is not a department event; it belongs to the whole campus.</p></div>
+                    </details>
+                    <details class="qa-item">
+                        <summary class="qa-q">Do I need to be an IEEE member?<span class="qa-icon" aria-hidden="true"></span></summary>
+                        <div class="qa-a"><p>No. IEEE Day is open to all VGEC students. Joining IEEE is encouraged but never a barrier to participating.</p></div>
+                    </details>
+                    <details class="qa-item">
+                        <summary class="qa-q">Can I register for more than one event?<span class="qa-icon" aria-hidden="true"></span></summary>
+                        <div class="qa-a"><p>Yes, of course. Check the schedule before registering for multiple events to make sure timeslots don't overlap.</p></div>
+                    </details>
+                    <details class="qa-item">
+                        <summary class="qa-q">Can I come alone, or do I need a team?<span class="qa-icon" aria-hidden="true"></span></summary>
+                        <div class="qa-a"><p>Depends on the event. Treasure Hunt is team-based (5 members). Brand Identity Challenge, the Workshop and Tech Charades are individual. Garba is open to everyone: solo, duo, whole friend group.</p></div>
+                    </details>
+                    <details class="qa-item">
+                        <summary class="qa-q">Do I need to bring a laptop?<span class="qa-icon" aria-hidden="true"></span></summary>
+                        <div class="qa-a"><p>Not required for most events. The Workshop may involve a practical component, so a laptop is useful but not mandatory. We'll confirm in the workshop announcement. For everything else, just yourself.</p></div>
+                    </details>
+                    <details class="qa-item">
+                        <summary class="qa-q">Will there be certificates or prizes?<span class="qa-icon" aria-hidden="true"></span></summary>
+                        <div class="qa-a"><p>Yes. Participation certificates for all, and prizes/hard copy certificates for winners of competitive events. Details to be announced closer to the date.</p></div>
+                    </details>
+                </div>
             </div>
+        </section>
 
+        <!-- Final call to action -->
+        <section class="section outro" aria-labelledby="outro-title">
+            <div class="container">
+                <div class="outro__inner" data-reveal>
+                    <p class="label outro__kicker">See you on</p>
+                    <h2 class="outro__title" id="outro-title">06<span>.</span>10<span>.</span>26</h2>
+                    <p class="outro__sub">Tuesday · 10:30 AM · VGEC, Chandkheda</p>
+                    <a href="#register" class="btn btn--primary btn--lg">Register now <span class="btn__arrow" aria-hidden="true">→</span></a>
+                </div>
+            </div>
         </section>
 
     </main>
@@ -837,62 +692,60 @@
     <!-- =====================================================
          FOOTER — owned by Parthvi + Pushkar
          ===================================================== -->
-    <footer class="site-footer section--navy" id="site-footer">
-        <div class="container site-footer__inner">
-            <div class="site-footer__columns">
-                <div class="site-footer__col"><span class="label site-footer__col-title">THE EVENT</span>
-                    <p>IEEE Day 2026<br>Tuesday, 6 October 2026<br>VGEC, Chandkheda, Ahmedabad</p>
+    <footer class="site-footer" id="site-footer">
+        <div class="container">
+            <div class="site-footer__grid">
+                <div class="site-footer__col site-footer__col--brand">
+                    <a href="#top" class="brand" aria-label="IEEE Day 2026, back to top">
+                        <span class="brand__mark" aria-hidden="true"><i></i></span>
+                        <span class="brand__text">IEEE DAY<b>’26</b></span>
+                    </a>
+                    <p>IEEE VGEC Student Branch<br>Vishwakarma Government Engineering College, Chandkheda, Ahmedabad</p>
+                    <ul class="socials" aria-label="IEEE VGEC on social media">
+                        <li><a href="https://www.linkedin.com/company/ieeevgecsb/" class="icon-btn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 8H3v13h3V8Zm-1.5-5A1.8 1.8 0 1 0 4.5 6.6 1.8 1.8 0 0 0 4.5 3ZM21 14c0-3.8-2-5.8-4.8-5.8-2.2 0-3.1 1.2-3.7 2V8.5H9.4V21h3.1v-6.2c0-1.6.3-3.2 2.3-3.2s2 1.9 2 3.3V21H21v-7Z" fill="currentColor" stroke="none"/></svg></a></li>
+                        <li><a href="https://www.instagram.com/ieeevgec?igsh=MXJ0OXM1c2ZycXpvdg%3D%3D" class="icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a></li>
+                    </ul>
                 </div>
-                <div class="site-footer__col"><span class="label site-footer__col-title">QUICK LINKS</span>
-                    <ul class="site-footer__col-list">
+                <div class="site-footer__col">
+                    <p class="label site-footer__title">Quick links</p>
+                    <ul class="site-footer__list">
                         <li><a href="#events">Events</a></li>
-                        <li><a href="#timeline">The flow</a></li>
-                        <li><a href="#rules">Fine print</a></li>
-                        <li><a href="#qa">FAQ</a></li>
-                        <li><a href="#registration">Register</a></li>
+                        <li><a href="#timeline">Schedule</a></li>
+                        <li><a href="#register">Register</a></li>
+                        <li><a href="#rules">Rules</a></li>
+                        <li><a href="#faq">FAQ</a></li>
                     </ul>
                 </div>
-                <div class="site-footer__col"><span class="label site-footer__col-title">HUMANS TO CALL</span>
-                    <ul class="site-footer__col-list">
-                        <li>Prapti Shah · <a href="tel:+919313768589">93137 68589</a></li>
-                        <li>Deep Patwa · <a href="tel:+917990982552">79909 82552</a></li>
-                        <li>Devki Patel · <a href="tel:+919724934818">97249 34818</a></li>
-                        <li>Krish Kabra · <a href="tel:+919265588715">92655 88715</a></li>
-                    </ul>
-                </div>
-                <div class="site-footer__col"><span class="label site-footer__col-title">LINKS</span>
-                    <ul class="site-footer__social-list" aria-label="IEEE VGEC social media">
-                        <li><a href="https://www.linkedin.com/company/ieeevgecsb/" class="site-footer__social-link"
-                                target="_blank" rel="noopener noreferrer"
-                                aria-label="IEEE VGEC Student Branch on LinkedIn"><svg aria-hidden="true"
-                                    viewBox="0 0 24 24">
-                                    <path
-                                        d="M6 8H3v13h3V8Zm-1.5-5A1.8 1.8 0 1 0 4.5 6.6 1.8 1.8 0 0 0 4.5 3ZM21 14c0-3.8-2-5.8-4.8-5.8-2.2 0-3.1 1.2-3.7 2V8.5H9.4V21h3.1v-6.2c0-1.6.3-3.2 2.3-3.2s2 1.9 2 3.3V21H21v-7Z"
-                                        fill="currentColor"></path>
-                                </svg><span class="visually-hidden">LinkedIn</span></a></li>
-                        <li><a href="https://www.instagram.com/ieeevgec?igsh=MXJ0OXM1c2ZycXpvdg%3D%3D"
-                                class="site-footer__social-link" target="_blank" rel="noopener noreferrer"
-                                aria-label="IEEE VGEC Student Branch on Instagram"><svg aria-hidden="true"
-                                    viewBox="0 0 24 24">
-                                    <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor"
-                                        stroke-width="2"></rect>
-                                    <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2">
-                                    </circle>
-                                    <circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"></circle>
-                                </svg><span class="visually-hidden">Instagram</span></a></li>
+                <div class="site-footer__col" id="contact">
+                    <p class="label site-footer__title">Humans to call</p>
+                    <ul class="site-footer__list site-footer__contacts">
+                        <li><span>Prapti Shah</span><a href="tel:+919313768589">93137 68589</a></li>
+                        <li><span>Deep Patwa</span><a href="tel:+917990982552">79909 82552</a></li>
+                        <li><span>Devki Patel</span><a href="tel:+919724934818">97249 34818</a></li>
+                        <li><span>Krish Kabra</span><a href="tel:+919265588715">92655 88715</a></li>
                     </ul>
                 </div>
             </div>
+            <p class="site-footer__wordmark" aria-hidden="true">IEEE DAY</p>
             <div class="site-footer__bottom">
-                <p class="label">© 2026 IEEE VGEC STUDENT BRANCH</p>
-                <p class="label">AN IEEE DAY 2026 CELEBRATION · MADE ON CAMPUS</p>
+                <p class="label">© 2026 IEEE VGEC Student Branch</p>
+                <p class="label">Engineers, together · made on campus</p>
             </div>
         </div>
     </footer>
 
-    <!-- JS: main.js first (shared helpers), then one file per team. All deferred. -->
+    <!-- Mobile register dock: slides up after the hero, hides near registration -->
+    <div class="dock" id="dock" inert>
+        <div class="dock__info">
+            <span class="label">06.10 · 10:30 AM</span>
+            <strong id="dock-countdown">IEEE Day 2026</strong>
+        </div>
+        <a href="#register" class="btn btn--primary btn--sm">Register <span class="btn__arrow" aria-hidden="true">→</span></a>
+    </div>
+
+    <!-- JS: main.js first (shared helpers, theme, reveal), then one file per team. All deferred. -->
     <script src="js/main.js" defer></script>
-    <script src="js/reveal.js" defer></script>
+    <script src="js/countdown.js" defer></script>
     <script src="js/header-footer.js" defer></script>
     <script src="js/events.js" defer></script>
     <script src="js/timeline.js" defer></script>

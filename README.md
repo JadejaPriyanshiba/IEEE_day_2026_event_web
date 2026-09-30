@@ -3,7 +3,9 @@
 The website for **IEEE Day 2026** at VGEC, **Tuesday 6 October 2026**.
 Five events: Treasure Hunt, Workshop, Brand Identity Challenge, Tech Charades and Garba.
 
-Design concept: **"Out of spec."** The site speaks in the voice of an IEEE standards document (section numbers, figure captions, "Draft 01"), then lets five very un-standard things happen inside it.
+Design direction (v2): **techy, catchy, clean.** A dot-matrix, terminal-flavoured look built on the IEEE VGEC palette (Indigo `#1A325A`, Terracotta `#964B36`, Straw `#C9AF80`, Cream `#EDE9DF`, Umber `#4B3621` plus tints and shades), set in Unbounded / Geist / Geist Mono, with **light and dark themes** and a **mobile-first** layout (≈90% of visitors are on phones). The page gets straight to the point: date, countdown and a Register button are on the first screen, and every event is a flip card: poster on the front, time / format / fee and the register button on the back.
+
+> v1 used the "Out of spec" standards-document concept. The PDFs and mockups in `design_references/` describe v1. Treat them as background only; **the live code and the rules in this README are the reference now.**
 
 
 ## The Web is Live
@@ -54,8 +56,8 @@ PDFs are cool, but sometimes you wanna *poke* at the thing. So we've got two liv
 
 **You're allowed (encouraged, even) to cook.** If an animation, hover or little interaction would make your section hit harder, go for it. Just keep it on-brand:
 
-- It should *mean* something ("every motion has an alibi"). A whistle wobbling = yes. Random things bouncing around = nah.
-- Stay in the palette and fonts. No neon, no glassmorphism, no gradients.
+- It should *mean* something. A signal wave drawing itself = yes. Random things bouncing around = nah.
+- Stay in the tokens and fonts, and check it in **both themes** and at **360px wide**.
 - Respect reduced motion: check `IEEEDay.prefersReducedMotion()` and tone it down if it's true.
 - Keep it light: CSS or a few lines of JS, no big animation libraries (ask Priyanshi first if you really need one).
 - Show it to Kena / Priyanshi in your PR. If it slaps, it stays.
@@ -82,19 +84,20 @@ To open `design_references/Concept & visual system-html/System.dc.html`, use opt
 ```text
 index.html              the only page; every section lives here
 css/
-  style.css             design tokens, reset, shared classes   (Priyanshi)
-  sections.css          hero, reveal, intro, registration       (Priyanshi)
-  header-footer.css     header, navbar, footer                  (Parthvi + Pushkar)
-  events.css            event / flip cards                      (Vansh + Daksh + Nilesh)
-  timeline.css          the timeline                            (Dhruvi + Dhwani)
-  qa.css                Q&A                                     (Nitant)
-  responsive.css        final responsive + styling pass         (Hemal + Meet), loaded last
+  style.css             tokens, light/dark themes, reset, shared classes   (Priyanshi)
+  sections.css          hero, ticker, about, registration, rules, outro    (Priyanshi)
+  header-footer.css     header, mobile menu, register dock, footer         (Parthvi + Pushkar)
+  events.css            flip cards + motifs (swipe rail → bento grid)      (Vansh + Daksh + Nilesh)
+  timeline.css          the timeline                                       (Dhruvi + Dhwani)
+  qa.css                Q&A                                                (Nitant)
+  responsive.css        final responsive + styling pass                    (Hemal + Meet), loaded last
 js/
-  main.js               tiny shared helpers                     (Priyanshi)
-  header-footer.js      mobile menu etc.                        (Parthvi + Pushkar)
-  events.js             card flip logic                         (Vansh + Daksh + Nilesh)
-  timeline.js           timeline interaction                    (Dhruvi + Dhwani)
-  qa.js                 open/close answers                      (Nitant)
+  main.js               shared helpers: theme, scroll reveal, reg. links   (Priyanshi)
+  countdown.js          hero countdown + dock countdown                    (Priyanshi)
+  header-footer.js      menu, theme toggle, active link, register dock     (Parthvi + Pushkar)
+  events.js             flip, tilt, peek, rail dots / arrows               (Vansh + Daksh + Nilesh)
+  timeline.js           "live now" / done state on the day                 (Dhruvi + Dhwani)
+  qa.js                 one answer open at a time                          (Nitant)
 assets/
   logo/                 official IEEE VGEC SB logo (still needed, see assets/logo/README.md)
 design_references/      design PDFs, visual system + clickable mockups (reference only)
@@ -108,45 +111,45 @@ Every file is already linked in `index.html`, so **you never need to edit `<head
 
 | Team | Section in `index.html` | Your files | You may change | Please don't change |
 |---|---|---|---|---|
-| **Priyanshi** (structure + integration) | `#hero`, `#reveal`, `#intro`, `#registration` | `style.css`, `sections.css`, `main.js` | Global tokens, shared classes, page skeleton | — |
-| **Parthvi + Pushkar** (navbar, header, footer) | `<header id="site-header">`, `<footer id="site-footer">` | `header-footer.css`, `header-footer.js`, `assets/logo/` | Everything inside the header and footer tags | Other sections, `style.css` |
-| **Vansh + Daksh + Nilesh** (event cards) | `<section id="events">` → inside `.events-grid` | `events.css`, `events.js` | Everything inside `.events-grid` | The section heading, other sections |
-| **Dhruvi + Dhwani** (timeline) | `<section id="timeline">` | `timeline.css`, `timeline.js` | Everything below the section title | Other sections |
-| **Nitant** (Q&A) | `<section id="qa">` → inside `.qa-list` | `qa.css`, `qa.js` | Everything inside `.qa-list` | Other sections |
-| **Hemal + Meet** (responsive + styling) | Whole page, **after** the others are merged | `responsive.css` | Anything in `responsive.css` | Other teams' files, unless you agree it with them first |
-
-**When you build your section, delete the dashed `.dev-slot` box that says "Owner: …".** It only marks where your work goes.
+| **Priyanshi** (structure + integration) | `#top` (hero), `#about`, `#register`, `#rules`, outro | `style.css`, `sections.css`, `main.js`, `countdown.js` | Global tokens, themes, shared classes, page skeleton | — |
+| **Parthvi + Pushkar** (navbar, header, footer) | `<header id="site-header">`, `#menu`, `#dock`, `<footer id="site-footer">` | `header-footer.css`, `header-footer.js`, `assets/logo/` | Everything inside those elements | Other sections, `style.css` |
+| **Vansh + Daksh + Nilesh** (event cards) | `<section id="events">` → inside `.events__rail` | `events.css`, `events.js` | The cards and rail controls | The section heading, other sections |
+| **Dhruvi + Dhwani** (timeline) | `<section id="timeline">` → `.timeline__list` | `timeline.css`, `timeline.js` | Everything below the section heading | Other sections |
+| **Nitant** (Q&A) | `<section id="faq">` → inside `.qa-list` | `qa.css`, `qa.js` | Everything inside `.qa-list` | Other sections |
+| **Hemal + Meet** (responsive + styling) | Whole page | `responsive.css` | Anything in `responsive.css` | Other teams' files, unless you agree it with them first |
 
 ### Rules for everyone's code
 
-- **Use the tokens.** Write `color: var(--color-text)`, not `color: #283558`. The full list is at the top of `css/style.css`.
-- **Shared classes you can use:** `.container`, `.section`, `.section--navy`, `.section--paper`, `.section-label`, `.section-title`, `.label`, `.display`, `.hand`, `.meta-row`, `.btn` (+ `.btn--gold`, `.btn--cream`, `.btn--brown`, `.btn--ticket`) and `.visually-hidden`.
-- **Prefix your class names** with your section, for example `.event-card`, `.timeline-item` or `.qa-item`, so they never clash.
+- **Use the tokens.** Write `color: var(--color-text)`, not `color: #14264A`. Hard-coded colours break the other theme. The full list is at the top of `css/style.css`.
+- **Both themes, always.** Toggle the sun/moon button in the header and check your section in light **and** dark before opening a PR.
+- **Mobile first.** Write the phone styles first, then add `@media (min-width: 640px)` / `(min-width: 1024px)` for bigger screens. Test at 360px wide. Tap targets at least 44px.
+- **Shared classes you can use:** `.container`, `.section`, `.section-head` (+ `--row`), `.eyebrow` (+ `.eyebrow__num`), `.section-title` (put the accent words in `<em>` for the gradient), `.section-sub`, `.label`, `.chip` (+ `.chip--sm`, `.chip--warn`), `.live-dot`, `.btn` (+ `.btn--primary`, `.btn--ghost`, `.btn--sm`, `.btn--lg`, `.btn--block`), `.icon-btn`, `.visually-hidden`. Add `data-reveal` to fade a block in on scroll, and `data-scramble` on text inside it to "decode" it.
+- **Event colours:** set `style="--ev: var(--ev-1)"` (… `--ev-5`) on an event's element, then use `var(--ev)` inside it.
+- **Prefix your class names** with your section, for example `.event-card`, `.timeline__item` or `.qa-item`, so they never clash.
 - **JS:** keep your code inside the `(function () { ... })();` block already in your file. Before animating, check `IEEEDay.prefersReducedMotion()`.
-- **Design rules** (from the visual system): square corners, no shadows, no pills, no gradients or glassmorphism. Use one verb per button ("Join the hunt", never "Register Now"). Use sand/gold only on dark backgrounds, never as text on cream. Handwritten notes: at most one per screen.
+- **Design rules:** only brand colours and their tints (all in the tokens). Unbounded for headings only, Geist for reading text, Geist Mono for labels and numbers. Pill buttons, rounded cards (`--radius-*`). One verb per button ("Join the hunt", not "Click here"). Glass blur only on the header and dock.
+- **Registration links:** paste the Google Form URL into `data-registration-url="..."` on the ticket button. `main.js` switches it on; empty = stays disabled with "soon".
 - **Accessibility:** use real `<button>`s for things you click, add `alt` text to images, and keep visible focus styles (they're already global, so don't remove them).
 - **Don't add libraries** without asking Priyanshi.
 
-### Motion: what moves in your section
+### Motion: what moves
 
-From `Interaction & motion.pdf`. The rule is *"every motion has an alibi"*: things only move when it means something, and everything else stays still.
+The rule: things only move when it means something, and everything else stays still.
 
-| # | What moves | Owner |
-|---|---|---|
-| — | Opening animation ("Out of" rises, "spec." lands, whistle slides in) | Priyanshi (hero) |
-| 01 | Hero headline drifts apart on scroll | Priyanshi (hero) |
-| 02 | Whistle tilts toward the cursor; click makes "sound" strokes | Priyanshi (hero) |
-| 03 | Spec-o-meter needle + split-flap countdown | **Unassigned**, Kena decides |
-| 04 | Index menu rows: gold fill sweep, icon tilt, arrow moves | Parthvi + Pushkar |
-| 05–10 | Event cards: hover lift, one card per swipe on mobile, plus each card's own motif (hunt redaction, workshop diagram draws, brand circles, charades strike-through, Garba rings) | Vansh + Daksh + Nilesh |
-| 11 | Timeline: drag / arrow keys to scrub along the day | Dhruvi + Dhwani |
-| 12 | Tickets: stub separates on hover | Priyanshi (registration) |
+| What moves | Owner |
+|---|---|
+| Hero: title lines rise out of a mask, date sticker pops in, circuit pulses travel, glow orbs drift, countdown digits roll | Priyanshi (hero) |
+| Ticker marquee of event names | Priyanshi |
+| Header turns to glass on scroll + scroll progress line; menu links stagger in | Parthvi + Pushkar |
+| Register dock slides up after the hero, hides near registration / footer (phones only) | Parthvi + Pushkar |
+| Event cards: springy 3D flip with a depth dip and light sweep; each front has a live motif (radar, chip, pen tool, equaliser, Garba rings) that pauses off screen; pointer tilt + spotlight on laptops; first card peeks once | Vansh + Daksh + Nilesh |
+| Timeline: each event's signal wave draws itself on scroll; "Live now" on the day | Dhruvi + Dhwani |
+| Sections rise out of a soft blur on scroll (`data-reveal`); eyebrow labels decode (`data-scramble`) | Everyone |
 
-Rules that apply to everyone (details in the PDF):
+Rules that apply to everyone:
 
-- **Reduced motion:** when `IEEEDay.prefersReducedMotion()` is true, show everything instantly and fully drawn, and stop loops and parallax. Nothing may be hidden behind an animation.
-- **Every hover needs a tap or keyboard-focus twin,** because phones can't hover.
-- **Section backgrounds change with hard cuts,** never gradients.
+- **Reduced motion:** when `IEEEDay.prefersReducedMotion()` is true, show everything instantly and fully drawn, and stop loops. Nothing may be hidden behind an animation. (`style.css` already kills CSS animations for these visitors.)
+- **Every hover needs a tap or keyboard-focus twin,** because phones can't hover. Put hover-only effects inside `@media (hover: hover)`.
 - **Performance:** inline SVG only (no video, WebGL or stock photos), total JS around 60 KB or less.
 
 ---
@@ -165,7 +168,7 @@ Rules that apply to everyone (details in the PDF):
 | Nitant | Q&A section |
 | Hemal + Meet | Mobile responsiveness + overall styling (towards the end) |
 
-**Not assigned yet:** the countdown in `#reveal` and the rules section `#rules` ("The fine print"). Kena decides who picks these up.
+**Not assigned yet:** the rules content in `#rules` (currently a "coming soon" terminal). Kena decides who picks this up.
 
 ## Branches
 
