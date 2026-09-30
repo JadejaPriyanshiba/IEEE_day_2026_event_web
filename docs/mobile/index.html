@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=390">
+<meta charset="utf-8">
+<title>IEEE Day 2026 — Mobile</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&amp;family=Instrument+Sans:wght@400;500;600;700&amp;family=Josefin+Sans:wght@400;600;700&amp;family=Nanum+Pen+Script&amp;display=swap">
+<style>
+body{margin:0;background:#EBE8DE;color:#283558;font-family:'Instrument Sans',system-ui,sans-serif}
+.d{font-family:'Gloock',Georgia,serif;font-weight:400}
+.l{font-family:'Josefin Sans',Futura,'Century Gothic',sans-serif;text-transform:uppercase;letter-spacing:.16em;font-weight:600}
+.h{font-family:'Nanum Pen Script','Comic Neue',cursive;font-weight:400}
+a{color:#87503F}
+a:focus-visible,button:focus-visible{outline:2px solid #87503F;outline-offset:3px}
+.strip{scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.strip::-webkit-scrollbar{display:none}
+.strip>article{scroll-snap-align:start}
+.tab{height:44px;padding:0 14px;border:1px solid #283558;background:transparent;color:#283558;font-family:'Josefin Sans',Futura,sans-serif;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:700;border-radius:0;white-space:nowrap;flex-shrink:0}
+.tab[data-on="true"]{background:#283558;color:#EBE8DE}
+.faq{width:100%;min-height:60px;display:flex;justify-content:space-between;align-items:center;gap:16px;background:transparent;border:0;border-top:1px solid #283558;padding:10px 0;font:inherit;color:#283558;text-align:left}
+.spin{animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.flap{position:relative;width:70px;height:100px;background:#EBE8DE;color:#283558;display:flex;align-items:center;justify-content:center;font-family:'Gloock',Georgia,serif;font-size:74px;line-height:1;perspective:300px;box-shadow:inset 0 -50px 0 rgba(40,53,88,.07)}
+.flap::after{content:'';position:absolute;left:0;right:0;top:calc(50% - 1px);height:2px;background:#283558}
+.flap::before{content:'';position:absolute;left:-5px;right:-5px;top:calc(50% - 6px);height:12px;border-left:5px solid #C1AD84;border-right:5px solid #C1AD84;box-sizing:border-box}
+.fold{position:absolute;left:0;right:0;top:0;height:50%;background:#E3DFD2;transform-origin:50% 100%;animation:fold 1s linear infinite}
+@keyframes fold{0%{transform:rotateX(0);opacity:1}28%{transform:rotateX(-90deg);opacity:1}29%,100%{opacity:0}}
+.flap.sm{width:36px;height:54px;font-size:40px;box-shadow:inset 0 -27px 0 rgba(40,53,88,.07)}
+.flap.sm::before{left:-3px;right:-3px;border-left-width:3px;border-right-width:3px;height:8px;top:calc(50% - 4px)}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}.fold{animation:none;opacity:0}}
+</style>
+</helmet>
+<div style="width: 390px; height: 5770px; position: relative; background: #EBE8DE; overflow: hidden">
+
+<!-- HERO -->
+<section style="position: relative; height: 780px; overflow: hidden">
+<header style="position: absolute; left: 16px; right: 16px; top: 14px; height: 52px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #283558; padding-bottom: 10px">
+<span style="display: flex; align-items: center; gap: 10px"><span class="l" style="width: 36px; height: 36px; border: 1.5px dashed #283558; display: flex; align-items: center; justify-content: center; font-size: 7px; letter-spacing: .04em">LOGO</span><span class="l" style="font-size: 10px; line-height: 1.4">IEEE VGEC<br>Student Branch</span></span>
+<button class="l" type="button" aria-label="Open menu" style="height: 44px; padding: 0 14px; background: transparent; border: 1px solid #283558; color: #283558; border-radius: 0; font-size: 10px; font-weight: 700">Index ≡</button>
+</header>
+<span class="l" style="position: absolute; left: 16px; top: 96px; font-size: 9px; color: #48392A">Notice 01 · Draft · Not for serious use</span>
+<div class="d" style="position: absolute; left: 16px; top: 140px; font-size: 26px; color: #48392A">Something at VGEC is</div>
+<h1 class="d" style="position: absolute; left: 12px; top: 178px; margin: 0; font-size: 122px; line-height: .84; letter-spacing: -.02em; font-weight: 400">Out<br>of<br><span style="color: #87503F">spec.</span></h1>
+<svg width="150" height="127" viewBox="0 0 380 320" fill="none" stroke="#283558" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Line drawing of a whistle" style="position: absolute; left: 226px; top: 170px; transform: rotate(-14deg)">
+<circle cx="150" cy="172" r="82" fill="#EBE8DE"></circle><path d="M152 90 H330 V142 H226"></path><path d="M262 90 V106 H292 V90"></path><circle cx="150" cy="180" r="15" fill="#87503F" stroke="none"></circle><circle cx="72" cy="108" r="17"></circle>
+</svg>
+<span class="l" style="position: absolute; left: 200px; top: 318px; width: 170px; font-size: 8px; line-height: 1.5; color: #48392A">Fig. 1 — Evidence.<br>Nobody has claimed it.</span>
+<div class="l" style="position: absolute; right: 8px; top: 96px; writing-mode: vertical-rl; font-size: 9px; letter-spacing: .4em">06.10.2026</div>
+<p style="position: absolute; left: 16px; top: 530px; width: 330px; margin: 0; font-size: 16px; line-height: 1.55; color: #48392A">On Tuesday, 6 October, five things will happen at VGEC that don't appear in any IEEE handbook.</p>
+<div style="position: absolute; left: 16px; right: 16px; top: 622px; border-top: 1px solid #283558; padding-top: 10px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="l" style="font-size: 8px; color: #48392A">Date</span><span class="d" style="font-size: 17px">Tue, 6 Oct 2026</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="l" style="font-size: 8px; color: #48392A">Venue</span><span class="d" style="font-size: 17px">VGEC, Chandkheda</span></div>
+</div>
+<a class="l" href="#m-register" style="position: absolute; left: 16px; right: 16px; top: 704px; height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; background: #283558; color: #EBE8DE; text-decoration: none; font-size: 12px; font-weight: 700">Choose your chaos <span>↓</span></a>
+</section>
+
+<!-- COUNTDOWN -->
+<section style="position: relative; height: 630px; overflow: hidden; background: #283558; color: #EBE8DE">
+<p class="d" style="position: absolute; left: 16px; top: 34px; width: 350px; margin: 0; font-size: 19px; line-height: 1.25; color: #C1AD84">IEEE writes the rules. Rules are great.</p>
+<h2 class="d" style="position: absolute; left: 14px; top: 72px; margin: 0; font-size: 50px; line-height: .95; font-weight: 400">Today, we're<br>breaking <span style="position: relative; display: inline-block; color: #C1AD84">five.<svg width="150" height="70" viewBox="0 0 440 200" fill="none" aria-hidden="true" style="position: absolute; left: -18px; top: -6px"><path d="M60 40 C 180 -10, 400 10, 410 90 C 420 170, 220 200, 100 175 C 10 155, 10 70, 90 38" stroke="#C1AD84" stroke-width="3" stroke-linecap="round"></path></svg></span></h2>
+<span class="h" style="position: absolute; left: 196px; top: 176px; font-size: 22px; color: #C1AD84; transform: rotate(-4deg)">(responsibly. mostly.)</span>
+<div style="position: absolute; left: 16px; right: 16px; top: 222px; height: 384px; border: 1px solid rgba(193,173,132,.55); background: rgba(235,232,222,.035)">
+<span class="l" style="position: absolute; left: 12px; top: 12px; font-size: 8px; color: #C1AD84">Instrument 00 · Spec-o-meter</span>
+<div style="position: absolute; left: 11px; top: 30px"><svg width="336" height="189" viewBox="0 0 480 270" fill="none" role="img" aria-label="Spec-o-meter gauge: needle rising toward the out-of-spec zone as IEEE Day approaches">
+<path d="M30 250 A210 210 0 0 1 450 250" stroke="#C1AD84" stroke-width="1" opacity=".5"></path>
+<path d="M409.9 126.6 A210 210 0 0 1 450.0 250.0" stroke="#87503F" stroke-width="14"></path>
+<path d="M40 250 A200 200 0 0 1 440 250" stroke="#C1AD84" stroke-width="1.5"></path>
+<path d="M40.0 250.0 L62.0 250.0" stroke="#C1AD84" stroke-width="2"></path><path d="M40.6 234.3 L48.6 234.9" stroke="#C1AD84" stroke-width="1.2"></path><path d="M42.5 218.7 L50.4 220.0" stroke="#C1AD84" stroke-width="1.2"></path><path d="M45.5 203.3 L53.3 205.2" stroke="#C1AD84" stroke-width="1.2"></path><path d="M49.8 188.2 L57.4 190.7" stroke="#C1AD84" stroke-width="1.2"></path><path d="M55.2 173.5 L68.2 178.8" stroke="#C1AD84" stroke-width="1.2"></path><path d="M61.8 159.2 L68.9 162.8" stroke="#C1AD84" stroke-width="1.2"></path><path d="M69.5 145.5 L76.3 149.7" stroke="#C1AD84" stroke-width="1.2"></path><path d="M78.2 132.4 L84.7 137.1" stroke="#C1AD84" stroke-width="1.2"></path><path d="M87.9 120.1 L94.0 125.3" stroke="#C1AD84" stroke-width="1.2"></path><path d="M98.6 108.6 L114.1 124.1" stroke="#C1AD84" stroke-width="2"></path><path d="M110.1 97.9 L115.3 104.0" stroke="#C1AD84" stroke-width="1.2"></path><path d="M122.4 88.2 L127.1 94.7" stroke="#C1AD84" stroke-width="1.2"></path><path d="M135.5 79.5 L139.7 86.3" stroke="#C1AD84" stroke-width="1.2"></path><path d="M149.2 71.8 L152.8 78.9" stroke="#C1AD84" stroke-width="1.2"></path><path d="M163.5 65.2 L168.8 78.2" stroke="#C1AD84" stroke-width="1.2"></path><path d="M178.2 59.8 L180.7 67.4" stroke="#C1AD84" stroke-width="1.2"></path><path d="M193.3 55.5 L195.2 63.3" stroke="#C1AD84" stroke-width="1.2"></path><path d="M208.7 52.5 L210.0 60.4" stroke="#C1AD84" stroke-width="1.2"></path><path d="M224.3 50.6 L224.9 58.6" stroke="#C1AD84" stroke-width="1.2"></path><path d="M240.0 50.0 L240.0 72.0" stroke="#C1AD84" stroke-width="2"></path><path d="M255.7 50.6 L255.1 58.6" stroke="#C1AD84" stroke-width="1.2"></path><path d="M271.3 52.5 L270.0 60.4" stroke="#C1AD84" stroke-width="1.2"></path><path d="M286.7 55.5 L284.8 63.3" stroke="#C1AD84" stroke-width="1.2"></path><path d="M301.8 59.8 L299.3 67.4" stroke="#C1AD84" stroke-width="1.2"></path><path d="M316.5 65.2 L311.2 78.2" stroke="#C1AD84" stroke-width="1.2"></path><path d="M330.8 71.8 L327.2 78.9" stroke="#C1AD84" stroke-width="1.2"></path><path d="M344.5 79.5 L340.3 86.3" stroke="#C1AD84" stroke-width="1.2"></path><path d="M357.6 88.2 L352.9 94.7" stroke="#C1AD84" stroke-width="1.2"></path><path d="M369.9 97.9 L364.7 104.0" stroke="#C1AD84" stroke-width="1.2"></path><path d="M381.4 108.6 L365.9 124.1" stroke="#C1AD84" stroke-width="2"></path><path d="M392.1 120.1 L386.0 125.3" stroke="#C1AD84" stroke-width="1.2"></path><path d="M401.8 132.4 L395.3 137.1" stroke="#87503F" stroke-width="1.2"></path><path d="M410.5 145.5 L403.7 149.7" stroke="#87503F" stroke-width="1.2"></path><path d="M418.2 159.2 L411.1 162.8" stroke="#87503F" stroke-width="1.2"></path><path d="M424.8 173.5 L411.8 178.8" stroke="#87503F" stroke-width="1.2"></path><path d="M430.2 188.2 L422.6 190.7" stroke="#87503F" stroke-width="1.2"></path><path d="M434.5 203.3 L426.7 205.2" stroke="#87503F" stroke-width="1.2"></path><path d="M437.5 218.7 L429.6 220.0" stroke="#87503F" stroke-width="1.2"></path><path d="M439.4 234.3 L431.4 234.9" stroke="#87503F" stroke-width="1.2"></path><path d="M440.0 250.0 L418.0 250.0" stroke="#87503F" stroke-width="2"></path>
+<g font-family="Josefin Sans, sans-serif" font-size="12" letter-spacing="1.5" fill="#C1AD84"><text x="84.0" y="255.0" text-anchor="middle">0</text><text x="129.7" y="144.7" text-anchor="middle">25</text><text x="240.0" y="99.0" text-anchor="middle">50</text><text x="350.3" y="144.7" text-anchor="middle">75</text><text x="396.0" y="255.0" text-anchor="middle">100</text></g>
+<text x="40" y="268" font-family="Josefin Sans, sans-serif" font-size="10" letter-spacing="2" fill="#C1AD84">IN SPEC</text>
+<text x="440" y="268" text-anchor="end" font-family="Josefin Sans, sans-serif" font-size="10" letter-spacing="2" fill="#EBE8DE">OUT OF SPEC</text>
+<text x="240" y="180" text-anchor="middle" font-family="Nanum Pen Script, cursive" font-size="24" fill="#C1AD84">% out of spec</text>
+<g transform="rotate({{g.rot}} 240 250)"><path d="M214 250 L428 250" stroke="#EBE8DE" stroke-width="3" stroke-linecap="round"></path><path d="M400 245 L428 250 L400 255 Z" fill="#EBE8DE"></path></g>
+<circle cx="240" cy="250" r="12" fill="#C1AD84"></circle><circle cx="240" cy="250" r="4" fill="#283558"></circle>
+</svg></div>
+<div class="d" style="position: absolute; left: 0; right: 0; top: 222px; text-align: center; font-size: 32px; line-height: 1">{{g.pct}}<span style="font-size: 20px; color: #C1AD84">%</span></div>
+<div style="position: absolute; left: 12px; right: 12px; top: 276px; display: flex; justify-content: space-between; align-items: flex-start"><div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><div style="display: flex; gap: 4px"><span class="flap sm">{{cd.d1}}</span><span class="flap sm">{{cd.d2}}</span></div><span class="l" style="font-size: 8px; color: #C1AD84">Days</span></div><span class="d" style="font-size: 28px; line-height: 54px; color: #C1AD84">:</span><div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><div style="display: flex; gap: 4px"><span class="flap sm">{{cd.h1}}</span><span class="flap sm">{{cd.h2}}</span></div><span class="l" style="font-size: 8px; color: #C1AD84">Hours</span></div><span class="d" style="font-size: 28px; line-height: 54px; color: #C1AD84">:</span><div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><div style="display: flex; gap: 4px"><span class="flap sm">{{cd.m1}}</span><span class="flap sm">{{cd.m2}}</span></div><span class="l" style="font-size: 8px; color: #C1AD84">Mins</span></div><span class="d" style="font-size: 28px; line-height: 54px; color: #C1AD84">:</span><div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><div style="display: flex; gap: 4px"><span class="flap sm">{{cd.s1}}</span><span class="flap sm">{{cd.s2}}<span class="fold"></span></span></div><span class="l" style="font-size: 8px; color: #C1AD84">Secs</span></div></div>
+<span class="l" style="position: absolute; left: 12px; bottom: 12px; font-size: 7px; color: #C1AD84">Needle hits red at 10:30 AM, 06.10</span>
+</div>
+</section>
+
+<!-- THE DAY -->
+<section style="position: relative; height: 300px; overflow: hidden">
+<div style="position: absolute; left: 16px; top: 36px; display: flex; align-items: flex-end; gap: 14px">
+<span class="d" style="font-size: 120px; line-height: .85; letter-spacing: -.03em">06</span>
+<div style="display: flex; flex-direction: column; gap: 6px; padding-bottom: 6px"><span class="l" style="font-size: 11px; letter-spacing: .26em">October</span><span class="l" style="font-size: 11px; letter-spacing: .26em; color: #87503F">2026 · Tue</span></div>
+</div>
+<p class="d" style="position: absolute; left: 16px; top: 150px; margin: 0; font-size: 24px; line-height: 1.1">One day. Five experiences. No syllabus.</p>
+<dl style="position: absolute; left: 16px; right: 16px; top: 216px; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; border-top: 1px solid #283558; padding-top: 10px">
+<div style="display: flex; flex-direction: column; gap: 4px"><dt class="l" style="font-size: 8px; color: #48392A">Who</dt><dd class="d" style="margin: 0; font-size: 15px">VGEC students</dd></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><dt class="l" style="font-size: 8px; color: #48392A">Starts</dt><dd class="d" style="margin: 0; font-size: 15px">10:30 AM</dd></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><dt class="l" style="font-size: 8px; color: #87503F">Reg. closes</dt><dd class="d" style="margin: 0; font-size: 15px; color: #87503F">[Date]</dd></div>
+</dl>
+</section>
+
+<!-- EVENTS: swipe strip -->
+<section id="m-events" style="position: relative; height: 660px; overflow: hidden; border-top: 1px solid #283558">
+<span class="l" style="position: absolute; left: 16px; top: 36px; font-size: 9px; color: #87503F">§2 — Five anomalies</span>
+<h2 class="d" style="position: absolute; left: 16px; top: 58px; margin: 0; font-size: 38px; line-height: 1; font-weight: 400">Filed under: not the syllabus.</h2>
+<div class="strip" style="position: absolute; left: 0; right: 0; top: 150px; height: 450px; display: flex; gap: 12px; padding: 0 16px; overflow-x: auto; box-sizing: border-box">
+<article style="flex: 0 0 300px; height: 440px; box-sizing: border-box; background: #283558; color: #EBE8DE; padding: 22px; display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden">
+<div class="d" aria-hidden="true" style="position: absolute; right: -10px; bottom: 40px; font-size: 200px; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(193,173,132,.35)">01</div>
+<span class="l" style="font-size: 9px; color: #C1AD84">01 · Treasure Hunt</span>
+<h3 class="d" style="margin: 0; font-size: 38px; line-height: .98; font-weight: 400">The campus is hiding something.</h3>
+<p style="margin: 0; font-size: 14px; line-height: 1.5">Crack the questions. Follow the clues. Find the whistles.</p>
+<span class="l" style="margin-top: auto; font-size: 9px; border-top: 1px solid #C1AD84; padding-top: 10px; position: relative">10:30–11:30 AM · Teams · ₹100</span>
+<a class="l" href="#m-register" style="height: 48px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; background: #C1AD84; color: #283558; text-decoration: none; font-size: 11px; font-weight: 700; position: relative">Join the hunt <span>→</span></a>
+</article>
+<article style="flex: 0 0 300px; height: 440px; box-sizing: border-box; background-color: #F3F1EA; background-image: linear-gradient(rgba(40,53,88,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(40,53,88,.08) 1px, transparent 1px); background-size: 20px 20px; border: 1px solid #283558; padding: 22px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between"><span class="l" style="font-size: 9px; color: #87503F">02 · Workshop</span><span class="d" style="font-size: 40px; line-height: .8; color: #87503F">02</span></div>
+<h3 class="d" style="margin: 0; font-size: 36px; line-height: 1; font-weight: 400">Come curious. Leave with something new.</h3>
+<span class="h" style="font-size: 20px; color: #87503F">topic: [TBA] — we're keeping it quiet.</span>
+<span class="l" style="margin-top: auto; font-size: 9px; color: #48392A; border-top: 1px solid #283558; padding-top: 10px">[Time] · Seats [N] · [Fee]</span>
+<a class="l" href="#m-register" style="height: 48px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; background: #283558; color: #EBE8DE; text-decoration: none; font-size: 11px; font-weight: 700">Get curious <span>→</span></a>
+</article>
+<article style="flex: 0 0 300px; height: 440px; box-sizing: border-box; background: #C1AD84; color: #283558; padding: 22px; display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden">
+<svg width="150" height="150" viewBox="0 0 580 580" fill="none" stroke="#283558" aria-hidden="true" style="position: absolute; right: -24px; top: -24px"><circle cx="290" cy="290" r="220" stroke-width="3"></circle><circle cx="240" cy="290" r="110" stroke-width="4"></circle><circle cx="340" cy="290" r="110" stroke-width="4"></circle><path d="M290 192 A110 110 0 0 1 290 388 A110 110 0 0 1 290 192 Z" fill="#87503F" stroke="none"></path></svg>
+<span class="l" style="font-size: 9px">03 · Brand Identity</span>
+<h3 class="d" style="margin: 60px 0 0; font-size: 36px; line-height: 1; font-weight: 400">A brand. A blank canvas. No bad ideas.</h3>
+<span style="font-size: 13px; color: #48392A">Judged on uniqueness · innovation · creativity.</span>
+<span class="l" style="margin-top: auto; font-size: 9px; color: #48392A; border-top: 1px solid #283558; padding-top: 10px">[Time] · Solo · [Fee]</span>
+<a class="l" href="#m-register" style="height: 48px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; background: #283558; color: #EBE8DE; text-decoration: none; font-size: 11px; font-weight: 700">Build the brand <span>→</span></a>
+</article>
+<article style="flex: 0 0 300px; height: 440px; box-sizing: border-box; background: #EBE8DE; border: 2px solid #48392A; color: #48392A; padding: 22px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between"><span class="l" style="font-size: 9px">04 · Tech Charades</span><span class="d" style="font-size: 40px; line-height: .8">04</span></div>
+<div style="background: #F3F1EA; border: 2px solid #48392A; padding: 14px"><h3 class="d" style="margin: 0; font-size: 30px; line-height: 1; font-weight: 400">No keyboard. No mouse. <span style="color: #87503F">Just vibes.</span></h3></div>
+<p style="margin: 0; font-size: 13px; line-height: 1.45">Guess the tech term. Don't say it, type it or draw it.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 12px"><span class="l" style="font-size: 10px; text-decoration: line-through; text-decoration-color: #87503F">Recursion</span><span class="l" style="font-size: 10px; text-decoration: line-through; text-decoration-color: #87503F">Firewall</span><span class="l" style="font-size: 10px; text-decoration: line-through; text-decoration-color: #87503F">The cloud</span></div>
+<span class="l" style="margin-top: auto; font-size: 9px; border-top: 1px solid #48392A; padding-top: 10px">[Time] · Teams · [Fee]</span>
+<a class="l" href="#m-register" style="height: 48px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; background: #48392A; color: #EBE8DE; text-decoration: none; font-size: 11px; font-weight: 700">Play it out <span>→</span></a>
+</article>
+<article style="flex: 0 0 300px; height: 440px; box-sizing: border-box; background: #87503F; color: #EBE8DE; padding: 22px; display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden">
+<svg width="260" height="260" viewBox="0 0 640 640" fill="none" aria-hidden="true" style="position: absolute; right: -90px; top: 90px"><g class="spin" style="transform-origin: 320px 320px"><circle cx="320" cy="320" r="300" stroke="#EBE8DE" stroke-dasharray="2 10"></circle><circle cx="320" cy="320" r="220" stroke="#C1AD84" stroke-width="3"></circle><circle cx="540" cy="320" r="13" fill="#EBE8DE"></circle><circle cx="100" cy="320" r="13" fill="#EBE8DE"></circle><circle cx="320" cy="100" r="13" fill="#EBE8DE"></circle></g><path d="M285 375 L355 265 M355 375 L285 265" stroke="#C1AD84" stroke-width="10" stroke-linecap="round"></path></svg>
+<span class="l" style="font-size: 9px; position: relative">05 · Garba</span>
+<h3 class="d" style="margin: 0; font-size: 44px; line-height: .95; font-weight: 400; position: relative">Yes,<br>IEEE does<br>Garba.</h3>
+<span class="h" style="font-size: 20px; position: relative">bring dandiya. or two confident pens.</span>
+<span class="l" style="margin-top: auto; font-size: 9px; border-top: 1px solid #EBE8DE; padding-top: 10px; position: relative">[Evening] · Everyone · [Fee]</span>
+<a class="l" href="#m-register" style="height: 48px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; background: #EBE8DE; color: #87503F; text-decoration: none; font-size: 11px; font-weight: 700; position: relative">Join the circle <span>→</span></a>
+</article>
+</div>
+<div style="position: absolute; left: 16px; right: 16px; top: 614px; display: flex; justify-content: space-between; align-items: center">
+<div style="display: flex; gap: 6px" aria-hidden="true"><span style="width: 22px; height: 4px; background: #283558"></span><span style="width: 8px; height: 4px; background: rgba(40,53,88,.3)"></span><span style="width: 8px; height: 4px; background: rgba(40,53,88,.3)"></span><span style="width: 8px; height: 4px; background: rgba(40,53,88,.3)"></span><span style="width: 8px; height: 4px; background: rgba(40,53,88,.3)"></span></div>
+<span class="h" style="font-size: 22px; color: #87503F">swipe for more chaos →</span>
+</div>
+</section>
+
+<!-- FLOW: compact -->
+<section style="position: relative; height: 480px; overflow: hidden; background: #F3F1EA; border-top: 1px solid #283558">
+<span class="l" style="position: absolute; left: 16px; top: 36px; font-size: 9px; color: #87503F">§3 — The flow</span>
+<h2 class="d" style="position: absolute; left: 16px; top: 58px; margin: 0; font-size: 38px; line-height: 1; font-weight: 400">The day, plotted.</h2>
+<div style="position: absolute; left: 16px; right: 16px; top: 124px; display: flex; flex-direction: column; border-bottom: 1px solid #283558">
+<div style="height: 64px; display: grid; grid-template-columns: 76px 1fr 70px; align-items: center; border-top: 1px solid #283558"><span class="l" style="font-size: 10px">10:30</span><div style="display: flex; flex-direction: column; gap: 2px"><span class="d" style="font-size: 20px">Treasure Hunt</span><span class="l" style="font-size: 8px; color: #48392A">Signal: running</span></div><svg width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="#283558" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M0 24 L8 10 L14 22 L22 4 L30 20 L38 6 L46 22 L54 8 L62 20 L70 24"></path></svg></div>
+<div style="height: 64px; display: grid; grid-template-columns: 76px 1fr 70px; align-items: center; border-top: 1px solid #283558"><span class="l" style="font-size: 10px">[Time]</span><div style="display: flex; flex-direction: column; gap: 2px"><span class="d" style="font-size: 20px">Workshop</span><span class="l" style="font-size: 8px; color: #48392A">Signal: focused</span></div><svg width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="#87503F" stroke-width="2" aria-hidden="true"><path d="M0 14 Q 9 0 18 14 T 35 14 T 52 14 T 70 14"></path></svg></div>
+<div style="height: 64px; display: grid; grid-template-columns: 76px 1fr 70px; align-items: center; border-top: 1px solid #283558"><span class="l" style="font-size: 10px">[Time]</span><div style="display: flex; flex-direction: column; gap: 2px"><span class="d" style="font-size: 20px">Brand Identity</span><span class="l" style="font-size: 8px; color: #48392A">Signal: sharp</span></div><svg width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="#283558" stroke-width="2" aria-hidden="true"><path d="M0 24 V4 H12 V24 H24 V4 H36 V24 H48 V4 H60 V24 H70"></path></svg></div>
+<div style="height: 64px; display: grid; grid-template-columns: 76px 1fr 70px; align-items: center; border-top: 1px solid #283558"><span class="l" style="font-size: 10px">[Time]</span><div style="display: flex; flex-direction: column; gap: 2px"><span class="d" style="font-size: 20px">Tech Charades</span><span class="l" style="font-size: 8px; color: #48392A">Signal: loud</span></div><svg width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="#48392A" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M0 14 L5 6 L9 22 L13 2 L17 20 L22 8 L26 26 L31 4 L36 18 L41 10 L46 24 L51 6 L56 18 L61 12 L66 16 L70 14"></path></svg></div>
+<div style="height: 64px; display: grid; grid-template-columns: 76px 1fr 70px; align-items: center; border-top: 1px solid #283558"><span class="l" style="font-size: 10px">[Evening]</span><div style="display: flex; flex-direction: column; gap: 2px"><span class="d" style="font-size: 20px">Garba</span><span class="l" style="font-size: 8px; color: #48392A">Signal: circular</span></div><svg width="70" height="28" viewBox="0 0 70 28" fill="none" stroke="#87503F" stroke-width="2" aria-hidden="true"><circle cx="13" cy="14" r="10"></circle><circle cx="35" cy="14" r="10"></circle><circle cx="57" cy="14" r="10"></circle></svg></div>
+</div>
+</section>
+
+<!-- REGISTER -->
+<section id="m-register" style="position: relative; height: 580px; overflow: hidden; background: #283558; color: #EBE8DE">
+<span class="l" style="position: absolute; left: 16px; top: 36px; font-size: 9px; color: #C1AD84">§4 — Registration</span>
+<h2 class="d" style="position: absolute; left: 16px; top: 58px; margin: 0; font-size: 52px; line-height: .92; font-weight: 400">Choose your <span style="color: #C1AD84">chaos.</span></h2>
+<span class="l" style="position: absolute; left: 16px; top: 172px; font-size: 9px; color: #C1AD84; border: 1px dashed #C1AD84; padding: 8px 10px">Registration closes [Date]</span>
+<div style="position: absolute; left: 16px; right: 16px; top: 218px; display: flex; flex-direction: column; gap: 8px">
+<a href="#m-register" style="height: 62px; background: #EBE8DE; color: #283558; text-decoration: none; display: grid; grid-template-columns: 42px 1fr 62px; align-items: center"><span class="d" style="font-size: 22px; text-align: center">01</span><span style="display: flex; flex-direction: column; gap: 3px"><span class="d" style="font-size: 19px">Treasure Hunt</span><span class="l" style="font-size: 8px; color: #48392A">10:30 AM · Teams · ₹100</span></span><span style="height: 100%; border-left: 2px dashed #283558; display: flex; align-items: center; justify-content: center; background: #87503F; color: #EBE8DE; font-size: 18px" aria-label="Join the hunt">→</span></a>
+<a href="#m-register" style="height: 62px; background: #EBE8DE; color: #283558; text-decoration: none; display: grid; grid-template-columns: 42px 1fr 62px; align-items: center"><span class="d" style="font-size: 22px; text-align: center">02</span><span style="display: flex; flex-direction: column; gap: 3px"><span class="d" style="font-size: 19px">Workshop</span><span class="l" style="font-size: 8px; color: #48392A">[Time] · Seats [N] · [Fee]</span></span><span style="height: 100%; border-left: 2px dashed #283558; display: flex; align-items: center; justify-content: center; background: #87503F; color: #EBE8DE; font-size: 18px" aria-label="Get curious">→</span></a>
+<a href="#m-register" style="height: 62px; background: #EBE8DE; color: #283558; text-decoration: none; display: grid; grid-template-columns: 42px 1fr 62px; align-items: center"><span class="d" style="font-size: 22px; text-align: center">03</span><span style="display: flex; flex-direction: column; gap: 3px"><span class="d" style="font-size: 19px">Brand Identity</span><span class="l" style="font-size: 8px; color: #48392A">[Time] · Solo · [Fee]</span></span><span style="height: 100%; border-left: 2px dashed #283558; display: flex; align-items: center; justify-content: center; background: #87503F; color: #EBE8DE; font-size: 18px" aria-label="Build the brand">→</span></a>
+<a href="#m-register" style="height: 62px; background: #EBE8DE; color: #283558; text-decoration: none; display: grid; grid-template-columns: 42px 1fr 62px; align-items: center"><span class="d" style="font-size: 22px; text-align: center">04</span><span style="display: flex; flex-direction: column; gap: 3px"><span class="d" style="font-size: 19px">Tech Charades</span><span class="l" style="font-size: 8px; color: #48392A">[Time] · Teams · [Fee]</span></span><span style="height: 100%; border-left: 2px dashed #283558; display: flex; align-items: center; justify-content: center; background: #87503F; color: #EBE8DE; font-size: 18px" aria-label="Play it out">→</span></a>
+<a href="#m-register" style="height: 62px; background: #EBE8DE; color: #283558; text-decoration: none; display: grid; grid-template-columns: 42px 1fr 62px; align-items: center"><span class="d" style="font-size: 22px; text-align: center">05</span><span style="display: flex; flex-direction: column; gap: 3px"><span class="d" style="font-size: 19px">Garba</span><span class="l" style="font-size: 8px; color: #48392A">[Evening] · Everyone · [Fee]</span></span><span style="height: 100%; border-left: 2px dashed #283558; display: flex; align-items: center; justify-content: center; background: #87503F; color: #EBE8DE; font-size: 18px" aria-label="Join the circle">→</span></a>
+</div>
+</section>
+
+<!-- GUIDELINES -->
+<section style="position: relative; height: 740px; overflow: hidden">
+<span class="l" style="position: absolute; left: 16px; top: 36px; font-size: 9px; color: #87503F">§5 — The fine print</span>
+<h2 class="d" style="position: absolute; left: 16px; top: 58px; margin: 0; font-size: 44px; line-height: .98; font-weight: 400">Rules. Yes, even here.</h2>
+<div role="tablist" aria-label="Guideline groups" style="position: absolute; left: 0; right: 0; top: 168px; display: flex; gap: 8px; padding: 0 16px; overflow-x: auto">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+<button class="tab" type="button" role="tab" data-on="{{t.on}}" aria-selected="{{t.on}}" onClick="{{t.pick}}">{{t.label}}</button>
+</sc-for>
+</div>
+<div role="tabpanel" style="position: absolute; left: 16px; right: 16px; top: 232px; display: flex; flex-direction: column; border-bottom: 1px solid #283558">
+<sc-for list="{{rules}}" as="r" hint-placeholder-count="6">
+<div style="display: grid; grid-template-columns: 40px 1fr; gap: 8px; padding: 12px 0; border-top: 1px solid #283558">
+<span class="d" style="font-size: 17px; color: #87503F">{{r.n}}</span>
+<div style="display: flex; flex-direction: column; gap: 3px"><span class="d" style="font-size: 18px; line-height: 1.15">{{r.t}}</span><span style="font-size: 13px; line-height: 1.45; color: #48392A">{{r.b}}</span></div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<!-- FAQ -->
+<section style="position: relative; height: 640px; overflow: hidden; background: #F3F1EA; border-top: 1px solid #283558">
+<span class="l" style="position: absolute; left: 16px; top: 36px; font-size: 9px; color: #87503F">§6 — FAQ</span>
+<h2 class="d" style="position: absolute; left: 16px; top: 58px; margin: 0; font-size: 40px; line-height: 1; font-weight: 400">Questions we've already been asked.</h2>
+<div style="position: absolute; left: 16px; right: 16px; top: 160px; display: flex; flex-direction: column; border-bottom: 1px solid #283558">
+<sc-for list="{{faqs}}" as="f" hint-placeholder-count="7">
+<div style="display: flex; flex-direction: column">
+<button class="faq" type="button" aria-expanded="{{f.open}}" onClick="{{f.toggle}}"><span class="d" style="font-size: 18px; line-height: 1.2">{{f.q}}</span><span class="d" style="font-size: 24px; color: #87503F">{{f.sign}}</span></button>
+<sc-if value="{{f.open}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 0 28px 14px 0; font-size: 14px; line-height: 1.55; color: #48392A">{{f.a}}</p></sc-if>
+</div>
+</sc-for>
+</div>
+</section>
+
+<!-- ABOUT + FEEDBACK -->
+<section style="position: relative; height: 540px; overflow: hidden; background: #48392A; color: #EBE8DE">
+<div style="position: absolute; left: 16px; right: 16px; top: 36px; display: flex; flex-direction: column; gap: 14px">
+<span class="l" style="font-size: 9px; color: #C1AD84">§7 — Filed by</span>
+<div style="display: flex; gap: 14px; align-items: center"><div class="l" style="width: 64px; height: 64px; flex-shrink: 0; border: 1.5px dashed #C1AD84; display: flex; align-items: center; justify-content: center; font-size: 7px; color: #C1AD84">Logo</div><h2 class="d" style="margin: 0; font-size: 28px; line-height: 1.05; font-weight: 400">IEEE VGEC Student Branch.</h2></div>
+<p style="margin: 0; font-size: 14px; line-height: 1.55">Most days: circuits and code. On 6 October: people.</p>
+</div>
+<form style="position: absolute; left: 16px; right: 16px; top: 220px; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid rgba(193,173,132,.5); padding-top: 20px">
+<span class="d" style="font-size: 30px; line-height: 1">Report a bug in the day.</span>
+<label class="l" for="m-fb" style="font-size: 9px; color: #C1AD84">Keep, fix, or never do again?</label>
+<textarea id="m-fb" rows="4" placeholder="Be honest. We can take it." style="background: transparent; color: #EBE8DE; border: 1px solid #C1AD84; border-radius: 0; padding: 12px; font: inherit; font-size: 16px; resize: none"></textarea>
+<button class="l" type="button" style="height: 52px; background: #C1AD84; color: #283558; border: 0; border-radius: 0; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: space-between; padding: 0 18px">File report <span>→</span></button>
+</form>
+</section>
+
+<!-- FOOTER -->
+<footer style="position: relative; height: 420px; overflow: hidden; background: #283558; color: #EBE8DE">
+<div style="position: absolute; left: 16px; right: 16px; top: 36px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 6px"><span class="l" style="font-size: 9px; color: #C1AD84">Humans to call</span><span style="font-size: 13px; line-height: 1.55">[Coordinator] · [Phone]<br>[Coordinator] · [Phone]<br>[Contact email]</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span class="l" style="font-size: 9px; color: #C1AD84">Links</span><a href="#" style="color: #EBE8DE; font-size: 13px">Instagram ↗</a><a href="#" style="color: #EBE8DE; font-size: 13px">FAQ</a><a href="#" style="color: #EBE8DE; font-size: 13px">Volunteers →</a></div>
+</div>
+<div class="d" aria-hidden="true" style="position: absolute; left: 14px; top: 190px; font-size: 84px; line-height: .9; color: #C1AD84">Out of spec.</div>
+<span class="l" style="position: absolute; left: 16px; bottom: 18px; font-size: 8px; color: #C1AD84">© 2026 IEEE VGEC Student Branch</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5770}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { now: Date.now(), tab: 'general', open: 0 };
+  }
+  componentDidMount() { this.timer = setInterval(() => this.setState({ now: Date.now() }), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  renderVals() {
+    const s = this.state;
+    const target = new Date('2026-10-06T10:30:00+05:30').getTime();
+    const diff = Math.max(0, Math.floor((target - s.now) / 1000));
+    const p = (n) => String(n).padStart(2, '0');
+    const dd = p(Math.floor(diff / 86400)), hh = p(Math.floor(diff % 86400 / 3600)), mm = p(Math.floor(diff % 3600 / 60)), ss = p(diff % 60);
+    const cd = { d1: dd[0], d2: dd[1], h1: hh[0], h2: hh[1], m1: mm[0], m2: mm[1], s1: ss[0], s2: ss[1] };
+    const start = new Date('2026-09-06T10:30:00+05:30').getTime();
+    const frac = Math.min(1, Math.max(0, (s.now - start) / (target - start)));
+    const g = { pct: Math.round(frac * 100), rot: (-(1 - frac) * 180).toFixed(2) };
+    const groups = {
+      general: [
+        ['Carry your college ID.', 'Every event checks it. No ID, no anomaly.'],
+        ['Register before [deadline].', 'Spot entries only if seats are left.'],
+        ['Show up before your slot.', 'The whistle waits for no one.'],
+        ['Be kind to people and campus.', 'Clues are not souvenirs.'],
+        ['Judges have the final word.', 'Arguing with one is not an event. Yet.'],
+        ['Your stuff is your responsibility.', 'Bags, phones, dandiya.']
+      ],
+      event: [
+        ['Treasure Hunt', 'Teams of [N]. ₹100 per [team]. Stay inside campus.'],
+        ['Workshop', 'Seats: [N], first come first served.'],
+        ['Brand Identity', 'Solo. Brand revealed on the spot. Judged by IEEE members.'],
+        ['Tech Charades', 'Teams of [N]. No saying, typing or drawing the word.'],
+        ['Garba', 'Open to all with ID. Dress code: [TBC].']
+      ],
+      how: [
+        ['Pick your anomaly.', 'Swipe the five cards.'],
+        ['Hit its button.', 'Each event has its own short form.'],
+        ['Fill it in a minute.', 'Name, enrollment no., branch, WhatsApp.'],
+        ['Pay if there is a fee.', '[UPI / at the desk — TBC].'],
+        ['Get your confirmation.', 'On WhatsApp. Bring it with your ID.']
+      ]
+    };
+    const tabDefs = [['general', 'General'], ['event', 'Per event'], ['how', 'How to register']];
+    const tabs = tabDefs.map(([k, label]) => ({ label, on: s.tab === k ? 'true' : 'false', pick: () => this.setState({ tab: k }) }));
+    const rules = groups[s.tab].map(([t, b], i) => ({ n: '5.' + (i + 1), t, b }));
+    const faqData = [
+      ['Who can take part?', 'Any VGEC student. [Confirm: are other colleges welcome?]'],
+      ['Do I need to be an IEEE member?', '[TBC by core team.]'],
+      ['Can I do more than one event?', 'Yes. One short form per event. Check the flow for clashes.'],
+      ['How much does it cost?', 'The Treasure Hunt is ₹100. Other fees: [TBC].'],
+      ['What should I bring?', 'Your college ID and your confirmation.'],
+      ['Certificates or prizes?', '[TBC — add details here.]'],
+      ['Never done Garba. Problem?', 'Not at all. Neither have half the engineers.']
+    ];
+    const faqs = faqData.map(([q, a], i) => ({ q, a, open: s.open === i, sign: s.open === i ? '–' : '+', toggle: () => this.setState({ open: s.open === i ? -1 : i }) }));
+    return { cd, g, tabs, rules, faqs };
+  }
+}
+</script>
+</body>
+</html>
