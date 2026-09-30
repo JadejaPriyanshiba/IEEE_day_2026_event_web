@@ -197,12 +197,20 @@
     var SPEC_START_MS = new Date('2026-09-06T05:00:00Z').getTime();
 
     function getSpecValue() {
+        /* If either date failed to parse, default to 100% (event is live/past) */
+        if (isNaN(SPEC_START_MS) || isNaN(TARGET_MS)) return 100;
+
         var now = Date.now();
         if (now <= SPEC_START_MS) return 0;
         if (now >= TARGET_MS)     return 100;
-        return Math.round(
-            (now - SPEC_START_MS) / (TARGET_MS - SPEC_START_MS) * 100
-        );
+
+        var raw = (now - SPEC_START_MS) / (TARGET_MS - SPEC_START_MS) * 100;
+
+        /* Extra safety: if division somehow produced NaN or out-of-range, clamp */
+        if (isNaN(raw) || raw > 100) return 100;
+        if (raw < 0)                 return 0;
+
+        return Math.round(raw);
     }
 
     function animateSpecometer(targetValue) {
@@ -210,17 +218,22 @@
         var numberEl = document.getElementById('specometer-number');
         if (!needleEl || !numberEl) return;
 
+        /* Clamp value: any NaN or out-of-range → 100 (event is live/past) */
+        var safeValue = (isNaN(targetValue) || targetValue > 100) ? 100
+                      : (targetValue < 0)                         ? 0
+                      : targetValue;
+
         /* No motion: snap immediately */
         if (noMotion) {
-            var snapAngle = (targetValue / 100 * 180) - 90;
+            var snapAngle = (safeValue / 100 * 180) - 90;
             needleEl.setAttribute('transform',
                 'rotate(' + snapAngle.toFixed(2) + ',160,175)');
-            numberEl.textContent = targetValue;
+            numberEl.textContent = safeValue;
             return;
         }
 
         var startAngle = -90;                             /* 0% position */
-        var endAngle   = (targetValue / 100 * 180) - 90; /* target angle */
+        var endAngle   = (safeValue / 100 * 180) - 90;  /* target angle */
         var duration   = 1800;                            /* ms */
         var startTime  = null;
 
@@ -234,7 +247,7 @@
             var progress = easeOutCubic(raw);
 
             var angle = startAngle + (endAngle - startAngle) * progress;
-            var value = Math.round(targetValue * progress);
+            var value = Math.round(safeValue * progress);
 
             needleEl.setAttribute('transform',
                 'rotate(' + angle.toFixed(2) + ',160,175)');
