@@ -7,3 +7,224 @@
    Use the tokens from css/style.css (var(--color-text),
    var(--space-4), var(--font-display) ...) — no raw hex colours.
    ========================================================= */
+
+
+/* ---------- Section layout ---------- */
+
+.qa .container {
+    /* Simple block — children stack naturally */
+}
+
+/* Heading row: label + title + contact — full container width */
+.qa-header {
+    margin-bottom: var(--space-4);
+    /* border-bottom: var(--border); */
+    padding-bottom: var(--space-3);
+}
+
+.qa-header .section-label {
+    margin-bottom: var(--space-3);
+}
+
+.qa-header .section-title {
+    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+    line-height: 1;
+    margin-bottom: var(--space-4);
+    max-width: 26ch;
+}
+
+.qa-contact {
+    font-size: var(--fs-small);
+    color: var(--color-body);
+    line-height: var(--lh-body);
+}
+
+.qa-contact a {
+    color: var(--color-body);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
+
+.qa-contact a:hover {
+    color: var(--color-accent);
+}
+
+
+/* Questions: two equal columns side by side */
+.qa-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+}
+
+/* Each column's accordion list */
+.qa-list {
+    /* no extra styles needed — qa-item borders do the work */
+}
+
+
+.qa-item {
+    border-top: var(--border);
+}
+
+/* Bottom border on the very last item */
+.qa-item:last-child {
+    border-bottom: var(--border);
+}
+
+
+/* ---------- Trigger (button row) ---------- */
+
+.qa-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--space-4) 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    gap: var(--space-4);
+    transition: color var(--duration-fast) var(--ease);
+}
+
+.qa-trigger:hover {
+    color: var(--color-body);
+}
+
+.qa-trigger:focus-visible {
+    outline: 2px solid var(--focus-color);
+    outline-offset: 3px;
+}
+
+.qa-question {
+    font-family: var(--font-display);
+    font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--color-text);
+    flex: 1;
+    transition: color var(--duration-fast) var(--ease);
+}
+
+.qa-trigger:hover .qa-question {
+    color: var(--color-body);
+}
+
+
+/* ---------- ↓ / ↑ chevron arrow ---------- */
+
+.qa-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--color-text);
+}
+
+/* Single chevron drawn with a rotated border */
+.qa-icon::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    /* Default: pointing down (↓) */
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform var(--duration) var(--ease);
+}
+
+/* Open state: flip to point up (↑) */
+.qa-trigger[aria-expanded="true"] .qa-icon::before {
+    transform: rotate(225deg) translateY(-2px);
+}
+
+
+/* ---------- Answer panel ---------- */
+
+/*
+   CSS grid height trick — animates from 0 to auto smoothly.
+   grid-template-rows: 0fr  →  collapses inner to zero height.
+   grid-template-rows: 1fr  →  reveals inner at full height.
+*/
+
+.qa-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    transition: grid-template-rows var(--duration) var(--ease);
+}
+
+.qa-answer[aria-hidden="false"],
+.qa-answer:not([aria-hidden]) {
+    /* handled by JS toggling aria-hidden */
+}
+
+/* Inner wrapper — must have min-height: 0 for the grid trick to work */
+.qa-answer > * {
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* Open state — JS adds/removes this class */
+.qa-answer.is-open {
+    grid-template-rows: 1fr;
+}
+
+/* Answer text */
+.qa-answer p {
+    padding-bottom: var(--space-4);
+    font-size: var(--fs-small);
+    color: var(--color-body);
+    line-height: var(--lh-body);
+
+    /* Fade in when opening */
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity var(--duration) var(--ease),
+                transform var(--duration) var(--ease);
+}
+
+.qa-answer.is-open p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* ---------- Reduced-motion overrides ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .qa-answer,
+    .qa-answer p,
+    .qa-icon::before,
+    .qa-trigger,
+    .qa-question {
+        transition: none;
+    }
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 767px) {
+    /* Stack columns on mobile */
+    .qa-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .qa-header .section-title {
+        max-width: none;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .qa-columns {
+        column-gap: clamp(1rem, 4vw, 2.5rem);
+    }
+}

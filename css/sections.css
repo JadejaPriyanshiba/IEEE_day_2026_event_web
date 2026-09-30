@@ -226,3 +226,460 @@
         border-left: 2px dashed var(--color-deep-blue);
     }
 }
+
+
+/* ---------- Instrument panel (reveal section) ---------- */
+
+.instrument-panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: var(--space-6);
+    border: 1px solid var(--color-line-soft);
+    padding: var(--space-5);
+}
+
+/* Vertical divider between the two instruments */
+.instrument-panel > .specometer {
+    border-right: 1px solid var(--color-line-soft);
+    padding-right: var(--space-5);
+}
+
+.instrument-panel > .countdown {
+    padding-left: var(--space-5);
+}
+
+/* Corner dot decorators */
+.panel-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid var(--color-line-soft);
+    background: transparent;
+}
+
+.panel-dot--tl { top: -4px;  left: -4px;  }
+.panel-dot--tr { top: -4px;  right: -4px; }
+.panel-dot--bl { bottom: -4px; left: -4px;  }
+.panel-dot--br { bottom: -4px; right: -4px; }
+
+
+/* ---------- Spec-O-Meter ---------- */
+
+.specometer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.specometer__label {
+    align-self: center;             /* centered on mobile (default) */
+    text-align: center;
+    color: var(--color-sand);
+    letter-spacing: var(--tracking-label);
+    margin-bottom: var(--space-4);
+}
+
+/* Tablet+: push label to left edge */
+@media (min-width: 768px) {
+    .specometer__label {
+        align-self: flex-start;
+        text-align: left;
+    }
+}
+
+.specometer__svg {
+    width: 100%;
+    max-width: 320px;
+}
+
+/* ── SVG element styles ── */
+
+.gauge-arc {
+    stroke: var(--color-sand);
+    stroke-width: 1.5;
+    opacity: 0.55;
+}
+
+.gauge-arc--accent {
+    stroke: var(--color-accent);
+    stroke-width: 12;
+    stroke-linecap: butt;
+}
+
+.gauge-tick--major line {
+    stroke: var(--color-sand);
+    stroke-width: 1.5;
+}
+
+.gauge-tick--minor line {
+    stroke: var(--color-sand);
+    stroke-width: 1;
+    opacity: 0.6;
+}
+
+.gauge-labels text {
+    font-family: var(--font-label);
+    font-size: 11px;
+    fill: var(--color-sand);
+    letter-spacing: 0.03em;
+}
+
+.gauge-zone-labels text {
+    font-family: var(--font-label);
+    font-size: 8.5px;
+    fill: var(--color-cream);
+    opacity: 0.6;
+    letter-spacing: 0.06em;
+}
+
+.gauge-center-text {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-style: italic;
+    fill: var(--color-sand);
+}
+
+.gauge-needle {
+    stroke: var(--color-cream);
+    stroke-width: 2;
+}
+
+.gauge-pivot {
+    fill: var(--color-sand);
+    stroke: var(--color-deep-blue);
+    stroke-width: 2;
+}
+
+/* Numeric reading below the gauge */
+.specometer__reading {
+    margin-top: var(--space-3);
+    line-height: 1;
+    color: var(--color-cream);
+}
+
+.specometer__number {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 6vw, 5rem);
+    font-weight: 400;
+}
+
+.specometer__unit {
+    font-family: var(--font-label);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    color: var(--color-sand);
+    vertical-align: super;
+}
+
+
+/* ---------- Countdown (inside instrument panel) ---------- */
+
+/* Mobile-first: centered by default. Tablet+ switches to left-align. */
+.instrument-panel .countdown {
+    margin-top: 0;
+    align-items: center;        /* centered on mobile */
+}
+
+.instrument-panel .countdown__clock {
+    justify-content: center;    /* centered on mobile */
+}
+
+/* Tablet and above: left-align so it sits nicely beside the specometer */
+@media (min-width: 768px) {
+    .instrument-panel .countdown {
+        align-items: flex-start;
+    }
+
+    .instrument-panel .countdown__clock {
+        justify-content: flex-start;
+    }
+}
+
+/* Standalone countdown (if ever used outside panel) */
+.countdown {
+    margin-top: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;          /* centres header, clock, footer */
+}
+
+/* Header row: label left, date right */
+.countdown__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: var(--space-4);
+    width: 100%;
+    border-top: 1px solid var(--color-line-soft);
+    padding-top: var(--space-3);
+    margin-bottom: var(--space-5);
+    color: var(--color-sand);
+}
+
+.countdown__label { flex: unset; }
+.countdown__date  { white-space: nowrap; }
+
+/* Clock row */
+.countdown__clock {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;      /* centres the flip units */
+    gap: clamp(0.25rem, 1vw, 1rem);
+}
+
+/* Colon separator — vertically centred with the tiles */
+.countdown__sep {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 5rem);
+    line-height: 1;
+    color: var(--color-sand);
+    align-self: center;
+    margin-bottom: 1.6rem; /* shift up to align with tile midpoint */
+    user-select: none;
+}
+
+/* Each unit: pair of tiles + label */
+.flip-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.flip-unit__label {
+    color: var(--color-sand);
+    letter-spacing: var(--tracking-label);
+}
+
+/* Two tiles side-by-side */
+.flip-pair {
+    display: flex;
+    gap: 2px;
+}
+
+/* ── Single digit tile ──────────────────────────────────── */
+/*
+   Structure inside each .flip-card:
+     .fc-top       — static: top half, always shows CURRENT digit
+     .fc-bot       — static: bottom half, always shows CURRENT digit
+     .fc-flap-top  — animated: covers top half, shows OLD digit, folds DOWN
+     .fc-flap-bot  — animated: covers bottom half, shows NEW digit, folds UP
+*/
+
+.flip-card {
+    position: relative;
+    width: clamp(2.5rem, 6vw, 5.75rem);
+    height: clamp(3.75rem, 9vw, 8.625rem);
+    /* NO overflow:hidden here — that would clip the 3-D flaps */
+}
+
+/* Shared base for all four halves */
+.fc-top,
+.fc-bot,
+.fc-flap-top,
+.fc-flap-bot {
+    position: absolute;
+    left: 0;
+    right: 0;
+    overflow: hidden;          /* clip digit to its own half */
+    background: var(--color-paper);
+    display: flex;
+    justify-content: center;
+}
+
+/* Static top: upper half, digit clipped to top */
+.fc-top {
+    top: 0;
+    height: 50%;
+    align-items: flex-end;
+    border-bottom: 1.5px solid rgba(40, 53, 88, 0.13);
+}
+
+/* Static bottom: lower half, digit clipped to bottom */
+.fc-bot {
+    bottom: 0;
+    height: 50%;
+    align-items: flex-start;
+}
+
+/* Number text — common to all four */
+.fc-top span,
+.fc-bot span,
+.fc-flap-top span,
+.fc-flap-bot span {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5.75rem);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--color-deep-blue);
+    display: block;
+}
+
+/* Offset: make the full digit appear centred across the full tile height */
+.fc-top span,
+.fc-flap-top span {
+    transform: translateY(50%);
+}
+
+.fc-bot span,
+.fc-flap-bot span {
+    transform: translateY(-50%);
+}
+
+/*
+   Flap-top: covers the top half.
+   At rest = flat (rotateX 0deg), shows old digit.
+   Animating = rotates downward toward -90deg (folds away).
+   Uses perspective() IN the transform so no preserve-3d is needed
+   (preserve-3d + overflow:hidden conflict in all browsers).
+*/
+.fc-flap-top {
+    top: 0;
+    height: 50%;
+    align-items: flex-end;
+    border-bottom: 1.5px solid rgba(40, 53, 88, 0.13);
+    transform-origin: center bottom;
+    transform: perspective(400px) rotateX(0deg);
+    z-index: 2;
+}
+
+/*
+   Flap-bot: covers the bottom half.
+   At rest = folded back at 90deg (invisible behind the tile).
+   Animating = rotates from 90deg to 0deg (unfolds forward, reveals new digit).
+*/
+.fc-flap-bot {
+    bottom: 0;
+    height: 50%;
+    align-items: flex-start;
+    transform-origin: center top;
+    transform: perspective(400px) rotateX(90deg);
+    z-index: 2;
+}
+
+/* Footer */
+.countdown__footer {
+    margin-top: var(--space-5);
+    max-width: 38rem;
+    border-top: 1px solid var(--color-line-soft);
+    padding-top: var(--space-4);
+}
+
+.countdown__footer p {
+    color: var(--color-cream);
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    margin-bottom: var(--space-3);
+}
+
+.countdown__fig {
+    color: var(--color-sand) !important;
+    letter-spacing: var(--tracking-label);
+}
+
+/* Expired state */
+.countdown--expired .countdown__clock {
+    opacity: 0.5;
+}
+
+/* Reduced-motion: skip all flap transitions */
+@media (prefers-reduced-motion: reduce) {
+    .fc-flap-top,
+    .fc-flap-bot {
+        transition: none !important;
+    }
+}
+
+/* Mobile: shrink gracefully */
+@media (max-width: 480px) {
+    .countdown__clock { gap: 0.15rem; }
+    .countdown__sep   { font-size: 1.5rem; margin-bottom: 1rem; }
+}
+
+/* Mobile: stack instrument panel vertically */
+@media (max-width: 767px) {
+    .instrument-panel {
+        grid-template-columns: 1fr;
+        padding: var(--space-4);
+    }
+
+    /* ── Spec-O-Meter: center everything ── */
+    .instrument-panel > .specometer {
+        border-right: none;
+        border-bottom: 1px solid var(--color-line-soft);
+        padding-right: 0;
+        padding-bottom: var(--space-5);
+        margin-bottom: var(--space-5);
+        align-items: center;          /* center SVG + reading */
+    }
+
+    /* Center the "INSTRUMENT 00 · SPEC-O-METER" label above the gauge */
+    .instrument-panel .specometer__label {
+        align-self: center;
+        text-align: center;
+    }
+
+    /* Limit gauge width on narrow screens */
+    .specometer__svg {
+        max-width: 280px;
+    }
+
+    /* ── Countdown: center everything ── */
+    .instrument-panel > .countdown {
+        padding-left: 0;
+    }
+
+    .instrument-panel .countdown {
+        align-items: center;          /* centers header, clock, footer */
+    }
+
+    /* Center the header row items */
+    .instrument-panel .countdown__header {
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;       /* stack label above date */
+        gap: var(--space-2);
+    }
+
+    /* Center the clock tiles */
+    .instrument-panel .countdown__clock {
+        justify-content: center;
+    }
+
+    /* Center footer text */
+    .instrument-panel .countdown__footer {
+        text-align: center;
+    }
+}
+
+/* ── Tablet: side-by-side but shrink the tiles ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .instrument-panel {
+        padding: var(--space-4);
+    }
+
+    /* Shrink flip cards so the clock fits inside half the container */
+    .instrument-panel .flip-card {
+        width: clamp(2rem, 4.5vw, 3.2rem);
+        height: clamp(3rem, 6.75vw, 4.8rem);
+    }
+
+    /* Shrink the colon separator to match smaller tiles */
+    .instrument-panel .countdown__sep {
+        font-size: clamp(1.4rem, 3.5vw, 2.5rem);
+    }
+
+    /* Shrink specometer reading number */
+    .instrument-panel .specometer__number {
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+    }
+}
+
+/* ── Large desktop: comfortable sizing ── */
+@media (min-width: 1280px) {
+    .instrument-panel {
+        padding: var(--space-6);
+    }
+}

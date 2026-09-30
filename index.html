@@ -86,33 +86,214 @@
              ===================================================== -->
         <section class="section section--navy reveal" id="reveal" aria-labelledby="reveal-title">
             <div class="container">
-                <p class="section-label">§0 — Background</p>
+                <!-- <p class="section-label">§0 — Background</p> -->
                 <p class="display reveal__setup">IEEE writes the rules your Wi-Fi runs on. Rules are great.</p>
                 <h2 class="display reveal__title" id="reveal-title">Today, we're breaking <span class="text-highlight">five.</span></h2>
-                <div class="dev-slot" data-owner="Unassigned">Countdown to 06.10.2026 · 10:30 IST</div>
+                <!-- ── Instrument panel: Spec-O-Meter left · Countdown right ── -->
+                <div class="instrument-panel">
+
+                    <!-- Corner decorators -->
+                    <span class="panel-dot panel-dot--tl" aria-hidden="true"></span>
+                    <span class="panel-dot panel-dot--tr" aria-hidden="true"></span>
+                    <span class="panel-dot panel-dot--bl" aria-hidden="true"></span>
+                    <span class="panel-dot panel-dot--br" aria-hidden="true"></span>
+
+                    <!-- LEFT: Spec-O-Meter ─────────────────────────── -->
+                    <div class="specometer" aria-label="Instrument 00: Spec-O-Meter, reading 77% out of spec">
+                        <p class="label specometer__label" aria-hidden="true">Spec-O-Meter</p>
+
+                        <!--
+                            SVG gauge. Pivot centre: (160, 175). Arc outer radius: 135.
+                            Angle formula for value V: θ = 180° − (V/100 · 180°)
+                            Rotation formula for ticks: rot = (V/100 · 180) − 90°
+                        -->
+                        <svg class="specometer__svg" viewBox="0 0 320 215"
+                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+                            <!-- Semicircular arc (0 → 100) -->
+                            <path d="M 25 175 A 135 135 0 0 1 295 175" fill="none" class="gauge-arc"/>
+
+                            <!-- Accent zone (75 → 100): V=75 at θ=45° → (255.5, 79.5) -->
+                            <path d="M 255.5 79.5 A 135 135 0 0 1 295 175" fill="none" class="gauge-arc--accent"/>
+
+                            <!-- Major ticks at 0, 25, 50, 75, 100
+                                 rot = (V/100·180)−90  -->
+                            <g class="gauge-tick--major">
+                                <line x1="160" y1="40" x2="160" y2="57" transform="rotate(-90,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="57" transform="rotate(-45,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="57" transform="rotate(0,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="57" transform="rotate(45,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="57" transform="rotate(90,160,175)"/>
+                            </g>
+
+                            <!-- Minor ticks every 5 units (skip the 5 majors) -->
+                            <g class="gauge-tick--minor">
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-81,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-72,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-63,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-54,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-36,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-27,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-18,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(-9,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(9,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(18,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(27,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(36,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(54,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(63,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(72,160,175)"/>
+                                <line x1="160" y1="40" x2="160" y2="50" transform="rotate(81,160,175)"/>
+                            </g>
+
+                            <!-- Scale labels at 0, 25, 50, 75, 100 -->
+                            <g class="gauge-labels">
+                                <text x="22"  y="193" text-anchor="middle">0</text>
+                                <text x="54"  y="71"  text-anchor="middle">25</text>
+                                <text x="160" y="24"  text-anchor="middle">50</text>
+                                <text x="266" y="71"  text-anchor="middle">75</text>
+                                <text x="298" y="193" text-anchor="middle">100</text>
+                            </g>
+
+                            <!-- Zone labels — anchored to edges so they never clip -->
+                            <g class="gauge-zone-labels">
+                                <text x="4"   y="209" text-anchor="start">IN SPEC</text>
+                                <text x="316" y="209" text-anchor="end">OUT OF SPEC</text>
+                            </g>
+
+                            <!-- Centre italic text -->
+                            <text class="gauge-center-text" x="152" y="130" text-anchor="middle">% out of spec</text>
+
+                            <!--
+                                Needle — animated by JS via the transform attribute.
+                                The line points straight up (160,175)→(160,55).
+                                Rotation formula: (V/100 * 180) − 90°
+                                  0% → rotate(-90)   = pointing left
+                                 50% → rotate(0)     = pointing up
+                                100% → rotate(90)    = pointing right
+                                Initial: rotate(-90) = 0% (needle at rest, left)
+                            -->
+                            <g id="specometer-needle" transform="rotate(-90,160,175)">
+                                <line class="gauge-needle"
+                                      x1="160" y1="175" x2="160" y2="55"
+                                      stroke-linecap="round"/>
+                            </g>
+
+                            <!-- Pivot (drawn on top of needle base) -->
+                            <circle class="gauge-pivot" cx="160" cy="175" r="7"/>
+                        </svg>
+
+                        <!-- Numeric reading — id for JS counter animation -->
+                        <div class="specometer__reading" aria-hidden="true">
+                            <span class="specometer__number" id="specometer-number">0</span><span class="specometer__unit">%</span>
+                        </div>
+                    </div><!-- /.specometer -->
+
+                    <!-- RIGHT: Countdown ───────────────────────────── -->
+                    <div class="countdown" id="countdown">
+                        <div class="countdown__header">
+                            <!-- <span class="label countdown__label">T-minus · Until the first whistle</span> -->
+                            <span class="label countdown__date">06.10.2026 · 10:30 IST</span>
+                        </div>
+
+                        <div class="countdown__clock" role="timer" aria-live="polite" aria-atomic="true">
+
+                            <!-- DAYS -->
+                            <div class="flip-unit" data-unit="days">
+                                <div class="flip-pair">
+                                    <div class="flip-card" data-digit="0">
+                                        <div class="fc-top"><span>0</span></div>
+                                        <div class="fc-bot"><span>0</span></div>
+                                        <div class="fc-flap-top"><span>0</span></div>
+                                        <div class="fc-flap-bot"><span>0</span></div>
+                                    </div>
+                                    <div class="flip-card" data-digit="0">
+                                        <div class="fc-top"><span>0</span></div>
+                                        <div class="fc-bot"><span>0</span></div>
+                                        <div class="fc-flap-top"><span>0</span></div>
+                                        <div class="fc-flap-bot"><span>0</span></div>
+                                    </div>
+                                </div>
+                                <span class="flip-unit__label label">Days</span>
+                            </div>
+
+                            <span class="countdown__sep" aria-hidden="true">:</span>
+
+                            <!-- HOURS -->
+                            <div class="flip-unit" data-unit="hours">
+                                <div class="flip-pair">
+                                    <div class="flip-card" data-digit="0">
+                                        <div class="fc-top"><span>0</span></div>
+                                        <div class="fc-bot"><span>0</span></div>
+                                        <div class="fc-flap-top"><span>0</span></div>
+                                        <div class="fc-flap-bot"><span>0</span></div>
+                                    </div>
+                                    <div class="flip-card" data-digit="0">
+                                        <div class="fc-top"><span>0</span></div>
+                                        <div class="fc-bot"><span>0</span></div>
+                                        <div class="fc-flap-top"><span>0</span></div>
+                                        <div class="fc-flap-bot"><span>0</span></div>
+                                    </div>
+                                </div>
+                                <span class="flip-unit__label label">Hours</span>
+                            </div>
+
+                            <span class="countdown__sep" aria-hidden="true">:</span>
+
+                            <!-- MINUTES -->
+                            <div class="flip-unit" data-unit="minutes">
+                                <div class="flip-pair">
+                                    <div class="flip-card" data-digit="0">
+                                        <div class="fc-top"><span>0</span></div>
+                                        <div class="fc-bot"><span>0</span></div>
+                                        <div class="fc-flap-top"><span>0</span></div>
+                                        <div class="fc-flap-bot"><span>0</span></div>
+                                    </div>
+                                    <div class="flip-card" data-digit="0">
+                                        <div class="fc-top"><span>0</span></div>
+                                        <div class="fc-bot"><span>0</span></div>
+                                        <div class="fc-flap-top"><span>0</span></div>
+                                        <div class="fc-flap-bot"><span>0</span></div>
+                                    </div>
+                                </div>
+                                <span class="flip-unit__label label">Minutes</span>
+                            </div>
+
+                            <span class="countdown__sep" aria-hidden="true">:</span>
+
+                            <!-- SECONDS -->
+                            <div class="flip-unit" data-unit="seconds">
+                                <div class="flip-pair">
+                                    <div class="flip-card" data-digit="0">
+                                        <div class="fc-top"><span>0</span></div>
+                                        <div class="fc-bot"><span>0</span></div>
+                                        <div class="fc-flap-top"><span>0</span></div>
+                                        <div class="fc-flap-bot"><span>0</span></div>
+                                    </div>
+                                    <div class="flip-card" data-digit="0">
+                                        <div class="fc-top"><span>0</span></div>
+                                        <div class="fc-bot"><span>0</span></div>
+                                        <div class="fc-flap-top"><span>0</span></div>
+                                        <div class="fc-flap-bot"><span>0</span></div>
+                                    </div>
+                                </div>
+                                <span class="flip-unit__label label">Seconds</span>
+                            </div>
+
+                        </div><!-- /.countdown__clock -->
+
+                        <!-- <div class="countdown__footer">
+                            <p>When the needle hits the red, the campus officially stops behaving. Until then: pick your anomaly.</p>
+                            <p class="label countdown__fig">Fig. 0 — Calibrated by nobody. Accurate anyway.</p> 
+                        </div> -->
+                    </div><!-- /.countdown -->
+
+                </div><!-- /.instrument-panel -->
+
+
             </div>
         </section>
-
-        <!-- =====================================================
-             INTRO ("The day") — foundation by Priyanshi
-             ===================================================== -->
-        <section class="section intro" id="intro" aria-labelledby="intro-title">
-            <div class="container intro__grid">
-                <p class="display intro__date" aria-hidden="true">06</p>
-                <div class="intro__text">
-                    <p class="section-label">§1 — The day</p>
-                    <h2 class="section-title" id="intro-title">One day. Five experiences. No syllabus.</h2>
-                    <p>IEEE Day marks the first time engineers gathered to share ideas, back in 1884. We're celebrating with a hunt, a workshop, a design duel, charades and Garba — because the people were always the point.</p>
-                    <dl class="meta-row">
-                        <div><dt class="label">Who</dt><dd>VGEC students</dd></div>
-                        <div><dt class="label">Where</dt><dd>VGEC campus</dd></div>
-                        <div><dt class="label">Starts</dt><dd>10:30 AM</dd></div>
-                        <div><dt class="label">Reg. closes</dt><dd>[Date TBA]</dd></div>
-                    </dl>
-                </div>
-            </div>
-        </section>
-
+        
         <!-- =====================================================
              EVENTS — owned by Vansh + Daksh + Nilesh
              Five flip/event cards go inside .events-grid.
@@ -215,13 +396,90 @@
              ===================================================== -->
         <section class="section section--paper qa" id="qa" aria-labelledby="qa-title">
             <div class="container">
-                <p class="section-label">§6 — Q&amp;A</p>
-                <h2 class="section-title" id="qa-title">Questions we've already been asked.</h2>
 
-                <div class="qa-list">
-                    <div class="dev-slot" data-owner="Nitant">Q&amp;A items go here</div>
+                <!-- Heading row: full width -->
+                <div class="qa-header">
+                    <!-- <p class="section-label">§6 — FAQ</p> -->
+                    <h2 class="section-title" id="qa-title">Questions we've already been asked.</h2>
+                    <!-- <p class="qa-contact">Still stuck? Ask a volunteer on the day, or write to <a href="mailto:ieee@vgec.ac.in">ieee@vgec.ac.in</a>.</p> -->
                 </div>
+
+                <!-- Questions: two columns -->
+                <div class="qa-columns">
+
+                    <!-- Left column -->
+                    <div class="qa-list">
+
+                        <div class="qa-item" id="qa-item-15">
+                            <button class="qa-trigger" aria-expanded="false" aria-controls="qa-answer-15">
+                                <span class="qa-question">I'm from a different branch or year. Am I still eligible?</span>
+                                <span class="qa-icon" aria-hidden="true"></span>
+                            </button>
+                            <div class="qa-answer" id="qa-answer-15" role="region">
+                                <p>Yes — all VGEC students from any branch and any year are welcome. IEEE Day is not a department event; it belongs to the whole campus.</p>
+                            </div>
+                        </div>
+
+                        <div class="qa-item" id="qa-item-2">
+                            <button class="qa-trigger" aria-expanded="false" aria-controls="qa-answer-2">
+                                <span class="qa-question">Do I need to be an IEEE member?</span>
+                                <span class="qa-icon" aria-hidden="true"></span>
+                            </button>
+                            <div class="qa-answer" id="qa-answer-2" role="region">
+                                <p>No — IEEE Day is open to all VGEC students. Joining IEEE is encouraged but never a barrier to participating.</p>
+                            </div>
+                        </div>
+
+                        <div class="qa-item" id="qa-item-11">
+                            <button class="qa-trigger" aria-expanded="false" aria-controls="qa-answer-11">
+                                <span class="qa-question">Do I need to bring a laptop?</span>
+                                <span class="qa-icon" aria-hidden="true"></span>
+                            </button>
+                            <div class="qa-answer" id="qa-answer-11" role="region">
+                                <p>Not required for most events. The Workshop may involve a practical component — a laptop is useful but not mandatory. We'll confirm in the workshop announcement. For everything else, just yourself.</p>
+                            </div>
+                        </div>
+
+                    </div><!-- /.qa-list left -->
+
+                    <!-- Right column -->
+                    <div class="qa-list">
+
+                        <div class="qa-item" id="qa-item-3">
+                            <button class="qa-trigger" aria-expanded="false" aria-controls="qa-answer-3">
+                                <span class="qa-question">Can I register for more than one event?</span>
+                                <span class="qa-icon" aria-hidden="true"></span>
+                            </button>
+                            <div class="qa-answer" id="qa-answer-3" role="region">
+                                <p>Yes — of course. Check the schedule before registering for multiple events to make sure timeslots don't overlap.</p>
+                            </div>
+                        </div>
+
+                        <div class="qa-item" id="qa-item-6">
+                            <button class="qa-trigger" aria-expanded="false" aria-controls="qa-answer-6">
+                                <span class="qa-question">Will there be certificates or prizes?</span>
+                                <span class="qa-icon" aria-hidden="true"></span>
+                            </button>
+                            <div class="qa-answer" id="qa-answer-6" role="region">
+                                <p>Yes — participation certificates for all, and prizes/hard copy certificates for winners of competitive events. Details to be announced closer to the date.</p>
+                            </div>
+                        </div>
+
+                        <div class="qa-item" id="qa-item-9">
+                            <button class="qa-trigger" aria-expanded="false" aria-controls="qa-answer-9">
+                                <span class="qa-question">Can I come alone, or do I need a team?</span>
+                                <span class="qa-icon" aria-hidden="true"></span>
+                            </button>
+                            <div class="qa-answer" id="qa-answer-9" role="region">
+                                <p>Depends on the event. Treasure Hunt is team-based (5 members). Brand Identity Challenge, the Workshop and Tech Charades are individual. Garba is open to everyone — solo, duo, whole friend group.</p>
+                            </div>
+                        </div>
+
+                    </div><!-- /.qa-list right -->
+
+                </div><!-- /.qa-columns -->
             </div>
+
         </section>
 
     </main>
@@ -236,6 +494,7 @@
 
     <!-- JS: main.js first (shared helpers), then one file per team. All deferred. -->
     <script src="js/main.js" defer></script>
+    <script src="js/reveal.js" defer></script>
     <script src="js/header-footer.js" defer></script>
     <script src="js/events.js" defer></script>
     <script src="js/timeline.js" defer></script>
