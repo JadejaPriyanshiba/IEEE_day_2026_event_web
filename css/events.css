@@ -1,321 +1,600 @@
 /* =========================================================
-   Event / flip cards
+   Event flip cards
    Owner: Vansh + Daksh + Nilesh
+   Section: #events
 
-   Your markup lives in index.html inside <section id="events"> → .events-grid.
-   Only style things inside your section here.
-   Use the tokens from css/style.css (var(--color-text),
-   var(--space-4), var(--font-display) ...) — no raw hex colours.
+   Front = poster (number, live motif, title, tagline).
+   Back  = spec sheet (description, when/format/fee, register).
+
+   The flip: a springy 180° turn (slight overshoot), the card dips
+   back in depth mid-turn and a band of light sweeps across it.
+   On laptops the card also tilts toward the pointer and a soft
+   spotlight follows it.
+
+   Phones/tablets: swipeable rail, one card per snap.
+   Laptops (≥1024px): bento grid, all five visible.
+   Each card sets its accent with style="--ev: var(--ev-N)".
+   No JS: both faces simply stack, nothing is hidden.
    ========================================================= */
 
-   /* =========================================================
-IEEE DAY 2026 — EVENT CARDS
-Owners: Vansh + Daksh + Nilesh
-========================================================= */
-
-.events-grid {
-position: relative;
-width: 100%;
+.events {
+    overflow: clip;
 }
 
-/* ---------------------------------------------------------
-Carousel
---------------------------------------------------------- */
+/* ---------- Rail ---------- */
 
-.events-carousel {
-position: relative;
-width: 100%;
-padding: 3rem 0 1.5rem;
-overflow: hidden;
+.events__rail {
+    display: flex;
+    gap: 14px;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 12px var(--gutter) 28px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
 }
 
-.events-carousel__viewport {
-position: relative;
-width: 100%;
-height: 34rem;
-display: flex;
-align-items: center;
-justify-content: center;
-perspective: 1100px;
-perspective-origin: 50% 50%;
-touch-action: pan-y;
-}
-
-.events-carousel__track {
-position: relative;
-width: min(22rem, 78vw);
-height: 29rem;
-transform-style: preserve-3d;
-}
-
-/* ---------------------------------------------------------
-Individual cards
---------------------------------------------------------- */
-
-.event-card {
-position: absolute;
-inset: 0;
-
-
-display: flex;
-flex-direction: column;
-
-width: 100%;
-height: 100%;
-padding: 1.5rem;
-
-background: var(--color-bg);
-color: var(--color-text);
-
-border: 2px solid var(--color-text);
-
-transform-style: preserve-3d;
-backface-visibility: hidden;
-
-transition:
-    transform 600ms cubic-bezier(.22, .61, .36, 1),
-    opacity 600ms ease,
-    visibility 600ms ease;
-
-will-change: transform, opacity;
-
-
-}
-
-/* Dark cards when the page's events section is dark */
-.events .event-card {
-background: var(--color-bg);
-}
-
-/* ---------------------------------------------------------
-Card header
---------------------------------------------------------- */
-
-.event-card__header {
-display: flex;
-align-items: center;
-justify-content: space-between;
-
-
-padding-bottom: 0.75rem;
-border-bottom: 1px solid currentColor;
-
-
-}
-
-.event-card__number,
-.event-card__format,
-.event-card__eyebrow {
-letter-spacing: 0.08em;
-text-transform: uppercase;
-}
-
-.event-card__body {
-flex: 1;
-padding-top: 1.75rem;
-}
-
-.event-card__eyebrow {
-margin: 0 0 0.65rem;
-opacity: 0.65;
-}
-
-.event-card__title {
-margin: 0;
-max-width: 95%;
-
-
-font-family: "Gloock", serif;
-font-size: clamp(2rem, 7vw, 3.2rem);
-line-height: 0.98;
-font-weight: 400;
-
-
-}
-
-.event-card__tagline {
-max-width: 90%;
-margin: 1rem 0 0;
-
-
-font-size: 1rem;
-line-height: 1.45;
-
-
-}
-
-/* ---------------------------------------------------------
-Event details
---------------------------------------------------------- */
-
-.event-card__details {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 0.75rem;
-
-
-margin: 2rem 0 0;
-
-
-}
-
-.event-card__details > div {
-min-width: 0;
-}
-
-.event-card__details dt {
-margin-bottom: 0.35rem;
-opacity: 0.6;
-}
-
-.event-card__details dd {
-margin: 0;
-font-size: 0.9rem;
-line-height: 1.25;
-overflow-wrap: anywhere;
-}
-
-/* ---------------------------------------------------------
-Register button
---------------------------------------------------------- */
-
-.event-card__footer {
-margin-top: auto;
-padding-top: 1.25rem;
-}
-
-.event-card__register {
-display: inline-flex;
-align-items: center;
-justify-content: space-between;
-
-
-width: 100%;
-min-height: 3rem;
-padding: 0.75rem 1rem;
-
-text-decoration: none;
-
-
-}
-
-.event-card__register[aria-disabled="true"] {
-cursor: not-allowed;
-opacity: 0.55;
-}
-
-/* ---------------------------------------------------------
-Carousel controls
---------------------------------------------------------- */
-
-.events-carousel__controls {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 1.25rem;
-
-
-margin-top: 1rem;
-
-
-}
-
-.events-carousel__arrow {
-width: 2.75rem;
-height: 2.75rem;
-
-
-display: grid;
-place-items: center;
-
-border: 1px solid currentColor;
-border-radius: 0;
-background: transparent;
-color: inherit;
-
-font: inherit;
-font-size: 1.2rem;
-
-cursor: pointer;
-
-transition:
-    background-color 180ms ease,
-    color 180ms ease;
-
-
-}
-
-.events-carousel__arrow:hover,
-.events-carousel__arrow:focus-visible {
-background: currentColor;
-color: var(--color-bg);
-}
-
-.events-carousel__counter {
-min-width: 4rem;
-text-align: center;
-
-
-font-family: "Josefin Sans", sans-serif;
-font-size: 0.85rem;
-letter-spacing: 0.08em;
-
-
-}
-
-.events-carousel__current {
-font-weight: 700;
-}
-
-.events-carousel__hint {
-margin: 1rem 0 0;
-text-align: center;
-opacity: 0.55;
-}
-
-/* ---------------------------------------------------------
-Desktop
---------------------------------------------------------- */
-
-@media (min-width: 768px) {
-.events-carousel {
-padding-top: 4rem;
-}
-
-
-.events-carousel__viewport {
-    height: 38rem;
-}
-
-.events-carousel__track {
-    width: min(25rem, 38vw);
-    height: 31rem;
-}
-
-.event-card {
-    padding: 2rem;
-}
-
-.events-carousel__hint {
+.events__rail::-webkit-scrollbar {
     display: none;
 }
 
 
-}
+/* ---------- Card shell ---------- */
 
-/* ---------------------------------------------------------
-Reduced motion
---------------------------------------------------------- */
-
-@media (prefers-reduced-motion: reduce) {
 .event-card {
-transition: none;
+    --rx: 0deg;
+    --ry: 0deg;
+    --mx: 50%;
+    --my: 30%;
+    position: relative;
+    flex: 0 0 min(84vw, 340px);
+    height: 480px;
+    scroll-snap-align: start;
+    perspective: 1400px;
+    /* pointer tilt (laptops) */
+    transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry));
+    transition: transform 0.5s var(--ease);
+}
+
+.event-card.is-tilting {
+    transition-duration: 0.12s;
+}
+
+.event-card__inner {
+    position: relative;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 1s var(--ease-spring);
+}
+
+.event-card.is-flipped .event-card__inner {
+    transform: rotateY(180deg);
+}
+
+/* Depth dip while turning */
+.event-card.is-flipping {
+    animation: card-dip 1s var(--ease);
+}
+
+@keyframes card-dip {
+    45% { transform: perspective(1000px) translateZ(-70px) rotateX(var(--rx)) rotateY(var(--ry)); }
+}
+
+/* ---------- Faces ---------- */
+
+.event-card__face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    box-shadow: var(--shadow-card);
+}
+
+/* Light band that sweeps across during a flip */
+.event-card__face::after {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    z-index: 3;
+    background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.28) 50%, transparent 62%);
+    transform: translateX(-120%);
+    pointer-events: none;
+}
+
+.event-card.is-flipping .event-card__face::after {
+    animation: sheen 1s var(--ease);
+}
+
+@keyframes sheen {
+    to { transform: translateX(120%); }
+}
+
+.event-card__front {
+    transform: rotateY(0deg);                     /* Safari needs a transform here for backface to work */
+    background:
+        radial-gradient(420px circle at var(--mx) var(--my), color-mix(in srgb, var(--ev) 16%, transparent), transparent 55%),
+        var(--color-surface);
+}
+
+.event-card__back {
+    transform: rotateY(180deg);
+    background:
+        repeating-linear-gradient(-45deg, color-mix(in srgb, var(--ev) 7%, transparent) 0 1px, transparent 1px 12px),
+        linear-gradient(160deg, color-mix(in srgb, var(--ev) 22%, var(--color-surface)), var(--color-surface) 70%);
+    border-color: color-mix(in srgb, var(--ev) 35%, transparent);
+}
+
+.event-card__top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.event-card__num {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ev);
+}
+
+.event-card__num::before {
+    content: "EV/";
+    color: var(--color-muted);
+}
+
+.event-card__top .chip {
+    border-color: color-mix(in srgb, var(--ev) 40%, transparent);
+    background: color-mix(in srgb, var(--ev) 10%, transparent);
+    color: var(--ev);
+}
+
+/* ---------- Front: art + bottom ---------- */
+
+.event-card__art {
+    position: relative;
+    flex: 1;
+    display: grid;
+    place-items: center;
+    margin: 14px -20px;
+    /* faint engineering grid behind the motif */
+    background-image:
+        linear-gradient(color-mix(in srgb, var(--ev) 9%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--ev) 9%, transparent) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: center;
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 40%, transparent 100%);
+}
+
+.event-card__bottom {
+    position: relative;
+    z-index: 1;
+}
+
+.event-card__title {
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+.event-card__tagline {
+    margin-top: 6px;
+    color: var(--color-muted);
+    font-size: var(--fs-small);
+}
+
+.event-card__flip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    margin-top: 12px;
+    padding: 0 16px 0 14px;
+    border: 1px solid color-mix(in srgb, var(--ev) 40%, transparent);
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--ev) 8%, transparent);
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: background-color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+
+.event-card__flip svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: var(--ev);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.6s var(--ease-spring);
+}
+
+.event-card__flip:hover {
+    border-color: var(--ev);
+    background: color-mix(in srgb, var(--ev) 16%, transparent);
+}
+
+.event-card__flip:hover svg {
+    transform: rotate(180deg);
+}
+
+/* ---------- Back: spec sheet ---------- */
+
+.event-card__back-name {
+    color: var(--color-text);
+}
+
+.event-card__desc {
+    position: relative;
+    z-index: 1;
+    margin-top: var(--space-4);
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
+.event-card__facts {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    margin-top: auto;
+    border-top: 1px solid var(--color-line-strong);
+}
+
+.event-card__facts div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3);
+    padding: 11px 0;
+    border-bottom: 1px dashed var(--color-line-strong);
+}
+
+.event-card__facts dt {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+}
+
+.event-card__facts dd {
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-align: right;
+}
+
+.event-card__actions {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 6px;
+    margin-top: var(--space-4);
+}
+
+.event-card__flip--back {
+    justify-self: center;
+    margin-top: 0;
+    border-color: transparent;
+    background: transparent;
+    color: var(--color-muted);
+}
+
+.event-card__flip--back:hover {
+    border-color: transparent;
+    background: transparent;
+    color: var(--color-text);
+}
+
+/* ---------- No JS: stack the faces ---------- */
+
+html:not(.js) .event-card {
+    height: auto;
+    transform: none;
+}
+
+html:not(.js) .event-card__inner {
+    display: grid;
+    gap: 10px;
+    transform-style: flat;
+}
+
+html:not(.js) .event-card__face {
+    position: relative;
+    min-height: 420px;
+    transform: none;
+}
+
+html:not(.js) .event-card__flip {
+    display: none;
 }
 
 
-.events-carousel__arrow {
-    transition: none;
+/* ---------- Motifs (one per event, all loop gently) ---------- */
+
+.motif {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    overflow: visible;
+    fill: none;
+    stroke: var(--ev);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.motif .m-faint {
+    stroke: color-mix(in srgb, var(--ev) 35%, transparent);
+}
+
+.motif .m-dot {
+    fill: var(--ev);
+    stroke: none;
+}
+
+.motif .m-dot--soft {
+    fill: color-mix(in srgb, var(--ev) 55%, transparent);
+}
+
+/* Pause motifs that are off screen (js/events.js adds .is-visible) */
+.js .event-card:not(.is-visible) .motif *,
+.js .event-card:not(.is-visible) .motif {
+    animation-play-state: paused !important;
+}
+
+/* 01 Hunt — radar sweep, blips light up as it passes */
+.motif--radar .m-sweep {
+    fill: color-mix(in srgb, var(--ev) 26%, transparent);
+    stroke: none;
+    transform-origin: 120px 75px;
+    animation: spin 3.6s linear infinite;
+}
+
+.motif--radar .m-blip {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: blip 3.6s ease-out infinite;
+}
+
+.motif--radar .m-blip--2 { animation-delay: 1.9s; }
+.motif--radar .m-blip--3 { animation-delay: 0.9s; }
+
+.motif--radar .m-x {
+    stroke-width: 2.4;
+    animation: blink 1.4s steps(1) infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes blip {
+    0%, 55%, 100% { opacity: 0.15; transform: scale(0.7); }
+    8% { opacity: 1; transform: scale(1.5); }
+}
+
+@keyframes blink {
+    50% { opacity: 0.2; }
+}
+
+/* 02 Workshop — signals flow along traces into the chip */
+.motif--chip .m-pulse path {
+    stroke-width: 2.4;
+    stroke-dasharray: 10 90;
+    stroke-dashoffset: 100;
+    animation: flow 2.6s linear infinite;
+}
+
+.motif--chip .m-pulse path:nth-child(2) { animation-delay: -0.7s; }
+.motif--chip .m-pulse path:nth-child(3) { animation-delay: -1.4s; }
+.motif--chip .m-pulse path:nth-child(4) { animation-delay: -2s; }
+
+@keyframes flow {
+    to { stroke-dashoffset: 0; }
+}
+
+.motif--chip .m-chip {
+    fill: color-mix(in srgb, var(--ev) 10%, transparent);
+    stroke-width: 2;
+}
+
+.motif--chip .m-chip-core {
+    fill: color-mix(in srgb, var(--ev) 20%, transparent);
+    stroke: none;
+    animation: chip-glow 2.6s ease-in-out infinite;
+}
+
+.motif--chip .m-text {
+    fill: var(--ev);
+    stroke: none;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+@keyframes chip-glow {
+    50% { fill: color-mix(in srgb, var(--ev) 42%, transparent); }
+}
+
+/* 03 Brand — a bezier draws itself while the pen nib rides it */
+.motif--pen .m-artboard {
+    stroke-dasharray: 3 6;
+}
+
+.motif--pen .m-draw {
+    stroke-width: 3;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: draw 3.2s var(--ease) infinite;
+}
+
+.motif--pen .m-nib {
+    offset-path: path("M55 112 C 92 24, 148 24, 185 112");
+    offset-rotate: 0deg;
+    animation: ride 3.2s var(--ease) infinite;
+}
+
+.motif--pen .m-handle {
+    fill: var(--color-surface);
+}
+
+.motif--pen .m-anchor {
+    fill: var(--color-surface);
+    stroke-width: 2;
+}
+
+@keyframes draw {
+    0% { stroke-dashoffset: 100; }
+    60%, 85% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: -100; }
+}
+
+@keyframes ride {
+    0% { offset-distance: 0%; opacity: 1; }
+    60% { offset-distance: 100%; opacity: 1; }
+    85%, 100% { offset-distance: 100%; opacity: 0; }
+}
+
+/* 04 Charades — you can't talk, but it's LOUD */
+.motif--charades .m-bubble {
+    fill: color-mix(in srgb, var(--ev) 8%, transparent);
+    stroke-width: 2;
+}
+
+.motif--charades .m-mute {
+    stroke-width: 2.6;
+    animation: blink 2s steps(1) infinite;
+}
+
+.motif--charades .m-bars rect {
+    fill: var(--ev);
+    stroke: none;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: eq 0.9s ease-in-out infinite alternate;
+    animation-delay: var(--d);
+}
+
+@keyframes eq {
+    from { transform: scaleY(0.15); }
+    to { transform: scaleY(1); }
+}
+
+/* 05 Garba — two rings of dancers circling in opposite directions */
+.motif--garba .m-ring {
+    transform-origin: 120px 75px;
+}
+
+.motif--garba .m-ring--outer {
+    animation: spin 14s linear infinite;
+}
+
+.motif--garba .m-ring--inner {
+    animation: spin 9s linear infinite reverse;
+}
+
+.motif--garba .m-core {
+    fill: var(--ev);
+    stroke: none;
+    transform-origin: 120px 75px;
+    animation: beat 1.2s var(--ease) infinite;
+}
+
+@keyframes beat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.35); }
 }
 
 
+/* ---------- Rail controls ---------- */
+
+.events__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+}
+
+.events__dots {
+    display: flex;
+    gap: 6px;
+}
+
+.events__dots button {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 99px;
+    background: var(--color-line-strong);
+    transition: width var(--duration) var(--ease), background-color var(--duration) ease;
+}
+
+.events__dots button.is-active {
+    width: 26px;
+    background: var(--color-accent);
+}
+
+.events__count {
+    min-width: 5ch;
+    color: var(--color-muted);
+    text-align: center;
+}
+
+html:not(.js) .events__controls {
+    display: none;
+}
+
+@media (min-width: 640px) {
+    .event-card {
+        flex-basis: min(46vw, 360px);
+    }
+
+    .event-card__face {
+        padding: 24px;
+    }
+
+    .event-card__art {
+        margin-inline: -24px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .events__rail {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 18px;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+    }
+
+    .event-card {
+        grid-column: span 2;
+        height: 470px;
+    }
+
+    /* Bento: the first two cards get the wide slots */
+    .event-card:nth-child(-n + 2) {
+        grid-column: span 3;
+    }
+
+    .events__controls {
+        display: none;
+    }
 }

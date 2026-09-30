@@ -1,10 +1,73 @@
 /* =========================================================
-   Responsive fixes + final styling pass
-   Owner: Hemal + Meet  (start after the sections are merged)
+   Final responsive + styling pass
+   Owner: Hemal + Meet
 
-   Loaded LAST, so rules here win over the section files.
-   Breakpoints used across the project:
-     mobile  < 768px
-     tablet  768px – 1023px
-     desktop ≥ 1024px
+   Loaded LAST, so rules here win ties.
+   Every section file is already mobile first; use this file
+   for cross-section fixes found while testing on real phones.
    ========================================================= */
+
+/* Small phones (iPhone SE, older Androids ≈ 320–360px) */
+@media (max-width: 360px) {
+    .hero__title {
+        font-size: 3.6rem;
+    }
+
+    .countdown__cell b {
+        font-size: 1.6rem;
+    }
+
+    .brand__text {
+        font-size: 0.8rem;
+    }
+
+    .event-card__facts dd {
+        font-size: 0.78rem;
+    }
+}
+
+/* Phones in landscape: short screens, keep the menu scrollable and compact */
+@media (max-height: 480px) and (orientation: landscape) {
+    .menu__link {
+        padding: 10px 0;
+        font-size: 1.6rem;
+    }
+
+    .menu__foot {
+        padding-top: var(--space-4);
+    }
+}
+
+/* Touch devices: no hover lift on tickets (it sticks after a tap) */
+@media (hover: none) {
+    .ticket:hover {
+        transform: none;
+    }
+}
+
+/* Print: plain and readable */
+@media print {
+    .site-header,
+    .menu,
+    .dock,
+    .ticker,
+    .hero__circuit,
+    .events__controls {
+        display: none !important;
+    }
+
+    body {
+        background: #fff;
+        color: #000;
+    }
+
+    .events__rail {
+        display: block;
+        overflow: visible;
+    }
+
+    .event-card {
+        margin-bottom: 1rem;
+        break-inside: avoid;
+    }
+}

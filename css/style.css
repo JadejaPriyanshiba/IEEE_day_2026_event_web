@@ -3,91 +3,187 @@
    Owner: Priyanshi
 
    This file holds ONLY things every section shares:
-   1. Design tokens (CSS variables)
+   1. Design tokens (CSS variables) + light / dark themes
    2. Reset + base elements
-   3. Shared classes (.container, .section, .btn, .label ...)
+   3. Shared classes (.container, .section, .btn, .chip, .label ...)
 
    Section-specific styles go in that section's own file.
    Need a new token or shared class? Ask Priyanshi instead of
    adding it here, so we don't get merge conflicts.
+
+   Mobile first: base styles are for phones (~360–430px),
+   then @media (min-width: ...) adds the bigger layouts.
+
+   Palette: IEEE VGEC brand — Indigo #1A325A, Terracotta #964B36,
+   Straw #C9AF80, Cream #EDE9DF, Umber #4B3621 — plus tints/shades.
+   Dark = deep indigo + cream + straw; light = cream paper + indigo ink.
+   Type: Unbounded (display), Geist (body), Geist Mono (data).
    ========================================================= */
 
 
 /* ---------- 1. Design tokens ---------- */
 
 :root {
-    /* Palette — the only five colours (+ one lighter paper tint) */
-    --color-deep-blue: #283558;
-    --color-brown-red: #87503F;
-    --color-sand: #C1AD84;
-    --color-dark-brown: #48392A;
-    --color-cream: #EBE8DE;
-    --color-paper: #F3F1EA;      /* inset cards / light alternate sections */
-
-    /* Semantic names — use THESE in your CSS, not the raw ones above */
-    --color-bg: var(--color-cream);          /* page canvas (~58%) */
-    --color-text: var(--color-deep-blue);    /* headings, rules, primary buttons */
-    --color-body: var(--color-dark-brown);   /* body copy + metadata (instead of grey) */
-    --color-accent: var(--color-brown-red);  /* "pencil mark": hand notes, "spec.", ticket CTAs */
-    --color-highlight: var(--color-sand);    /* "highlighter": only on dark grounds, never as text on cream */
-    --color-line: var(--color-deep-blue);
-    --color-line-soft: rgba(40, 53, 88, 0.25);
-    --focus-color: var(--color-deep-blue);   /* dark sections switch this to sand */
-
     /* Typography */
-    --font-display: 'Gloock', Georgia, serif;
-    --font-label: 'Josefin Sans', Futura, 'Century Gothic', sans-serif;
-    --font-body: 'Instrument Sans', system-ui, sans-serif;
-    --font-hand: 'Nanum Pen Script', 'Comic Neue', cursive;
+    --font-display: 'Unbounded', 'Geist', system-ui, sans-serif;
+    --font-body: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
 
-    --fs-label: 0.6875rem;                        /* 11px — caps metadata */
-    --fs-small: 0.9375rem;                        /* 15px */
-    --fs-body: 1.0625rem;                         /* 17px */
-    --fs-lead: clamp(1.125rem, 1.6vw, 1.1875rem); /* 18–19px */
-    --fs-h3: clamp(1.75rem, 3.5vw, 2.75rem);
-    --fs-h2: clamp(2.5rem, 6vw, 4.5rem);          /* section titles, up to 72px */
-    --fs-display: clamp(4.5rem, 17vw, 16rem);     /* giant statements, up to 256px */
-    --fs-hand: clamp(1.375rem, 2.4vw, 2rem);
+    --fs-label: 0.72rem;
+    --fs-small: 0.9rem;
+    --fs-body: 1rem;
+    --fs-lead: clamp(1.05rem, 0.9rem + 0.6vw, 1.2rem);
+    --fs-h3: clamp(1.15rem, 1rem + 0.7vw, 1.4rem);
+    --fs-h2: clamp(1.75rem, 1.1rem + 3.2vw, 3.1rem);
 
-    --lh-tight: 0.9;
-    --lh-heading: 1.02;
+    --lh-heading: 1.08;
     --lh-body: 1.6;
-    --tracking-label: 0.18em;
+    --tracking-label: 0.12em;
 
     /* Spacing — 8pt scale */
-    --space-1: 0.25rem;  /*   4px */
-    --space-2: 0.5rem;   /*   8px */
-    --space-3: 1rem;     /*  16px */
-    --space-4: 1.5rem;   /*  24px */
-    --space-5: 2rem;     /*  32px */
-    --space-6: 3rem;     /*  48px */
-    --space-7: 4rem;     /*  64px */
-    --space-8: 6rem;     /*  96px */
-    --space-9: 8rem;     /* 128px */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 2rem;
+    --space-6: 3rem;
+    --space-7: 4rem;
+    --space-8: 6rem;
 
     /* Layout */
-    --container-max: 1440px;
-    --gutter: clamp(1rem, 4.5vw, 4rem);           /* 16px phone → 64px desktop */
-    --section-space: clamp(4rem, 9vw, 6rem);      /* vertical padding of a section */
-    --header-height: 0px;                         /* header team: set this if the header becomes sticky */
+    --container-max: 1200px;
+    --gutter: clamp(1rem, 4vw, 2rem);             /* 16px on phones */
+    --section-space: clamp(4.5rem, 10vw, 8rem);
+    --header-height: 64px;
 
     /* Shape + motion */
-    --radius: 0;                                  /* design rule: square corners, no pills */
-    --border: 1px solid var(--color-line);
-    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --radius-sm: 10px;
+    --radius: 16px;
+    --radius-lg: 22px;
+    --radius-pill: 999px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);       /* ease-out-quint: fast in, soft landing */
+    --ease-spring: cubic-bezier(0.34, 1.4, 0.5, 1);
     --duration-fast: 0.2s;
-    --duration: 0.35s;
+    --duration: 0.4s;
 
     /* Layers */
-    --z-base: 1;
     --z-header: 100;
-    --z-overlay: 200;                             /* mobile menu, modals */
+    --z-dock: 90;
+    --z-overlay: 200;
+
+    /* ---- Light theme (default tokens): cream paper, indigo ink ---- */
+    --color-bg: #F4F0E7;
+    --color-bg-alt: #EDE9DF;                      /* alternate section band (brand cream) */
+    --color-surface: #FBF9F4;                     /* cards */
+    --color-surface-2: #F0EBE0;                   /* inset / hover */
+    --color-text: #16284A;                        /* indigo ink */
+    --color-muted: #5E5B5A;
+    --color-line: rgba(26, 50, 90, 0.12);
+    --color-line-strong: rgba(26, 50, 90, 0.24);
+    --color-accent: #964B36;                      /* terracotta: eyebrows, links, numbers */
+    --color-accent-soft: rgba(150, 75, 54, 0.1);
+    --color-cta: #1A325A;                         /* primary button: indigo with cream text */
+    --color-cta-hover: #24427A;
+    --color-on-cta: #F4F0E7;
+    --color-pop: #964B36;                         /* sticker, ticker band */
+    --color-on-pop: #FBF6EC;
+    --color-live: #B85C3F;
+    --color-dot: rgba(26, 50, 90, 0.13);
+    --glow-1: rgba(201, 175, 128, 0.45);
+    --glow-2: rgba(150, 75, 54, 0.14);
+    --grad-text: linear-gradient(100deg, #1A325A 10%, #964B36 90%);
+    --color-header: rgba(244, 240, 231, 0.8);
+    --shadow-card: 0 1px 2px rgba(75, 54, 33, 0.05), 0 14px 34px -14px rgba(75, 54, 33, 0.2);
+    --focus-color: #1A325A;
+
+    /* Per-event accents (set --ev: var(--ev-1) on a card) */
+    --ev-1: #964B36;                              /* hunt: terracotta */
+    --ev-2: #8A6A2E;                              /* workshop: straw, deepened to ochre */
+    --ev-3: #1A325A;                              /* brand: indigo ink */
+    --ev-4: #6B4A2E;                              /* charades: umber */
+    --ev-5: #B7701E;                              /* garba: deep marigold */
+    --ev: var(--color-accent);
+
+    color-scheme: light;
+}
+
+/* ---- Dark theme ----
+   Set by the inline script in <head> (data-theme="dark").
+   The media query is the no-JS fallback. Keep both blocks in sync. */
+:root[data-theme="dark"] {
+    --color-bg: #0A1224;
+    --color-bg-alt: #0D172D;
+    --color-surface: #122039;
+    --color-surface-2: #182A4A;
+    --color-text: #EDE9DF;
+    --color-muted: #A2A6B2;
+    --color-line: rgba(201, 175, 128, 0.12);
+    --color-line-strong: rgba(201, 175, 128, 0.26);
+    --color-accent: #D9BE8C;
+    --color-accent-soft: rgba(201, 175, 128, 0.13);
+    --color-cta: #B85C3F;
+    --color-cta-hover: #C96B4C;
+    --color-on-cta: #FBF6EC;
+    --color-pop: #C9AF80;
+    --color-on-pop: #2E2114;
+    --color-live: #E0825F;
+    --color-dot: rgba(237, 233, 223, 0.08);
+    --glow-1: rgba(58, 96, 170, 0.38);
+    --glow-2: rgba(150, 75, 54, 0.3);
+    --grad-text: linear-gradient(100deg, #EAD3A6 5%, #D98A64 95%);
+    --color-header: rgba(10, 18, 36, 0.74);
+    --shadow-card: 0 1px 0 rgba(237, 233, 223, 0.05) inset, 0 22px 44px -22px rgba(0, 0, 0, 0.7);
+    --focus-color: #D9BE8C;
+
+    --ev-1: #E0825F;
+    --ev-2: #D9BE8C;
+    --ev-3: #EDE9DF;
+    --ev-4: #C49A78;
+    --ev-5: #E8A34E;
+
+    color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        --color-bg: #0A1224;
+        --color-bg-alt: #0D172D;
+        --color-surface: #122039;
+        --color-surface-2: #182A4A;
+        --color-text: #EDE9DF;
+        --color-muted: #A2A6B2;
+        --color-line: rgba(201, 175, 128, 0.12);
+        --color-line-strong: rgba(201, 175, 128, 0.26);
+        --color-accent: #D9BE8C;
+        --color-accent-soft: rgba(201, 175, 128, 0.13);
+        --color-cta: #B85C3F;
+        --color-cta-hover: #C96B4C;
+        --color-on-cta: #FBF6EC;
+        --color-pop: #C9AF80;
+        --color-on-pop: #2E2114;
+        --color-live: #E0825F;
+        --color-dot: rgba(237, 233, 223, 0.08);
+        --glow-1: rgba(58, 96, 170, 0.38);
+        --glow-2: rgba(150, 75, 54, 0.3);
+        --grad-text: linear-gradient(100deg, #EAD3A6 5%, #D98A64 95%);
+        --color-header: rgba(10, 18, 36, 0.74);
+        --shadow-card: 0 1px 0 rgba(237, 233, 223, 0.05) inset, 0 22px 44px -22px rgba(0, 0, 0, 0.7);
+        --focus-color: #D9BE8C;
+
+        --ev-1: #E0825F;
+        --ev-2: #D9BE8C;
+        --ev-3: #EDE9DF;
+        --ev-4: #C49A78;
+        --ev-5: #E8A34E;
+
+        color-scheme: dark;
+    }
 }
 
 /* Breakpoints (CSS variables can't be used in @media, so use these numbers):
-   mobile  < 768px   · 4 columns
-   tablet  768–1023px · 8 columns
-   desktop ≥ 1024px  · 12 columns */
+   phone   < 640px   (design for this first)
+   tablet  ≥ 640px
+   laptop  ≥ 1024px */
 
 
 /* ---------- 2. Reset + base ---------- */
@@ -100,45 +196,54 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-height) + 12px);
     -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
+    overflow-x: clip;
     background: var(--color-bg);
     color: var(--color-text);
     font-family: var(--font-body);
     font-size: var(--fs-body);
     line-height: var(--lh-body);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4 {
     margin: 0;
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 600;
     line-height: var(--lh-heading);
+    letter-spacing: -0.03em;
+    text-wrap: balance;
 }
 
-p, figure, dl, dd, ol, ul {
+p, ul, ol, dl, dd, figure {
     margin: 0;
 }
 
-img, svg, video {
+p {
+    text-wrap: pretty;
+}
+
+ul, ol {
+    padding: 0;
+    list-style: none;
+}
+
+img, svg {
     display: block;
     max-width: 100%;
-    height: auto;
 }
 
 a {
-    color: var(--color-accent);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.2em;
-}
-
-a:hover {
-    color: var(--color-body);
+    color: inherit;
 }
 
 button {
@@ -147,17 +252,18 @@ button {
     cursor: pointer;
 }
 
-/* Every section with an id lands below a sticky header, if there is one */
-[id] {
-    scroll-margin-top: var(--header-height);
+::selection {
+    background: var(--color-cta);
+    color: var(--color-on-cta);
 }
 
+/* Visible focus for keyboard users everywhere. Please don't remove. */
 :focus-visible {
     outline: 2px solid var(--focus-color);
     outline-offset: 3px;
+    border-radius: 6px;
 }
 
-/* <main> receives focus from the skip link; it doesn't need a ring */
 main:focus {
     outline: none;
 }
@@ -165,182 +271,344 @@ main:focus {
 
 /* ---------- 3. Shared classes ---------- */
 
-/* Layout */
 .container {
     width: 100%;
     max-width: var(--container-max);
     margin-inline: auto;
-    padding-inline: var(--gutter);
+    padding-inline: max(var(--gutter), env(safe-area-inset-left));
 }
 
 .section {
     position: relative;
     padding-block: var(--section-space);
-    border-top: var(--border);
 }
 
-/* Section grounds — each also resets focus colour for contrast */
-/* Note: --border must be re-declared on each ground. A variable built
-   from another variable is fixed where it's declared (:root), so it
-   wouldn't pick up the new --color-line on its own. */
-.section--navy {
-    --color-text: var(--color-cream);
-    --color-body: var(--color-cream);
-    --color-line: var(--color-sand);
-    --color-line-soft: rgba(193, 173, 132, 0.4);
-    --border: 1px solid var(--color-line);
-    --focus-color: var(--color-sand);
-    background: var(--color-deep-blue);
-    color: var(--color-cream);
+/* Section heading block: eyebrow + title + sub */
+.section-head {
+    max-width: 760px;
+    margin-bottom: var(--space-5);
 }
 
-.section--paper {
-    background: var(--color-paper);
+/* Title left, sub right on wide screens */
+.section-head--row {
+    max-width: none;
 }
 
-.section--brown {
-    --color-text: var(--color-cream);
-    --color-body: var(--color-cream);
-    --color-line: var(--color-sand);
-    --color-line-soft: rgba(193, 173, 132, 0.4);
-    --border: 1px solid var(--color-line);
-    --focus-color: var(--color-sand);
-    background: var(--color-dark-brown);
-    color: var(--color-cream);
+@media (min-width: 1024px) {
+    .section-head--row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: var(--space-6);
+        margin-bottom: var(--space-6);
+    }
+
+    .section-head--row .section-sub {
+        max-width: 340px;
+        margin: 0 0 6px;
+    }
 }
 
-/* Type voices */
-.display {
-    font-family: var(--font-display);
-    font-weight: 400;
-    line-height: var(--lh-tight);
-    letter-spacing: -0.02em;
-}
-
-.label {
-    font-family: var(--font-label);
-    font-size: var(--fs-label);
-    font-weight: 600;
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    line-height: 1.5;
-}
-
-.hand {
-    font-family: var(--font-hand);
-    font-size: var(--fs-hand);
-    color: var(--color-accent);
-    line-height: 1.1;
-}
-
-.text-accent { color: var(--color-accent); }
-.text-highlight { color: var(--color-sand); }   /* only on dark grounds */
-
-/* Section heading pattern: "§2 — Five anomalies" + big title */
-.section-label {
-    font-family: var(--font-label);
-    font-size: var(--fs-label);
-    font-weight: 600;
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    color: var(--color-accent);
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     margin-bottom: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-muted);
 }
 
-.section--navy .section-label,
-.section--brown .section-label {
-    color: var(--color-sand);
+.eyebrow__num {
+    display: inline-grid;
+    place-items: center;
+    min-width: 30px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 6px;
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-weight: 600;
 }
 
 .section-title {
     font-size: var(--fs-h2);
-    line-height: 1;
-    max-width: 18ch;
-    margin-bottom: var(--space-6);
 }
 
-/* Metadata row: small caps label above a serif value */
-.meta-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
-    gap: var(--space-3) var(--space-4);
-    border-top: var(--border);
-    padding-top: var(--space-3);
+/* Accent words: <em> inside a heading gets the gradient ink */
+h1 em,
+h2 em {
+    font-style: normal;
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
 }
 
-.meta-row dt {
-    color: var(--color-body);
+.section-sub {
+    margin-top: var(--space-3);
+    max-width: 560px;
+    color: var(--color-muted);
+    font-size: var(--fs-lead);
 }
 
-.meta-row dd {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    line-height: 1.2;
+.section-sub a {
+    color: var(--color-accent);
+    text-underline-offset: 3px;
 }
 
-/* Buttons: square, no shadow, one verb per event. Arrow travels on hover. */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-3);
-    min-height: 3.25rem;
-    padding: 0 var(--space-4);
-    border: 0;
-    border-radius: var(--radius);
-    background: var(--color-deep-blue);
-    color: var(--color-cream);
-    font-family: var(--font-label);
-    font-size: 0.75rem;
-    font-weight: 700;
+/* Small mono caps text for metadata */
+.label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    font-weight: 500;
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
-    text-decoration: none;
-    transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease;
 }
 
-.btn:hover {
-    background: var(--color-brown-red);
-    color: var(--color-cream);
+/* Chips: small rounded tags */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 6px 12px;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--color-text);
+    line-height: 1.3;
+}
+
+.chip--sm {
+    padding: 4px 10px;
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.chip--warn {
+    border-color: color-mix(in srgb, var(--ev-1) 45%, transparent);
+    background: color-mix(in srgb, var(--ev-1) 10%, transparent);
+}
+
+.chip--warn .live-dot {
+    --dot-color: var(--ev-1);
+}
+
+/* Pulsing "live" dot */
+.live-dot {
+    --dot-color: var(--color-live);
+    position: relative;
+    display: inline-block;
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--dot-color);
+}
+
+.live-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    animation: live-ping 1.8s var(--ease) infinite;
+}
+
+@keyframes live-ping {
+    from { transform: scale(1); opacity: 0.8; }
+    to { transform: scale(3); opacity: 0; }
+}
+
+/* ---- Buttons ----
+   Pill buttons, one verb each ("Join the hunt", "Register now").
+   Primary = terracotta on dark / indigo on light. The arrow nudges on hover. */
+.btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    min-height: 48px;                             /* comfy thumb target */
+    padding: 0.7rem 1.4rem;
+    overflow: hidden;
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    isolation: isolate;
+    transition:
+        transform var(--duration-fast) var(--ease),
+        box-shadow var(--duration) var(--ease),
+        background-color var(--duration-fast) ease,
+        color var(--duration-fast) ease,
+        border-color var(--duration-fast) ease;
+}
+
+.btn:active {
+    transform: scale(0.97);
 }
 
 .btn__arrow {
     display: inline-block;
-    transition: transform var(--duration-fast) ease;
+    transition: transform var(--duration) var(--ease);
 }
 
 .btn:hover .btn__arrow {
-    transform: translateX(6px);
+    transform: translateX(4px);
 }
 
-.btn--gold  { background: var(--color-sand);  color: var(--color-deep-blue); }
-.btn--cream { background: var(--color-cream); color: var(--color-brown-red); }
-.btn--brown { background: var(--color-dark-brown); color: var(--color-cream); }
-.btn--ticket { background: var(--color-brown-red); color: var(--color-cream); }
-.btn--ticket:hover { background: var(--color-deep-blue); }
+.btn--primary {
+    background: var(--color-cta);
+    color: var(--color-on-cta);
+}
 
-/* Link without href / not open yet.
-   Keeps its palette colour at full strength (no opacity — fading
-   blends it into off-palette tints); it just stops reacting. */
+.btn--primary:hover {
+    background: var(--color-cta-hover);
+    box-shadow: 0 8px 28px -8px color-mix(in srgb, var(--color-cta) 70%, transparent);
+}
+
+/* Light sheen that sweeps across the primary button on hover */
+.btn--primary::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+    transform: translateX(-110%);
+    transition: transform 0.7s var(--ease);
+    pointer-events: none;
+}
+
+.btn--primary:hover::after {
+    transform: translateX(110%);
+}
+
+.btn--ghost {
+    border-color: var(--color-line-strong);
+    background: color-mix(in srgb, var(--color-surface) 50%, transparent);
+    color: var(--color-text);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+.btn--ghost:hover {
+    border-color: var(--color-text);
+}
+
+.btn--sm {
+    min-height: 40px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+.btn--lg {
+    min-height: 54px;
+    padding: 0.9rem 1.7rem;
+    font-size: 1rem;
+}
+
+.btn--block {
+    width: 100%;
+}
+
+/* Disabled link-buttons (e.g. registration link not live yet) */
 .btn[aria-disabled="true"] {
     cursor: not-allowed;
-}
-
-.btn--ticket[aria-disabled="true"]:hover {
-    background: var(--color-brown-red);
-}
-
-.btn[aria-disabled="true"]:hover .btn__arrow {
+    background: transparent;
+    color: var(--color-muted);
+    border: 1px dashed var(--color-line-strong);
+    box-shadow: none;
     transform: none;
 }
 
-/* Accessibility helpers */
+.btn[aria-disabled="true"]::after,
+.btn[aria-disabled="true"] .btn__arrow {
+    display: none;
+}
+
+/* Icon button (theme toggle, menu, socials, carousel arrows) */
+.icon-btn {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+    color: var(--color-text);
+    text-decoration: none;
+    transition: border-color var(--duration-fast) ease, color var(--duration-fast) ease, background-color var(--duration-fast) ease, transform var(--duration-fast) var(--ease);
+}
+
+.icon-btn:hover {
+    border-color: var(--color-text);
+}
+
+.icon-btn:active {
+    transform: scale(0.92);
+}
+
+.icon-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.icon-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+    transform: none;
+}
+
+/* Scroll reveal: elements with [data-reveal] rise out of a soft blur when
+   they enter the screen (js/main.js). Without JS, or with reduced motion,
+   they just show. */
+.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(6px);
+    transition:
+        opacity 0.9s var(--ease),
+        transform 0.9s var(--ease),
+        filter 0.9s var(--ease);
+}
+
+.js [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    filter: none;
+}
+
+/* Hide visually, keep for screen readers */
 .visually-hidden {
-    position: absolute;
+    position: absolute !important;
     width: 1px;
     height: 1px;
-    padding: 0;
     margin: -1px;
+    padding: 0;
     overflow: hidden;
     clip: rect(0 0 0 0);
     white-space: nowrap;
@@ -349,44 +617,21 @@ main:focus {
 
 .skip-link {
     position: absolute;
+    top: -100px;
     left: var(--space-3);
-    top: var(--space-3);
-    z-index: var(--z-overlay);
+    z-index: calc(var(--z-overlay) + 1);
     padding: var(--space-2) var(--space-3);
-    background: var(--color-deep-blue);
-    color: var(--color-cream);
-    transform: translateY(-200%);
+    border-radius: var(--radius-sm);
+    background: var(--color-cta);
+    color: var(--color-on-cta);
+    font-weight: 600;
 }
 
 .skip-link:focus {
-    transform: none;
+    top: var(--space-3);
 }
 
-/* Dev-only placeholder showing where a team's work goes.
-   DELETE the .dev-slot element when you build your section. */
-.dev-slot {
-    display: grid;
-    place-items: center;
-    min-height: 10rem;
-    padding: var(--space-4);
-    border: 1.5px dashed currentColor;
-    font-family: var(--font-label);
-    font-size: var(--fs-label);
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    text-align: center;
-    opacity: 0.6;
-}
-
-.dev-slot::after {
-    content: "Owner: " attr(data-owner);
-    display: block;
-    margin-top: var(--space-2);
-}
-
-
-/* ---------- Reduced motion (applies to every team's animations) ---------- */
-
+/* Reduced motion: everything visible, nothing loops. */
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -395,8 +640,14 @@ main:focus {
     *,
     *::before,
     *::after {
-        animation-duration: 0.01ms !important;       /* the one allowed !important: must beat section styles */
+        animation-duration: 0.001ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        transition-duration: 0.001ms !important;
+    }
+
+    .js [data-reveal] {
+        opacity: 1;
+        transform: none;
+        filter: none;
     }
 }
