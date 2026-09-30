@@ -5,6 +5,14 @@ Five events: Treasure Hunt, Workshop, Brand Identity Challenge, Tech Charades an
 
 Design concept: **"Out of spec."** The site speaks in the voice of an IEEE standards document (section numbers, figure captions, "Draft 01"), then lets five very un-standard things happen inside it.
 
+
+## The Web is Live
+Check out: [`https://ieeeday-vgec-sb.vercel.app/`](https://ieeeday-vgec-sb.vercel.app/)
+Check the mockups directly (this was the first preview **not a strict guide**, just the vibe, many changes are to be made): 
+- [`mobile view`](https://jadejapriyanshiba.github.io/IEEE_day_2026_event_web/mobile/)
+- [`laptop view`](https://jadejapriyanshiba.github.io/IEEE_day_2026_event_web/laptop/)
+
+
 ## Design references
 
 Everything is in [`design_references/`](design_references/). **Read these before you start building your section.**
