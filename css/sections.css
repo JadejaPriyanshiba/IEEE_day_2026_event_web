@@ -31,9 +31,12 @@
     margin-bottom: var(--space-3);
 }
 
+/* padding-bottom makes room for the "p" descender, which the tight
+   line-height would otherwise push into the meta row below */
 .hero__title {
     font-size: var(--fs-display);
     line-height: 0.84;
+    padding-bottom: 0.14em;
 }
 
 .hero__figure {
@@ -41,14 +44,16 @@
     color: var(--color-text);
 }
 
+/* Drawn at 85% so the -14° tilt keeps its corners on screen on small phones */
 .hero__whistle {
-    width: 100%;
+    width: 85%;
+    margin-inline: auto;
     transform: rotate(-14deg);
 }
 
 .hero__figure figcaption {
     color: var(--color-body);
-    margin-top: var(--space-1);
+    margin-top: var(--space-3);
 }
 
 .hero__lede {
@@ -182,9 +187,12 @@
     color: var(--color-dark-brown);
 }
 
+/* Phones: time / team / fee stack neatly under the event name */
 .ticket__detail {
+    grid-column: 2;
     font-size: var(--fs-small);
     font-weight: 600;
+    line-height: 1.3;
 }
 
 .ticket .btn {
@@ -199,6 +207,7 @@
     }
 
     .ticket__number { text-align: center; }
+    .ticket__detail { grid-column: auto; }
 
     .ticket .btn {
         grid-column: auto;

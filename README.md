@@ -4,6 +4,15 @@ The website for **IEEE Day 2026** at VGEC, **Tuesday 6 October 2026**.
 Five events: Treasure Hunt, Workshop, Brand Identity Challenge, Tech Charades and Garba.
 
 Design concept: **"Out of spec."** The site speaks in the voice of an IEEE standards document (section numbers, figure captions, "Draft 01"), then lets five very un-standard things happen inside it.
+
+
+## The Web is Live
+Check out: [`https://ieeeday-vgec-sb.vercel.app/`](https://ieeeday-vgec-sb.vercel.app/)
+Check the mockups directly (this was the first preview **not a strict guide**, just the vibe, many changes are to be made): 
+- [`mobile view`](https://jadejapriyanshiba.github.io/IEEE_day_2026_event_web/mobile/)
+- [`laptop view`](https://jadejapriyanshiba.github.io/IEEE_day_2026_event_web/laptop/)
+
+
 ## Design references
 
 Everything is in [`design_references/`](design_references/). **Read these before you start building your section.**
@@ -18,6 +27,38 @@ Everything is in [`design_references/`](design_references/). **Read these before
 | `Concept & visual system-html/System.dc.html` | The detailed interactive version of the visual system, with exact sizes and values. Needs a local server to open (see [Run it locally](#run-it-locally)). |
 
 If two references disagree, **the PDFs win**. Ask Kena if you're unsure.
+
+### Clickable mockups (desktop + mobile)
+
+PDFs are cool, but sometimes you wanna *poke* at the thing. So we've got two live HTML mockups of the whole homepage in `design_references/framework_references/`:
+
+| Folder | What's inside |
+|---|---|
+| `Desktop homepage-html/` | The full desktop homepage, 1440px wide |
+| `Mobile-html/` | The full mobile page, 390px wide (iPhone-ish) |
+
+**How to open them (pick your vibe):**
+
+- **Easy mode (works fine):** open the folder and double-click `index.html`. Done.
+- **Full mode (the exact design file, preferred):** the `.dc.html` files (`Main.dc.html` for desktop, `Mobile.dc.html` for mobile) are the originals with the precise values. Browsers block their scripts on a double-click, so run a tiny server first:
+  - VS Code: right-click the `.dc.html` file → **Open with Live Server**, or
+  - Terminal: `cd` into the folder, run `python -m http.server 8000`, then open `http://localhost:8000/Main.dc.html` (or `Mobile.dc.html`)
+
+**Using them like a pro:**
+
+- Need an exact colour, font size or spacing? **Right-click → Inspect** on the mockup and read the styles. Way faster than guessing from a PDF.
+- Checking mobile? Open the desktop mockup, press `F12`, and toggle device mode (`Ctrl + Shift + M`). Or just open the mobile one.
+- Find your section by its label: `§2` events, `§3` the flow (timeline), `§4` registration, `§6` FAQ, and the header/footer at the top and bottom.
+
+> **Real talk: this is NOT the final UI.** It's a reference, a vibe check. Don't copy-paste its code into our site: it's built with absolute positioning and inline styles that won't work responsively, and it uses its own class names. Rebuild your section properly with our files and tokens (see [Where do I work?](#where-do-i-work)).
+
+**You're allowed (encouraged, even) to cook.** If an animation, hover or little interaction would make your section hit harder, go for it. Just keep it on-brand:
+
+- It should *mean* something ("every motion has an alibi"). A whistle wobbling = yes. Random things bouncing around = nah.
+- Stay in the palette and fonts. No neon, no glassmorphism, no gradients.
+- Respect reduced motion: check `IEEEDay.prefersReducedMotion()` and tone it down if it's true.
+- Keep it light: CSS or a few lines of JS, no big animation libraries (ask Priyanshi first if you really need one).
+- Show it to Kena / Priyanshi in your PR. If it slaps, it stays.
 
 ---
 
@@ -56,7 +97,7 @@ js/
   qa.js                 open/close answers                      (Nitant)
 assets/
   logo/                 official IEEE VGEC SB logo (still needed, see assets/logo/README.md)
-design_references/      design PDFs + visual system pages (reference only, not part of the site)
+design_references/      design PDFs, visual system + clickable mockups (reference only)
 ```
 
 Every file is already linked in `index.html`, so **you never need to edit `<head>` or the `<script>` tags.**
@@ -131,7 +172,7 @@ Rules that apply to everyone (details in the PDF):
 | Branch | Who |
 |---|---|
 | `main` | Live site. **Nobody pushes here directly.** |
-| `feature/priyanshi-foundation` | Priyanshi |
+| `feature/foundation` | Priyanshi |
 | `feature/navbar-header-footer` | Parthvi + Pushkar |
 | `feature/event-cards` | Vansh + Daksh + Nilesh |
 | `feature/timeline` | Dhruvi + Dhwani |
