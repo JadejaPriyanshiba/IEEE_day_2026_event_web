@@ -108,6 +108,42 @@
     gap: var(--space-6);
 }
 
+/* Presenter line: a short brand rule, then the org in caps */
+.hero__kicker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+}
+
+.hero__kicker::before {
+    content: "";
+    flex: none;
+    width: 32px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-cta));
+}
+
+.hero__kicker-org {
+    color: var(--color-text);
+}
+
+.hero__kicker-verb {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-accent);
+}
+
 /* Title: two lines that rise out of a mask on load */
 .hero__title {
     margin: var(--space-4) 0;
@@ -457,37 +493,34 @@
     gap: 12px;
 }
 
-/* Phone: info on top, a dashed tear line, then the stub (button).
-   --tear is the distance of the tear line from the bottom edge. */
+/* Phone: info on top, a dashed tear line, then the stub (buttons).
+   The tear line + notches are drawn by .ticket__actions itself, so they
+   always sit just above the stub however many buttons it holds. */
 .ticket {
     --notch: 10px;
-    --tear: 80px;
+    --pad-l: 22px;
+    --pad-r: 18px;
     position: relative;
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
     column-gap: 14px;
-    padding: 18px 18px 16px 22px;
+    padding: 18px var(--pad-r) 16px var(--pad-l);
+    overflow: hidden;
     border-radius: var(--radius);
-    background:
-        linear-gradient(90deg, var(--color-line-strong) 55%, transparent 0) 0 calc(100% - var(--tear)) / 10px 1px repeat-x,
-        var(--color-surface);
+    background: var(--color-surface);
     box-shadow: var(--shadow-card);
-    -webkit-mask:
-        radial-gradient(circle var(--notch) at 0 calc(100% - var(--tear)), transparent 98%, #000) left / 51% 100% no-repeat,
-        radial-gradient(circle var(--notch) at 100% calc(100% - var(--tear)), transparent 98%, #000) right / 51% 100% no-repeat;
-    mask:
-        radial-gradient(circle var(--notch) at 0 calc(100% - var(--tear)), transparent 98%, #000) left / 51% 100% no-repeat,
-        radial-gradient(circle var(--notch) at 100% calc(100% - var(--tear)), transparent 98%, #000) right / 51% 100% no-repeat;
 }
 
-/* Accent spine */
+/* Accent spine: spans the info row only (grid area = its containing block) */
 .ticket::before {
     content: "";
     position: absolute;
-    top: 18px;
-    bottom: calc(var(--tear) + 18px);
-    left: 0;
+    grid-row: 1 / 2;                              /* explicit end line, or abs-pos runs to the padding edge */
+    grid-column: 1 / 2;
+    top: 0;
+    bottom: 0;
+    left: calc(-1 * var(--pad-l));
     width: 3px;
     border-radius: 0 3px 3px 0;
     background: var(--ev);
@@ -525,12 +558,37 @@
 }
 
 .ticket__actions {
+    position: relative;
     grid-column: 1 / -1;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     align-items: center;
-    margin-top: 24px;
+    margin-top: 28px;
+}
+
+/* Tear line, 14px above the stub, edge to edge */
+.ticket__actions::before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: calc(-1 * var(--pad-l));
+    right: calc(-1 * var(--pad-r));
+    border-top: 1px dashed var(--color-line-strong);
+}
+
+/* Notches: two page-coloured half circles bitten out of the edges */
+.ticket__actions::after {
+    content: "";
+    position: absolute;
+    top: calc(-14px - var(--notch));
+    left: calc(-1 * var(--pad-l) - var(--notch));
+    right: calc(-1 * var(--pad-r) - var(--notch));
+    height: calc(var(--notch) * 2);
+    background:
+        radial-gradient(circle var(--notch) at var(--notch) 50%, var(--color-bg) 98%, transparent) left / 50% 100% no-repeat,
+        radial-gradient(circle var(--notch) at calc(100% - var(--notch)) 50%, var(--color-bg) 98%, transparent) right / 50% 100% no-repeat;
+    pointer-events: none;
 }
 
 .ticket__actions .btn {
@@ -576,20 +634,10 @@
 }
 
 .ticket__open-pass {
-    display: inline-flex;
-    align-items: center;
+    --mark-color: var(--ev);
     justify-content: center;
-    gap: 8px;
     width: 100%;
-    min-height: 42px;
-    padding: 8px 14px;
-    border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--ev) 12%, transparent);
-    border: 1px dashed color-mix(in srgb, var(--ev) 45%, transparent);
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--color-text);
+    min-height: 44px;
     text-align: center;
 }
 
@@ -605,8 +653,10 @@
     .ticket {
         --stub: 270px;
         grid-template-columns: 3rem 1fr var(--stub);
+        --pad-l: 28px;
+        --pad-r: 20px;
         column-gap: var(--space-4);
-        padding: 20px 20px 20px 28px;
+        padding: 20px var(--pad-r) 20px var(--pad-l);
         background:
             linear-gradient(var(--color-line-strong) 55%, transparent 0) calc(100% - var(--stub) - 20px) 0 / 1px 10px repeat-y,
             var(--color-surface);
@@ -619,8 +669,9 @@
         transition: transform var(--duration) var(--ease);
     }
 
-    .ticket::before {
-        bottom: 18px;
+    .ticket__actions::before,
+    .ticket__actions::after {
+        display: none;
     }
 
     .ticket__actions {
