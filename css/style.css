@@ -5,7 +5,7 @@
    This file holds ONLY things every section shares:
    1. Design tokens (CSS variables) + light / dark themes
    2. Reset + base elements
-   3. Shared classes (.container, .section, .btn, .chip, .label ...)
+   3. Shared classes (.container, .section, .btn, .chip, .mark, .label ...)
 
    Section-specific styles go in that section's own file.
    Need a new token or shared class? Ask Priyanshi instead of
@@ -87,7 +87,6 @@
     --color-on-cta: #F4F0E7;
     --color-pop: #964B36;                         /* sticker, ticker band */
     --color-on-pop: #FBF6EC;
-    --color-live: #B85C3F;
     --color-dot: rgba(26, 50, 90, 0.13);
     --glow-1: rgba(201, 175, 128, 0.45);
     --glow-2: rgba(150, 75, 54, 0.14);
@@ -126,7 +125,6 @@
     --color-on-cta: #FBF6EC;
     --color-pop: #C9AF80;
     --color-on-pop: #2E2114;
-    --color-live: #E0825F;
     --color-dot: rgba(237, 233, 223, 0.08);
     --glow-1: rgba(58, 96, 170, 0.38);
     --glow-2: rgba(150, 75, 54, 0.3);
@@ -161,7 +159,6 @@
         --color-on-cta: #FBF6EC;
         --color-pop: #C9AF80;
         --color-on-pop: #2E2114;
-        --color-live: #E0825F;
         --color-dot: rgba(237, 233, 223, 0.08);
         --glow-1: rgba(58, 96, 170, 0.38);
         --glow-2: rgba(150, 75, 54, 0.3);
@@ -371,15 +368,14 @@ h2 em {
     text-transform: uppercase;
 }
 
-/* Chips: small rounded tags */
+/* Tags: small squared labels (event format, rulebook link) */
 .chip {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    padding: 6px 12px;
+    padding: 5px 10px;
     border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+    border-radius: 5px;
     font-family: var(--font-mono);
     font-size: 0.72rem;
     font-weight: 500;
@@ -388,45 +384,70 @@ h2 em {
 }
 
 .chip--sm {
-    padding: 4px 10px;
-    font-size: 0.64rem;
-    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
 }
 
-.chip--warn {
-    border-color: color-mix(in srgb, var(--ev-1) 45%, transparent);
-    background: color-mix(in srgb, var(--ev-1) 10%, transparent);
-}
-
-.chip--warn .live-dot {
-    --dot-color: var(--ev-1);
-}
-
-/* Pulsing "live" dot */
-.live-dot {
-    --dot-color: var(--color-live);
+/* Marks: status labels. A small diamond (the same one as the ticker
+   separators) + mono caps. No pill, no glow.
+   .mark--live   the diamond breathes slowly (something is happening now)
+   .mark--framed thin viewfinder corners around it, for statuses that
+                 need presence ("Registrations are now open") */
+.mark {
+    --mark-color: var(--color-accent);
     position: relative;
-    display: inline-block;
-    flex: none;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--dot-color);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--color-text);
 }
 
-.live-dot::after {
+.mark::before {
+    content: "";
+    flex: none;
+    width: 6px;
+    height: 6px;
+    background: var(--mark-color);
+    transform: rotate(45deg);
+}
+
+.mark--live::before {
+    animation: mark-breathe 2.4s ease-in-out infinite;
+}
+
+@keyframes mark-breathe {
+    50% { opacity: 0.25; }
+}
+
+.mark--framed {
+    padding: 10px 16px;
+    background: color-mix(in srgb, var(--mark-color) 6%, transparent);
+}
+
+.mark--framed::after {
+    --c: color-mix(in srgb, var(--mark-color) 75%, transparent);
+    --l: 10px;
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: inherit;
-    background: inherit;
-    animation: live-ping 1.8s var(--ease) infinite;
-}
-
-@keyframes live-ping {
-    from { transform: scale(1); opacity: 0.8; }
-    to { transform: scale(3); opacity: 0; }
+    pointer-events: none;
+    background:
+        linear-gradient(var(--c), var(--c)) top left / var(--l) 1px no-repeat,
+        linear-gradient(var(--c), var(--c)) top left / 1px var(--l) no-repeat,
+        linear-gradient(var(--c), var(--c)) top right / var(--l) 1px no-repeat,
+        linear-gradient(var(--c), var(--c)) top right / 1px var(--l) no-repeat,
+        linear-gradient(var(--c), var(--c)) bottom left / var(--l) 1px no-repeat,
+        linear-gradient(var(--c), var(--c)) bottom left / 1px var(--l) no-repeat,
+        linear-gradient(var(--c), var(--c)) bottom right / var(--l) 1px no-repeat,
+        linear-gradient(var(--c), var(--c)) bottom right / 1px var(--l) no-repeat;
 }
 
 /* ---- Buttons ----
